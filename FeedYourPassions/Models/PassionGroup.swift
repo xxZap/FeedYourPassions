@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PassionGroup {
+struct PassionGroup: Equatable {
     var name: String
     var passions: [Passion]
 

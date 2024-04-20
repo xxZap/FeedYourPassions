@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-class PassionsViewModel {
-    let groups: [PassionGroup]
-    var maxValue: Int { groups.map { $0.currentValue }.max() ?? 0 }
-
-    init(groups: [PassionGroup]) {
-        self.groups = groups.sorted(by: { $0.currentValue > $1.currentValue })
-
-    }
-}
-
 struct PassionsView: View {
 
     let viewModel: PassionsViewModel
@@ -118,12 +108,6 @@ let mockedGroups: [PassionGroup] = [
         ]
     ),
     PassionGroup(
-        name: "Min",
-        passions: [
-            Passion(name: "minimum", currentValue: 0)
-        ]
-    ),
-    PassionGroup(
         name: "Reading",
         passions: [
             Passion(name: "Manga", currentValue: 3),
@@ -156,5 +140,19 @@ let mockedGroups: [PassionGroup] = [
         passions: [
             Passion(name: "Family events", currentValue: 2)
         ]
-    )
+    ),
+    PassionGroup(
+        name: "Videogames",
+        passions: [
+            Passion(name: "League Of Legends", currentValue: 3),
+            Passion(name: "Dragon's Dogma 2", currentValue: 3),
+            Passion(name: "E-Football", currentValue: 0),
+        ]
+    ),
+    PassionGroup(
+        name: "Min",
+        passions: [
+            Passion(name: "minimum", currentValue: 0)
+        ]
+    ),
 ]

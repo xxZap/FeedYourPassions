@@ -19,7 +19,8 @@
 		6D37C6B32BD41037003B1DA0 /* FYPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6B22BD41037003B1DA0 /* FYPColor.swift */; };
 		6D37C6B92BD416C9003B1DA0 /* PassionsGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6B82BD416C9003B1DA0 /* PassionsGroupView.swift */; };
 		6D37C6BC2BD419AF003B1DA0 /* FYPButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6BB2BD419AF003B1DA0 /* FYPButtonStyles.swift */; };
-		6D37C6BE2BD41F9B003B1DA0 /* AddPassionsGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6BD2BD41F9B003B1DA0 /* AddPassionsGroupView.swift */; };
+		6D37C6C42BD42D94003B1DA0 /* PassionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6C32BD42D94003B1DA0 /* PassionsViewModel.swift */; };
+		6D37C6C72BD42DC8003B1DA0 /* PassionsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6C62BD42DC8003B1DA0 /* PassionsViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +56,8 @@
 		6D37C6B22BD41037003B1DA0 /* FYPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FYPColor.swift; sourceTree = "<group>"; };
 		6D37C6B82BD416C9003B1DA0 /* PassionsGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionsGroupView.swift; sourceTree = "<group>"; };
 		6D37C6BB2BD419AF003B1DA0 /* FYPButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FYPButtonStyles.swift; sourceTree = "<group>"; };
-		6D37C6BD2BD41F9B003B1DA0 /* AddPassionsGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassionsGroupView.swift; sourceTree = "<group>"; };
+		6D37C6C32BD42D94003B1DA0 /* PassionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionsViewModel.swift; sourceTree = "<group>"; };
+		6D37C6C62BD42DC8003B1DA0 /* PassionsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionsViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		6D36A8462BD3CDD800F238EC /* FeedYourPassionsTests */ = {
 			isa = PBXGroup;
 			children = (
+				6D37C6BF2BD42D5E003B1DA0 /* Screens */,
 				6D36A8472BD3CDD800F238EC /* FeedYourPassionsTests.swift */,
 			);
 			path = FeedYourPassionsTests;
@@ -154,6 +157,7 @@
 			children = (
 				6D37C6B72BD416A8003B1DA0 /* PassionsGroupView */,
 				6D36A8382BD3CDD700F238EC /* PassionsView.swift */,
+				6D37C6C32BD42D94003B1DA0 /* PassionsViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				6D37C6B82BD416C9003B1DA0 /* PassionsGroupView.swift */,
-				6D37C6BD2BD41F9B003B1DA0 /* AddPassionsGroupView.swift */,
 			);
 			path = PassionsGroupView;
 			sourceTree = "<group>";
@@ -231,6 +234,30 @@
 				6D37C6BB2BD419AF003B1DA0 /* FYPButtonStyles.swift */,
 			);
 			path = ButtonStyles;
+			sourceTree = "<group>";
+		};
+		6D37C6BF2BD42D5E003B1DA0 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6D37C6C02BD42D65003B1DA0 /* Passions */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6D37C6C02BD42D65003B1DA0 /* Passions */ = {
+			isa = PBXGroup;
+			children = (
+				6D37C6C12BD42D6C003B1DA0 /* View */,
+			);
+			path = Passions;
+			sourceTree = "<group>";
+		};
+		6D37C6C12BD42D6C003B1DA0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6D37C6C62BD42DC8003B1DA0 /* PassionsViewModelTests.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,12 +391,12 @@
 			files = (
 				6D36A8692BD3D3A300F238EC /* PassionGroup.swift in Sources */,
 				6D37C6B92BD416C9003B1DA0 /* PassionsGroupView.swift in Sources */,
-				6D37C6BE2BD41F9B003B1DA0 /* AddPassionsGroupView.swift in Sources */,
 				6D37C6AF2BD40268003B1DA0 /* FYPProgressView.swift in Sources */,
 				6D36A8672BD3D38000F238EC /* Passion.swift in Sources */,
 				6D37C6B32BD41037003B1DA0 /* FYPColor.swift in Sources */,
 				6D36A8392BD3CDD700F238EC /* PassionsView.swift in Sources */,
 				6D36A8372BD3CDD700F238EC /* FeedYourPassionsApp.swift in Sources */,
+				6D37C6C42BD42D94003B1DA0 /* PassionsViewModel.swift in Sources */,
 				6D37C6BC2BD419AF003B1DA0 /* FYPButtonStyles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D37C6C72BD42DC8003B1DA0 /* PassionsViewModelTests.swift in Sources */,
 				6D36A8482BD3CDD800F238EC /* FeedYourPassionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

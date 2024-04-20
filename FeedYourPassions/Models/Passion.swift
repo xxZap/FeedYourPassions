@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Passion {
+struct Passion: Equatable {
     var name: String
     var url: String?
     var currentValue: Int
