@@ -21,6 +21,7 @@
 		6D37C6BC2BD419AF003B1DA0 /* FYPButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6BB2BD419AF003B1DA0 /* FYPButtonStyles.swift */; };
 		6D37C6C42BD42D94003B1DA0 /* PassionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6C32BD42D94003B1DA0 /* PassionsViewModel.swift */; };
 		6D37C6C72BD42DC8003B1DA0 /* PassionsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6C62BD42DC8003B1DA0 /* PassionsViewModelTests.swift */; };
+		6D37C6CA2BD51B5A003B1DA0 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 6D37C6C92BD51B5A003B1DA0 /* Factory */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D37C6CA2BD51B5A003B1DA0 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +278,9 @@
 			dependencies = (
 			);
 			name = FeedYourPassions;
+			packageProductDependencies = (
+				6D37C6C92BD51B5A003B1DA0 /* Factory */,
+			);
 			productName = FeedYourPassions;
 			productReference = 6D36A8332BD3CDD700F238EC /* FeedYourPassions.app */;
 			productType = "com.apple.product-type.application";
@@ -348,6 +353,9 @@
 				Base,
 			);
 			mainGroup = 6D36A82A2BD3CDD700F238EC;
+			packageReferences = (
+				6D37C6C82BD51B5A003B1DA0 /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			productRefGroup = 6D36A8342BD3CDD700F238EC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -726,6 +734,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6D37C6C82BD51B5A003B1DA0 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6D37C6C92BD51B5A003B1DA0 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D37C6C82BD51B5A003B1DA0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6D36A82B2BD3CDD700F238EC /* Project object */;
 }
