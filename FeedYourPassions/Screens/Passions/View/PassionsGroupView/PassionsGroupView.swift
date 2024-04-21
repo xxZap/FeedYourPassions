@@ -39,7 +39,16 @@ struct PassionGroupView: View {
     VStack {
         Spacer()
         PassionGroupView(
-            passiongGroup: PassionGroup(name: "Group", passions: [Passion(name: "Passion", currentValue: 2)]),
+            passiongGroup: PassionGroup(
+                name: "Group",
+                passions: [
+                    Passion(
+                        name: "Spotify",
+                        associatedURL: "https://open.spotify.com",
+                        records: (0..<7).map { _ in PassionRecord(date: Date()) }
+                    )
+                ]
+            ),
             maxValue: 10,
             color: FYPColor.getColor(forListIndex: 1)
         ) {

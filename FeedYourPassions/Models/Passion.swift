@@ -7,8 +7,12 @@
 
 import Foundation
 
+struct PassionRecord: Equatable {
+    let date: Date
+}
+
 struct Passion: Equatable {
-    var name: String
-    var url: String?
-    var currentValue: Int
+    let name: String
+    let associatedURL: String?
+    let records: [PassionRecord]
 }

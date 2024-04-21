@@ -17,7 +17,21 @@ final class PassionsViewModelTests: XCTestCase {
 
     func test_init_with_someGroups() throws {
         let groups: [PassionGroup] = [
-            PassionGroup(name: "test", passions: [Passion(name: "1", currentValue: 1), Passion(name: "2", currentValue: 0)])
+            PassionGroup(
+                name: "test",
+                passions: [
+                    Passion(
+                        name: "0",
+                        associatedURL: nil,
+                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                    ),
+                    Passion(
+                        name: "1",
+                        associatedURL: nil,
+                        records: (0..<7).map { _ in PassionRecord(date: Date()) }
+                    )
+                ]
+            )
         ]
         let sut = getSUT(groups: groups)
         XCTAssertEqual(sut.groups, groups)
@@ -25,24 +39,63 @@ final class PassionsViewModelTests: XCTestCase {
 
     func test_init_with_someGroups_should_sortTheGroups_by_theirCurrentValue() throws {
         let groups: [PassionGroup] = [
-            PassionGroup(name: "test1", passions: [Passion(name: "1", currentValue: 1), Passion(name: "2", currentValue: 0)]),
-            PassionGroup(name: "test2", passions: [Passion(name: "1", currentValue: 100), Passion(name: "2", currentValue: 100)])
+            PassionGroup(
+                name: "test1",
+                passions: [
+                    Passion(
+                        name: "0",
+                        associatedURL: nil,
+                        records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                    ),
+                    Passion(
+                        name: "1",
+                        associatedURL: nil,
+                        records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                    )
+                ]
+            ),
+            PassionGroup(
+                name: "test2",
+                passions: [
+                    Passion(
+                        name: "0",
+                        associatedURL: nil,
+                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                    ),
+                    Passion(
+                        name: "1",
+                        associatedURL: nil,
+                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                    )
+                ]
+            )
         ]
         let sut = getSUT(groups: groups)
 
-        let expectedSortedGroup = [
-            PassionGroup(name: "test2", passions: [Passion(name: "1", currentValue: 100), Passion(name: "2", currentValue: 100)]),
-            PassionGroup(name: "test1", passions: [Passion(name: "1", currentValue: 1), Passion(name: "2", currentValue: 0)])
-        ]
+        let expectedSortedGroup = [groups[1], groups[0]]
         XCTAssertEqual(sut.groups, expectedSortedGroup)
     }
 
     func test_currentValue() throws {
         let groups: [PassionGroup] = [
-            PassionGroup(name: "test2", passions: [Passion(name: "1", currentValue: 100), Passion(name: "2", currentValue: 100)])
+            PassionGroup(
+                name: "test2",
+                passions: [
+                    Passion(
+                        name: "0",
+                        associatedURL: nil,
+                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                    ),
+                    Passion(
+                        name: "1",
+                        associatedURL: nil,
+                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                    )
+                ]
+            )
         ]
         let sut = getSUT(groups: groups)
-        XCTAssertEqual(sut.groups[0].currentValue, 200)
+        XCTAssertEqual(sut.groups[0].currentValue, 20)
     }
 
 }
