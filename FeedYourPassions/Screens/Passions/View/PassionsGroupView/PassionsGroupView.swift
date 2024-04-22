@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Meteor
 
 struct PassionGroupView: View {
-    let passiongGroup: PassionGroup
+    let passiongGroup: PassionsGroup
     let maxValue: Int
     let color: Color
     let action: (() -> Void)
@@ -20,17 +21,17 @@ struct PassionGroupView: View {
                 VStack(spacing: 8) {
                     Text(passiongGroup.name)
                         .font(.body.weight(.semibold))
-                        .foregroundStyle(FYPColor.lightText)
+                        .foregroundStyle(Color.mLightText)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                    FYPProgressView(value: passiongGroup.currentValue, total: maxValue, color: color)
+                    MProgressView(value: passiongGroup.currentValue, total: maxValue, color: color)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
             }
         )
-        .buttonStyle(FYPPressable())
+        .buttonStyle(MPressable())
     }
 }
 
@@ -39,7 +40,7 @@ struct PassionGroupView: View {
     VStack {
         Spacer()
         PassionGroupView(
-            passiongGroup: PassionGroup(
+            passiongGroup: PassionsGroup(
                 name: "Group",
                 passions: [
                     Passion(
@@ -50,11 +51,11 @@ struct PassionGroupView: View {
                 ]
             ),
             maxValue: 10,
-            color: FYPColor.getColor(forListIndex: 1)
+            color: Color.mGetColor(forListIndex: 1)
         ) {
         }
         Spacer()
     }
-    .background(FYPColor.background)
+    .background(Color.mBackground)
 }
 #endif

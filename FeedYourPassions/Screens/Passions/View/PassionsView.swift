@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Meteor
 
 struct PassionsView: View {
 
@@ -16,10 +17,10 @@ struct PassionsView: View {
             groupList
             addNewGroupButton
         }
-        .background(FYPColor.background)
+        .background(Color.mBackground)
         .scrollContentBackground(.hidden)
         .navigationTitle("Feed your passions")
-        .toolbarBackground(FYPColor.background, for: .navigationBar)
+        .toolbarBackground(Color.mBackground, for: .navigationBar)
     }
 
     private var groupList: some View {
@@ -29,7 +30,7 @@ struct PassionsView: View {
                 PassionGroupView(
                     passiongGroup: group,
                     maxValue: viewModel.maxValue,
-                    color: FYPColor.getColor(forListIndex: $0)
+                    color: Color.mGetColor(forListIndex: $0)
                 ) {
                     print("Tapped on group named \"\(group.name)\"")
                 }
@@ -49,22 +50,11 @@ struct PassionsView: View {
 
     private var addNewGroupButton: some View {
         Group {
-            Button {
-                print("Add a new group")
-            } label: {
-                Group {
-                    Image(systemName: "plus")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                        .tint(FYPColor.background)
-                        .padding(8)
-                        .background(Circle().fill(FYPColor.lightText))
-                        .shadow(radius: 8)
-                        .padding(16)
-                }
-            }
-            .background(FYPColor.accent)
-            .clipShape(.rect(topLeadingRadius: 16, bottomLeadingRadius: 16))
+            MSideButton(
+                onTap: {},
+                image: Image(systemName: "plus"),
+                side: .attachedToTheRight
+            )
         }
         .padding(.bottom, 8)
         .shadow(radius: 8)
@@ -73,6 +63,8 @@ struct PassionsView: View {
 
 #if DEBUG
 #Preview("\(PassionsView.self)") {
-    PassionsView(viewModel: PassionsViewModel(groups: mockedGroups))
+    Group {}
+    // ZAPTODO: 
+//    PassionsView(viewModel: PassionsViewModel(groups: mockedGroups))
 }
 #endif

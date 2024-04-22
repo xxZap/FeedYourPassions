@@ -8,10 +8,11 @@
 import Foundation
 
 class PassionsViewModel {
-    let groups: [PassionGroup]
+    
+    let groups: [PassionsGroup]
     var maxValue: Int { groups.map { $0.currentValue }.max() ?? 0 }
 
-    init(groups: [PassionGroup]) {
+    init(groups: [PassionsGroup]) {
         self.groups = groups.sorted(by: { $0.currentValue > $1.currentValue })
     }
 }

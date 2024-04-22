@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Meteor
 
 @main
 struct FeedYourPassionsApp: App {
@@ -19,12 +20,12 @@ struct FeedYourPassionsApp: App {
                 },
                 detail: {
                     ZStack {
-                        FYPColor.background
+                        Color.mBackground
                             .ignoresSafeArea()
 
                         Text("Choose one option on the left")
                             .font(.subheadline)
-                            .foregroundStyle(FYPColor.lightText)
+                            .foregroundStyle(Color.mLightText)
                             .multilineTextAlignment(.center)
                             .frame(maxWidth: .infinity)
                     }

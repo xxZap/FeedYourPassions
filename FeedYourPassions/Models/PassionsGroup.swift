@@ -1,5 +1,5 @@
 //
-//  PassionGroup.swift
+//  PassionsGroup.swift
 //  FeedYourPassions
 //
 //  Created by Alessio Boerio on 20/04/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PassionGroup: Equatable {
+struct PassionsGroup: Equatable {
     var name: String
     var passions: [Passion]
 
@@ -16,8 +16,8 @@ struct PassionGroup: Equatable {
     }
 }
 
-let mockedGroups: [PassionGroup] = [
-    PassionGroup(
+let mockedGroups: [PassionsGroup] = [
+    PassionsGroup(
         name: "Max",
         passions: [
             Passion(
@@ -27,7 +27,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Music",
         passions: [
             Passion(
@@ -42,7 +42,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Restaurants",
         passions: [
             Passion(
@@ -57,7 +57,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Sport",
         passions: [
             Passion(
@@ -82,7 +82,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Reading",
         passions: [
             Passion(
@@ -97,7 +97,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "TV",
         passions: [
             Passion(
@@ -117,7 +117,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Teather",
         passions: [
             Passion(
@@ -132,7 +132,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Friends",
         passions: [
             Passion(
@@ -142,7 +142,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Family",
         passions: [
             Passion(
@@ -152,7 +152,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Videogames",
         passions: [
             Passion(
@@ -172,7 +172,7 @@ let mockedGroups: [PassionGroup] = [
             )
         ]
     ),
-    PassionGroup(
+    PassionsGroup(
         name: "Min",
         passions: [
             Passion(
