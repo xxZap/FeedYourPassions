@@ -7,178 +7,178 @@
 
 import Foundation
 
-struct PassionsGroup: Equatable {
+struct OPassionsGroup: Equatable {
     var name: String
-    var passions: [Passion]
+    var passions: [OPassion]
 
     var currentValue: Int {
         passions.isEmpty ? 0 : passions.map { $0.records.count }.reduce(0, +)
     }
 }
 
-let mockedGroups: [PassionsGroup] = [
-    PassionsGroup(
+let mockedGroups: [OPassionsGroup] = [
+    OPassionsGroup(
         name: "Max",
         passions: [
-            Passion(
+            OPassion(
                 name: "max",
                 associatedURL: nil,
-                records: (0..<100).map { _ in PassionRecord(date: Date()) }
+                records: (0..<100).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Music",
         passions: [
-            Passion(
+            OPassion(
                 name: "Spotify",
                 associatedURL: "https://open.spotify.com",
-                records: (0..<7).map { _ in PassionRecord(date: Date()) }
+                records: (0..<7).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Concerts",
                 associatedURL: nil,
-                records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                records: (0..<1).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Restaurants",
         passions: [
-            Passion(
+            OPassion(
                 name: "Sushi",
                 associatedURL: nil,
-                records: (0..<4).map { _ in PassionRecord(date: Date()) }
+                records: (0..<4).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Pizza",
                 associatedURL: nil,
-                records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                records: (0..<1).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Sport",
         passions: [
-            Passion(
+            OPassion(
                 name: "Gym",
                 associatedURL: nil,
-                records: (0..<5).map { _ in PassionRecord(date: Date()) }
+                records: (0..<5).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Run",
                 associatedURL: nil,
-                records: (0..<0).map { _ in PassionRecord(date: Date()) }
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Trekking 0~500m",
                 associatedURL: nil,
-                records: (0..<4).map { _ in PassionRecord(date: Date()) }
+                records: (0..<4).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Trekking 501~1000m",
                 associatedURL: nil,
-                records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                records: (0..<1).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Reading",
         passions: [
-            Passion(
+            OPassion(
                 name: "Manga",
                 associatedURL: nil,
-                records: (0..<3).map { _ in PassionRecord(date: Date()) }
+                records: (0..<3).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Books",
                 associatedURL: nil,
-                records: (0..<0).map { _ in PassionRecord(date: Date()) }
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "TV",
         passions: [
-            Passion(
+            OPassion(
                 name: "Anime",
                 associatedURL: nil,
-                records: (0..<2).map { _ in PassionRecord(date: Date()) }
+                records: (0..<2).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "TV Series",
                 associatedURL: nil,
-                records: (0..<5).map { _ in PassionRecord(date: Date()) }
+                records: (0..<5).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Movies",
                 associatedURL: nil,
-                records: (0..<0).map { _ in PassionRecord(date: Date()) }
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Teather",
         passions: [
-            Passion(
+            OPassion(
                 name: "Opera",
                 associatedURL: nil,
-                records: (0..<0).map { _ in PassionRecord(date: Date()) }
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Commedia",
                 associatedURL: nil,
-                records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                records: (0..<1).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Friends",
         passions: [
-            Passion(
+            OPassion(
                 name: "Events",
                 associatedURL: nil,
-                records: (0..<2).map { _ in PassionRecord(date: Date()) }
+                records: (0..<2).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Family",
         passions: [
-            Passion(
+            OPassion(
                 name: "Family events",
                 associatedURL: nil,
-                records: (0..<2).map { _ in PassionRecord(date: Date()) }
+                records: (0..<2).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Videogames",
         passions: [
-            Passion(
+            OPassion(
                 name: "League of Legends",
                 associatedURL: nil,
-                records: (0..<100).map { _ in PassionRecord(date: Date()) }
+                records: (0..<100).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "Dragon's Dogma 2",
                 associatedURL: nil,
-                records: (0..<100).map { _ in PassionRecord(date: Date()) }
+                records: (0..<100).map { _ in OPassionRecord(date: Date()) }
             ),
-            Passion(
+            OPassion(
                 name: "E-Football",
                 associatedURL: nil,
-                records: (0..<100).map { _ in PassionRecord(date: Date()) }
+                records: (0..<100).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),
-    PassionsGroup(
+    OPassionsGroup(
         name: "Min",
         passions: [
-            Passion(
+            OPassion(
                 name: "Minimum",
                 associatedURL: nil,
-                records: (0..<100).map { _ in PassionRecord(date: Date()) }
+                records: (0..<100).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     ),

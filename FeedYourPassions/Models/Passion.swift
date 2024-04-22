@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct PassionRecord: Equatable {
+struct OPassionRecord: Equatable {
     let date: Date
 }
 
-struct Passion: Equatable {
+struct OPassion: Equatable {
     let name: String
     let associatedURL: String?
-    let records: [PassionRecord]
+    let records: [OPassionRecord]
 }

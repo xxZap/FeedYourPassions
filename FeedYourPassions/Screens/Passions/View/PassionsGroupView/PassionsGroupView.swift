@@ -9,7 +9,7 @@ import SwiftUI
 import Meteor
 
 struct PassionGroupView: View {
-    let passiongGroup: PassionsGroup
+    let passiongGroup: OPassionsGroup
     let maxValue: Int
     let color: Color
     let action: (() -> Void)
@@ -40,13 +40,13 @@ struct PassionGroupView: View {
     VStack {
         Spacer()
         PassionGroupView(
-            passiongGroup: PassionsGroup(
+            passiongGroup: OPassionsGroup(
                 name: "Group",
                 passions: [
-                    Passion(
+                    OPassion(
                         name: "Spotify",
                         associatedURL: "https://open.spotify.com",
-                        records: (0..<7).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<7).map { _ in OPassionRecord(date: Date()) }
                     )
                 ]
             ),

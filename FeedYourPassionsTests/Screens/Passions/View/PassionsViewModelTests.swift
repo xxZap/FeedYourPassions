@@ -16,19 +16,19 @@ final class PassionsViewModelTests: XCTestCase {
     }
 
     func test_init_with_someGroups() throws {
-        let groups: [PassionGroup] = [
-            PassionGroup(
+        let groups: [OPassionsGroup] = [
+            OPassionsGroup(
                 name: "test",
                 passions: [
-                    Passion(
+                    OPassion(
                         name: "0",
                         associatedURL: nil,
-                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
-                    Passion(
+                    OPassion(
                         name: "1",
                         associatedURL: nil,
-                        records: (0..<7).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<7).map { _ in OPassionRecord(date: Date()) }
                     )
                 ]
             )
@@ -38,34 +38,34 @@ final class PassionsViewModelTests: XCTestCase {
     }
 
     func test_init_with_someGroups_should_sortTheGroups_by_theirCurrentValue() throws {
-        let groups: [PassionGroup] = [
-            PassionGroup(
+        let groups: [OPassionsGroup] = [
+            OPassionsGroup(
                 name: "test1",
                 passions: [
-                    Passion(
+                    OPassion(
                         name: "0",
                         associatedURL: nil,
-                        records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<1).map { _ in OPassionRecord(date: Date()) }
                     ),
-                    Passion(
+                    OPassion(
                         name: "1",
                         associatedURL: nil,
-                        records: (0..<1).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<1).map { _ in OPassionRecord(date: Date()) }
                     )
                 ]
             ),
-            PassionGroup(
+            OPassionsGroup(
                 name: "test2",
                 passions: [
-                    Passion(
+                    OPassion(
                         name: "0",
                         associatedURL: nil,
-                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
-                    Passion(
+                    OPassion(
                         name: "1",
                         associatedURL: nil,
-                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     )
                 ]
             )
@@ -77,19 +77,19 @@ final class PassionsViewModelTests: XCTestCase {
     }
 
     func test_currentValue() throws {
-        let groups: [PassionGroup] = [
-            PassionGroup(
+        let groups: [OPassionsGroup] = [
+            OPassionsGroup(
                 name: "test2",
                 passions: [
-                    Passion(
+                    OPassion(
                         name: "0",
                         associatedURL: nil,
-                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
-                    Passion(
+                    OPassion(
                         name: "1",
                         associatedURL: nil,
-                        records: (0..<10).map { _ in PassionRecord(date: Date()) }
+                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     )
                 ]
             )
@@ -101,7 +101,7 @@ final class PassionsViewModelTests: XCTestCase {
 }
 
 extension PassionsViewModelTests {
-    func getSUT(groups: [PassionGroup]) -> PassionsViewModel {
+    func getSUT(groups: [OPassionsGroup]) -> PassionsViewModel {
         PassionsViewModel(groups: groups)
     }
 }
