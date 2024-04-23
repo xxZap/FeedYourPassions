@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OPassionsGroup: Equatable {
+struct OPassionCategory: Equatable {
     var name: String
     var passions: [OPassion]
 
@@ -16,8 +16,8 @@ struct OPassionsGroup: Equatable {
     }
 }
 
-let mockedGroups: [OPassionsGroup] = [
-    OPassionsGroup(
+let mockedGroups: [OPassionCategory] = [
+    OPassionCategory(
         name: "Music",
         passions: [
             OPassion(
@@ -34,7 +34,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Food",
         passions: [
             OPassion(
@@ -51,7 +51,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Sport",
         passions: [
             OPassion(
@@ -80,7 +80,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Health",
         passions: [
             OPassion(
@@ -103,7 +103,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Reading",
         passions: [
             OPassion(
@@ -120,7 +120,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "TV",
         passions: [
             OPassion(
@@ -155,7 +155,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Theater",
         passions: [
             OPassion(
@@ -172,7 +172,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Friends",
         passions: [
             OPassion(
@@ -183,7 +183,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Family",
         passions: [
             OPassion(
@@ -194,7 +194,7 @@ let mockedGroups: [OPassionsGroup] = [
             )
         ]
     ),
-    OPassionsGroup(
+    OPassionCategory(
         name: "Videogames",
         passions: [
             OPassion(

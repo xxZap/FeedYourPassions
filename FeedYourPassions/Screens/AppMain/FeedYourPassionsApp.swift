@@ -12,19 +12,19 @@ import Meteor
 
 class RootViewModel {
 
-    @Published var groups: AsyncResource<[OPassionsGroup]>
+    @Published var categories: AsyncResource<[OPassionCategory]>
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        self.groups = .loading
+        self.categories = .loading
 
         let passionsController = Container.shared.passionsController()
 
-        passionsController.groups
+        passionsController.categories
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] groups in
-                self?.groups = groups
+            .sink { [weak self] categories in
+                self?.categories = categories
             }
             .store(in: &cancellables)
 
@@ -44,13 +44,13 @@ struct FeedYourPassionsApp: App {
                     columnVisibility: .constant(.doubleColumn),
                     sidebar: {
                         Group {
-                            switch viewModel.groups {
+                            switch viewModel.categories {
                             case .loading:
                                 loadingView
                             case .failure(let error):
                                 errorView(error)
-                            case .success(let groups):
-                                CategoriesListView(viewModel: CategoriesListViewModel(groups: groups))
+                            case .success(let categories):
+                                CategoriesListView(viewModel: CategoriesListViewModel(categories: categories))
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -24,14 +24,14 @@ struct CategoriesListView: View {
 
     private var groupList: some View {
         List {
-            ForEach(0..<viewModel.groups.count, id: \.self) {
-                let group = viewModel.groups[$0]
-                PassionsGroupView(
-                    passiongGroup: group,
+            ForEach(0 ..< viewModel.categories.count, id: \.self) {
+                let category = viewModel.categories[$0]
+                CategoryView(
+                    category: category,
                     maxValue: viewModel.maxValue,
                     color: Color.mGetColor(forListIndex: $0)
                 ) {
-                    print("Tapped on group named \"\(group.name)\"")
+                    print("Tapped on group named \"\(category.name)\"")
                 }
             }
             .listRowSeparator(.hidden)
@@ -52,6 +52,6 @@ struct CategoriesListView: View {
 #Preview("\(CategoriesListView.self)") {
     Group {}
     // ZAPTODO: 
-//    PassionsGroupView(viewModel: PassionsViewModel(groups: mockedGroups))
+//    CategoryView(viewModel: PassionsViewModel(groups: mockedGroups))
 }
 #endif

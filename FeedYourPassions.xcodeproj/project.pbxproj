@@ -21,7 +21,7 @@
 		6D37C6D02BD51C07003B1DA0 /* AppDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6CF2BD51C07003B1DA0 /* AppDataController.swift */; };
 		6D37C6E42BD520E9003B1DA0 /* Passions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6E22BD520E9003B1DA0 /* Passions.xcdatamodeld */; };
 		6D37C6FB2BD66532003B1DA0 /* OPassion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6F92BD66532003B1DA0 /* OPassion.swift */; };
-		6D37C6FC2BD66532003B1DA0 /* OPassionsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6FA2BD66532003B1DA0 /* OPassionsGroup.swift */; };
+		6D37C6FC2BD66532003B1DA0 /* OPassionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C6FA2BD66532003B1DA0 /* OPassionCategory.swift */; };
 		6D37C6FF2BD665ED003B1DA0 /* Meteor in Frameworks */ = {isa = PBXBuildFile; productRef = 6D37C6FE2BD665ED003B1DA0 /* Meteor */; };
 		6D37C7152BD79658003B1DA0 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C7142BD79658003B1DA0 /* CategoryDetailView.swift */; };
 		6D37C7182BD7971D003B1DA0 /* PassionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37C7172BD7971D003B1DA0 /* PassionsController.swift */; };
@@ -63,7 +63,7 @@
 		6D37C6CF2BD51C07003B1DA0 /* AppDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataController.swift; sourceTree = "<group>"; };
 		6D37C6E32BD520E9003B1DA0 /* Passions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Passions.xcdatamodel; sourceTree = "<group>"; };
 		6D37C6F92BD66532003B1DA0 /* OPassion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OPassion.swift; sourceTree = "<group>"; };
-		6D37C6FA2BD66532003B1DA0 /* OPassionsGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OPassionsGroup.swift; sourceTree = "<group>"; };
+		6D37C6FA2BD66532003B1DA0 /* OPassionCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OPassionCategory.swift; sourceTree = "<group>"; };
 		6D37C7142BD79658003B1DA0 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		6D37C7172BD7971D003B1DA0 /* PassionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionsController.swift; sourceTree = "<group>"; };
 		6D37C7192BD79867003B1DA0 /* AppPassionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPassionsController.swift; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				6D37C6F92BD66532003B1DA0 /* OPassion.swift */,
-				6D37C6FA2BD66532003B1DA0 /* OPassionsGroup.swift */,
+				6D37C6FA2BD66532003B1DA0 /* OPassionCategory.swift */,
 				6D37C71B2BD79901003B1DA0 /* AsyncResource.swift */,
 			);
 			path = Models;
@@ -432,7 +432,7 @@
 				6D37C7182BD7971D003B1DA0 /* PassionsController.swift in Sources */,
 				6D37C6B92BD416C9003B1DA0 /* CategoryView.swift in Sources */,
 				6D37C6E42BD520E9003B1DA0 /* Passions.xcdatamodeld in Sources */,
-				6D37C6FC2BD66532003B1DA0 /* OPassionsGroup.swift in Sources */,
+				6D37C6FC2BD66532003B1DA0 /* OPassionCategory.swift in Sources */,
 				6D37C71A2BD79867003B1DA0 /* AppPassionsController.swift in Sources */,
 				6D37C6CE2BD51BD4003B1DA0 /* DataController.swift in Sources */,
 				6D37C6FB2BD66532003B1DA0 /* OPassion.swift in Sources */,

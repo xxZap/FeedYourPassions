@@ -9,10 +9,10 @@ import Foundation
 
 class CategoriesListViewModel {
 
-    let groups: [OPassionsGroup]
-    var maxValue: Int { groups.map { $0.currentValue }.max() ?? 0 }
+    let categories: [OPassionCategory]
+    var maxValue: Int { categories.map { $0.currentValue }.max() ?? 0 }
 
-    init(groups: [OPassionsGroup]) {
-        self.groups = groups.sorted(by: { $0.currentValue > $1.currentValue })
+    init(categories: [OPassionCategory]) {
+        self.categories = categories.sorted(by: { $0.currentValue > $1.currentValue })
     }
 }

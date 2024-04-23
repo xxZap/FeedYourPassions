@@ -18,17 +18,17 @@ extension Container {
 
 class AppPassionsController: PassionsController {
 
-    private let _groups: CurrentValueSubject<AsyncResource<[OPassionsGroup]>, Never>
-    var groups: AnyPublisher<AsyncResource<[OPassionsGroup]>, Never> {
-        _groups.eraseToAnyPublisher()
+    private let _categories: CurrentValueSubject<AsyncResource<[OPassionCategory]>, Never>
+    var categories: AnyPublisher<AsyncResource<[OPassionCategory]>, Never> {
+        _categories.eraseToAnyPublisher()
     }
 
     init() {
-        self._groups = CurrentValueSubject(.loading)
+        self._categories = CurrentValueSubject(.loading)
     }
 
     func fetchGroups() {
-        _groups.send(.loading)
-        _groups.send(.success(mockedGroups))
+        _categories.send(.loading)
+        _categories.send(.success(mockedGroups))
     }
 }

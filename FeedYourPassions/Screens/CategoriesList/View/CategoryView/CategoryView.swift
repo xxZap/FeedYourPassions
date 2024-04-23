@@ -1,5 +1,5 @@
 //
-//  PassionsGroupView.swift
+//  CategoryView.swift
 //  FeedYourPassions
 //
 //  Created by Alessio Boerio on 20/04/24.
@@ -8,8 +8,8 @@
 import SwiftUI
 import Meteor
 
-struct PassionsGroupView: View {
-    let passiongGroup: OPassionsGroup
+struct CategoryView: View {
+    let category: OPassionCategory
     let maxValue: Int
     let color: Color
     let action: (() -> Void)
@@ -19,13 +19,13 @@ struct PassionsGroupView: View {
             action: { action() },
             label: {
                 VStack(spacing: 8) {
-                    Text(passiongGroup.name)
+                    Text(category.name)
                         .font(.body.weight(.semibold))
                         .foregroundStyle(Color.mLightText)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                    MProgressView(value: passiongGroup.currentValue, total: maxValue, color: color)
+                    MProgressView(value: category.currentValue, total: maxValue, color: color)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
@@ -36,11 +36,11 @@ struct PassionsGroupView: View {
 }
 
 #if DEBUG
-#Preview("\(PassionsGroupView.self)") {
+#Preview("\(CategoryView.self)") {
     VStack {
         Spacer()
-        PassionsGroupView(
-            passiongGroup: OPassionsGroup(
+        CategoryView(
+            category: OPassionCategory(
                 name: "Group",
                 passions: [
                     OPassion(

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol PassionsController {
-    var groups: AnyPublisher<AsyncResource<[OPassionsGroup]>, Never> { get }
+    var categories: AnyPublisher<AsyncResource<[OPassionCategory]>, Never> { get }
 
     func fetchGroups()
 }
