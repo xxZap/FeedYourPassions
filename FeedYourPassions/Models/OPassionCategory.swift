@@ -16,7 +16,7 @@ struct OPassionCategory: Equatable {
     }
 }
 
-let mockedGroups: [OPassionCategory] = [
+let mockedCategories: [OPassionCategory] = [
     OPassionCategory(
         name: "Music",
         passions: [

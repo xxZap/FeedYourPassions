@@ -14,7 +14,7 @@ struct CategoriesListView: View {
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            groupList
+            categoriesList
         }
         .background(Color.mBackground)
         .scrollContentBackground(.hidden)
@@ -22,7 +22,7 @@ struct CategoriesListView: View {
         .toolbarBackground(Color.mBackground, for: .navigationBar)
     }
 
-    private var groupList: some View {
+    private var categoriesList: some View {
         List {
             ForEach(0 ..< viewModel.categories.count, id: \.self) {
                 let category = viewModel.categories[$0]
@@ -31,7 +31,7 @@ struct CategoriesListView: View {
                     maxValue: viewModel.maxValue,
                     color: Color.mGetColor(forListIndex: $0)
                 ) {
-                    print("Tapped on group named \"\(category.name)\"")
+                    print("Tapped on category named \"\(category.name)\"")
                 }
             }
             .listRowSeparator(.hidden)
@@ -50,8 +50,6 @@ struct CategoriesListView: View {
 
 #if DEBUG
 #Preview("\(CategoriesListView.self)") {
-    Group {}
-    // ZAPTODO: 
-//    CategoryView(viewModel: PassionsViewModel(groups: mockedGroups))
+    CategoriesListView(viewModel: CategoriesListViewModel(categories: mockedCategories))
 }
 #endif

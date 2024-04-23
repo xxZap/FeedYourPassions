@@ -29,6 +29,6 @@ class AppPassionsController: PassionsController {
 
     func fetchGroups() {
         _categories.send(.loading)
-        _categories.send(.success(mockedGroups))
+        _categories.send(.success(mockedCategories))
     }
 }
