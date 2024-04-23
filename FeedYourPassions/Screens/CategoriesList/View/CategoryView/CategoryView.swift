@@ -12,26 +12,20 @@ struct CategoryView: View {
     let category: OPassionCategory
     let maxValue: Int
     let color: Color
-    let action: (() -> Void)
 
     var body: some View {
-        Button(
-            action: { action() },
-            label: {
-                VStack(spacing: 8) {
-                    Text(category.name)
-                        .font(.body.weight(.semibold))
-                        .foregroundStyle(Color.mLightText)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+        VStack(spacing: 8) {
+            Text(category.name)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(Color.mLightText)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-                    MProgressView(value: category.currentValue, total: maxValue, color: color)
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-            }
-        )
-        .buttonStyle(MPressable())
+            MProgressView(value: category.currentValue, total: maxValue, color: color)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color.clear)
     }
 }
 
@@ -53,8 +47,7 @@ struct CategoryView: View {
             ),
             maxValue: 10,
             color: Color.mGetColor(forListIndex: 1)
-        ) {
-        }
+        )
         Spacer()
     }
     .background(Color.mBackground)

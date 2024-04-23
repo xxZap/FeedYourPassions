@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct OPassionRecord: Equatable {
+struct OPassionRecord: Equatable, Hashable {
     let date: Date
 }
 
-struct OPassion: Equatable {
+struct OPassion: Equatable, Hashable {
     let id: UUID
     let name: String
     let associatedURL: String?

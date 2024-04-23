@@ -10,32 +10,11 @@ import Combine
 import Factory
 import Meteor
 
-class RootViewModel {
-
-    @Published var categories: AsyncResource<[OPassionCategory]>
-
-    private var cancellables = Set<AnyCancellable>()
-
-    init() {
-        self.categories = .loading
-
-        let passionsController = Container.shared.passionsController()
-
-        passionsController.categories
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] categories in
-                self?.categories = categories
-            }
-            .store(in: &cancellables)
-
-        passionsController.fetchGroups()
-    }
-}
-
 @main
 struct FeedYourPassionsApp: App {
 
-    private let viewModel = RootViewModel()
+    @ObservedObject private var viewModel = RootViewModel()
+    @State var selectedItem: OPassionCategory?
 
     var body: some Scene {
         WindowGroup {
@@ -50,23 +29,17 @@ struct FeedYourPassionsApp: App {
                             case .failure(let error):
                                 errorView(error)
                             case .success(let categories):
-                                CategoriesListView(viewModel: CategoriesListViewModel(categories: categories))
+                                CategoriesListView(viewModel: CategoriesListViewModel(categories: categories), selectedItem: $selectedItem)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(Color.mBackground)
-                        .toolbar(.hidden, for: .navigationBar)
                     },
                     detail: {
-                        ZStack {
-                            Color.mBackground
-                                .ignoresSafeArea()
-
-                            Text("Choose one option on the left")
-                                .font(.subheadline)
-                                .foregroundStyle(Color.mLightText)
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity)
+                        if let selectedItem {
+                            CategoryDetailView(viewModel: .init(category: selectedItem))
+                        } else {
+                            emptyView
                         }
                     }
                 )
@@ -88,6 +61,19 @@ struct FeedYourPassionsApp: App {
             Spacer()
             Text(error.localizedDescription)
             Spacer()
+        }
+    }
+
+    private var emptyView: some View {
+        ZStack {
+            Color.mBackground
+                .ignoresSafeArea()
+
+            Text("Choose one option on the left")
+                .font(.subheadline)
+                .foregroundStyle(Color.mLightText)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
         }
     }
 }

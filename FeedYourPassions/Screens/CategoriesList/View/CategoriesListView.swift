@@ -12,44 +12,48 @@ struct CategoriesListView: View {
 
     let viewModel: CategoriesListViewModel
 
+    @Binding var selectedItem: OPassionCategory?
+
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            categoriesList
-        }
-        .background(Color.mBackground)
-        .scrollContentBackground(.hidden)
-        .navigationTitle("Feed your passions")
-        .toolbarBackground(Color.mBackground, for: .navigationBar)
-    }
-
-    private var categoriesList: some View {
-        List {
-            ForEach(0 ..< viewModel.categories.count, id: \.self) {
-                let category = viewModel.categories[$0]
-                CategoryView(
-                    category: category,
-                    maxValue: viewModel.maxValue,
-                    color: Color.mGetColor(forListIndex: $0)
-                ) {
-                    print("Tapped on category named \"\(category.name)\"")
+        Group {
+            List(selection: $selectedItem) {
+                ForEach(0 ..< viewModel.categories.count, id: \.self) { index in
+                    let category = viewModel.categories[index]
+                    CategoryView(
+                        category: category,
+                        maxValue: viewModel.maxValue,
+                        color: Color.mGetColor(forListIndex: index)
+                    )
+                    .overlay(
+                        NavigationLink(value: category) {
+                            EmptyView()
+                        }.opacity(0)
+                    )
                 }
-            }
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
-
-            Rectangle()
-                .fill(.clear)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
-                .frame(height: 100)
+                .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
+
+                Rectangle()
+                    .fill(.clear)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                    .frame(height: 100)
+            }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .tint(Color.mBackgroundDark)
         }
-        .listStyle(.plain)
+        .background(Color.mBackground)
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 #if DEBUG
 #Preview("\(CategoriesListView.self)") {
-    CategoriesListView(viewModel: CategoriesListViewModel(categories: mockedCategories))
+    CategoriesListView(
+        viewModel: CategoriesListViewModel(categories: mockedCategories),
+        selectedItem: .constant(nil)
+    )
 }
 #endif

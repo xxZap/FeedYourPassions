@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OPassionCategory: Equatable {
+struct OPassionCategory: Equatable, Hashable {
     var name: String
     var passions: [OPassion]
 
