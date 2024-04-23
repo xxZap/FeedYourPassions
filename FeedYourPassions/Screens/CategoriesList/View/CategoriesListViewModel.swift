@@ -1,5 +1,5 @@
 //
-//  PassionsViewModel.swift
+//  CategoriesListViewModel.swift
 //  FeedYourPassions
 //
 //  Created by Alessio Boerio on 20/04/24.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-class PassionsViewModel {
-    
+class CategoriesListViewModel {
+
     let groups: [OPassionsGroup]
     var maxValue: Int { groups.map { $0.currentValue }.max() ?? 0 }
 

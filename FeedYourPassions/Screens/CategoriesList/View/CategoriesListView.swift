@@ -1,5 +1,5 @@
 //
-//  PassionsView.swift
+//  CategoriesListView.swift
 //  FeedYourPassions
 //
 //  Created by Alessio Boerio on 20/04/24.
@@ -8,14 +8,13 @@
 import SwiftUI
 import Meteor
 
-struct PassionsView: View {
+struct CategoriesListView: View {
 
-    let viewModel: PassionsViewModel
+    let viewModel: CategoriesListViewModel
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             groupList
-            addNewGroupButton
         }
         .background(Color.mBackground)
         .scrollContentBackground(.hidden)
@@ -27,7 +26,7 @@ struct PassionsView: View {
         List {
             ForEach(0..<viewModel.groups.count, id: \.self) {
                 let group = viewModel.groups[$0]
-                PassionGroupView(
+                PassionsGroupView(
                     passiongGroup: group,
                     maxValue: viewModel.maxValue,
                     color: Color.mGetColor(forListIndex: $0)
@@ -47,24 +46,12 @@ struct PassionsView: View {
         }
         .listStyle(.plain)
     }
-
-    private var addNewGroupButton: some View {
-        Group {
-            MSideButton(
-                onTap: {},
-                image: Image(systemName: "plus"),
-                side: .attachedToTheRight
-            )
-        }
-        .padding(.bottom, 8)
-        .shadow(radius: 8)
-    }
 }
 
 #if DEBUG
-#Preview("\(PassionsView.self)") {
+#Preview("\(CategoriesListView.self)") {
     Group {}
     // ZAPTODO: 
-//    PassionsView(viewModel: PassionsViewModel(groups: mockedGroups))
+//    PassionsGroupView(viewModel: PassionsViewModel(groups: mockedGroups))
 }
 #endif

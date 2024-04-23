@@ -1,5 +1,5 @@
 //
-//  Passion.swift
+//  OPassion.swift
 //  FeedYourPassions
 //
 //  Created by Alessio Boerio on 20/04/24.
@@ -12,6 +12,7 @@ struct OPassionRecord: Equatable {
 }
 
 struct OPassion: Equatable {
+    let id: UUID
     let name: String
     let associatedURL: String?
     let records: [OPassionRecord]

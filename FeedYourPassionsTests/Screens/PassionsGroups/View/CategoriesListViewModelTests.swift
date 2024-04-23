@@ -1,5 +1,5 @@
 //
-//  PassionsViewModelTests.swift
+//  CategoriesListViewModelTests.swift
 //  FeedYourPassionsTests
 //
 //  Created by Alessio Boerio on 20/04/24.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import FeedYourPassions
 
-final class PassionsViewModelTests: XCTestCase {
+final class CategoriesListViewModelTests: XCTestCase {
 
     func test_init_with_emptyGroups() throws {
         let sut = getSUT(groups: [])
@@ -21,11 +21,13 @@ final class PassionsViewModelTests: XCTestCase {
                 name: "test",
                 passions: [
                     OPassion(
+                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
+                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<7).map { _ in OPassionRecord(date: Date()) }
@@ -43,11 +45,13 @@ final class PassionsViewModelTests: XCTestCase {
                 name: "test1",
                 passions: [
                     OPassion(
+                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<1).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
+                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<1).map { _ in OPassionRecord(date: Date()) }
@@ -58,11 +62,13 @@ final class PassionsViewModelTests: XCTestCase {
                 name: "test2",
                 passions: [
                     OPassion(
+                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
+                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
@@ -82,11 +88,13 @@ final class PassionsViewModelTests: XCTestCase {
                 name: "test2",
                 passions: [
                     OPassion(
+                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
+                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
@@ -100,8 +108,8 @@ final class PassionsViewModelTests: XCTestCase {
 
 }
 
-extension PassionsViewModelTests {
-    func getSUT(groups: [OPassionsGroup]) -> PassionsViewModel {
-        PassionsViewModel(groups: groups)
+extension CategoriesListViewModelTests {
+    func getSUT(groups: [OPassionsGroup]) -> CategoriesListViewModel {
+        CategoriesListViewModel(groups: groups)
     }
 }
