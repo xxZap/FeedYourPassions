@@ -22,5 +22,10 @@ class AppDataController: DataController {
 
     init() {
         self.container = NSPersistentContainer(name: "Passions")
+        self.container.loadPersistentStores { description, error in
+            if let error {
+                fatalError("Unable to initialize CoreData: \(error)")
+            }
+        }
     }
 }

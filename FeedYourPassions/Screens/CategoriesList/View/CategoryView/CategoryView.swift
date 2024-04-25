@@ -21,7 +21,7 @@ struct CategoryView: View {
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            MProgressView(value: category.currentValue, total: maxValue, color: color)
+            MProgressView(value: category.currentValue, total: maxValue, color: color, height: 44)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
@@ -38,7 +38,6 @@ struct CategoryView: View {
                 name: "Group",
                 passions: [
                     OPassion(
-                        id: UUID(),
                         name: "Spotify",
                         associatedURL: "https://open.spotify.com",
                         records: (0..<7).map { _ in OPassionRecord(date: Date()) }

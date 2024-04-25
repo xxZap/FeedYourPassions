@@ -13,8 +13,12 @@ import Meteor
 @main
 struct FeedYourPassionsApp: App {
 
-    @ObservedObject private var viewModel = RootViewModel()
+    @StateObject var alerter: Alerter = Alerter()
     @State var selectedItem: OPassionCategory?
+
+    init() {
+        UINavigationBar.navigationBarColors(background: UIColor(Color.mBackground), titleColor: UIColor(Color.mLightText), tintColor: UIColor(Color.red))
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -22,18 +26,7 @@ struct FeedYourPassionsApp: App {
                 NavigationSplitView(
                     columnVisibility: .constant(.doubleColumn),
                     sidebar: {
-                        Group {
-                            switch viewModel.categories {
-                            case .loading:
-                                loadingView
-                            case .failure(let error):
-                                errorView(error)
-                            case .success(let categories):
-                                CategoriesListView(viewModel: CategoriesListViewModel(categories: categories), selectedItem: $selectedItem)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.mBackground)
+                        CategoriesListView(viewModel: CategoriesListViewModel(passionsController: Container.shared.passionsController()), selectedItem: $selectedItem)
                     },
                     detail: {
                         if let selectedItem {
@@ -44,23 +37,13 @@ struct FeedYourPassionsApp: App {
                     }
                 )
                 .navigationSplitViewStyle(.balanced)
+                .navigationBarTitleDisplayMode(.inline)
+                .tint(Color.mLightText)
+                .environment(\.alerterKey, alerter)
+                .alert(isPresented: $alerter.isShowingAlert) {
+                    alerter.alert ?? Alert(title: Text(""))
+                }
             }
-        }
-    }
-
-    private var loadingView: some View {
-        VStack {
-            Spacer()
-            MSpinner(size: .large, color: .white)
-            Spacer()
-        }
-    }
-
-    private func errorView(_ error: Error) -> some View {
-        VStack {
-            Spacer()
-            Text(error.localizedDescription)
-            Spacer()
         }
     }
 
@@ -75,5 +58,26 @@ struct FeedYourPassionsApp: App {
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
         }
+    }
+}
+
+extension UINavigationBar {
+    static func navigationBarColors(
+        background: UIColor?,
+        titleColor: UIColor? = nil,
+        tintColor: UIColor? = nil
+    ){
+        let navigationAppearance = UINavigationBarAppearance()
+        navigationAppearance.configureWithOpaqueBackground()
+        navigationAppearance.backgroundColor = background ?? .clear
+
+        navigationAppearance.titleTextAttributes = [.foregroundColor: titleColor ?? .black]
+        navigationAppearance.largeTitleTextAttributes = [.foregroundColor: titleColor ?? .black]
+
+        UINavigationBar.appearance().standardAppearance = navigationAppearance
+        UINavigationBar.appearance().compactAppearance = navigationAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationAppearance
+
+        UINavigationBar.appearance().tintColor = tintColor ?? titleColor ?? .black
     }
 }

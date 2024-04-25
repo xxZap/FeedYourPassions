@@ -6,13 +6,22 @@
 //
 
 import Foundation
+import Combine
 
 class CategoriesListViewModel {
 
-    let categories: [OPassionCategory]
-    var maxValue: Int { categories.map { $0.currentValue }.max() ?? 0 }
+    @Published var categories: AsyncResource<[OPassionCategory]> = .loading
+    var maxValue: Int { categories.successOrNil?.map { $0.currentValue }.max() ?? 0 }
 
-    init(categories: [OPassionCategory]) {
-        self.categories = categories.sorted(by: { $0.currentValue > $1.currentValue })
+    private var cancellables = Set<AnyCancellable>()
+
+    init(passionsController: PassionsController) {
+        passionsController.categories
+            .sink { [weak self] categories in
+                self?.categories = categories.map { $0.sorted(by: { $0.currentValue > $1.currentValue }) }
+            }
+            .store(in: &cancellables)
+
+        passionsController.fetchGroups()
     }
 }

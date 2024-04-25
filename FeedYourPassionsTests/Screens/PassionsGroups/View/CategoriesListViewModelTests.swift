@@ -21,13 +21,11 @@ final class CategoriesListViewModelTests: XCTestCase {
                 name: "test",
                 passions: [
                     OPassion(
-                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
-                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<7).map { _ in OPassionRecord(date: Date()) }
@@ -45,13 +43,11 @@ final class CategoriesListViewModelTests: XCTestCase {
                 name: "test1",
                 passions: [
                     OPassion(
-                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<1).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
-                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<1).map { _ in OPassionRecord(date: Date()) }
@@ -62,13 +58,11 @@ final class CategoriesListViewModelTests: XCTestCase {
                 name: "test2",
                 passions: [
                     OPassion(
-                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
-                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
@@ -88,13 +82,11 @@ final class CategoriesListViewModelTests: XCTestCase {
                 name: "test2",
                 passions: [
                     OPassion(
-                        id: UUID(),
                         name: "0",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
                     ),
                     OPassion(
-                        id: UUID(),
                         name: "1",
                         associatedURL: nil,
                         records: (0..<10).map { _ in OPassionRecord(date: Date()) }
