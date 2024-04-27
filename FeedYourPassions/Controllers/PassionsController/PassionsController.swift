@@ -12,9 +12,9 @@ protocol PassionsController {
     var categories: AnyPublisher<AsyncResource<[OPassionCategory]>, Never> { get }
     var selectedCategoryID: AnyPublisher<AsyncResource<OPassionCategoryID>?, Never> { get }
 
-    func fetchGroups()
+    func fetchCategories()
 
-    func setSelectedCategory(id: OPassionCategoryID?)
-    func addNewPassion(to categoryID: OPassionCategoryID, passion: OPassion)
-    func addNewRecord(to passionID: OPassionID, record: OPassionRecord)
+    func setSelectedCategory(_ id: OPassionCategoryID?)
+    func addNewPassion(_ passion: OPassion, to categoryID: OPassionCategoryID)
+    func addNewRecord(_  record: OPassionRecord, to categoryID: OPassionCategoryID, and passionID: OPassionID)
 }

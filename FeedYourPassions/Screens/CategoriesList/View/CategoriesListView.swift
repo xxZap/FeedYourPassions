@@ -11,7 +11,7 @@ import Meteor
 
 struct CategoriesListView: View {
 
-    let viewModel: CategoriesListViewModel
+    @ObservedObject var viewModel: CategoriesListViewModel
 
     @Binding var selectedItem: OPassionCategory?
 
@@ -28,6 +28,8 @@ struct CategoriesListView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
+        .animation(.smooth, value: viewModel.categories)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("List of categories")
     }
 
@@ -35,17 +37,16 @@ struct CategoriesListView: View {
         List(selection: Binding(
             get: { selectedItem },
             set: {
+                viewModel.setSelectedCategory($0?.id)
                 selectedItem = $0
-//            ZAPTODO: missing selection
-//                viewModel.
             }
         )) {
-            ForEach(0 ..< categories.count, id: \.self) { index in
+            ForEach(categories.indices, id: \.self) { index in
                 let category = categories[index]
                 CategoryView(
                     category: category,
                     maxValue: viewModel.maxValue,
-                    color: Color.mGetColor(forListIndex: index)
+                    color: Color.mGetPaletteColor(.red, forListIndex: index)
                 )
                 .overlay(
                     NavigationLink(value: category) {

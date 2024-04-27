@@ -43,6 +43,7 @@ class OPassion: Equatable, Hashable {
         lhs.id == rhs.id
         && lhs.name == rhs.name
         && lhs.associatedURL == rhs.associatedURL
+        && lhs.records.count == rhs.records.count
         && lhs.records == rhs.records
     }
 
@@ -50,6 +51,7 @@ class OPassion: Equatable, Hashable {
         hasher.combine(id)
         hasher.combine(name)
         hasher.combine(associatedURL)
+        hasher.combine(records.count)
         hasher.combine(records)
     }
 }

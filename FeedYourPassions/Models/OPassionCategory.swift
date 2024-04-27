@@ -31,12 +31,14 @@ class OPassionCategory: Equatable, Hashable {
     static func == (lhs: OPassionCategory, rhs: OPassionCategory) -> Bool {
         lhs.id == rhs.id
         && lhs.name == rhs.name
+        && lhs.passions.count == rhs.passions.count
         && lhs.passions == rhs.passions
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(name)
+        hasher.combine(passions.count)
         hasher.combine(passions)
     }
 }
@@ -218,12 +220,52 @@ let mockedCategories: [OPassionCategory] = [
         ]
     ),
     OPassionCategory(
-        name: "🛠️ Personal project",
+        name: "🛠️ Personal projects",
         passions: [
             OPassion(
                 name: "App",
                 associatedURL: nil,
                 records: (0..<6).map { _ in OPassionRecord(date: Date()) }
+            )
+        ]
+    ),
+    OPassionCategory(
+        name: "✈️ Travel",
+        passions: [
+            OPassion(
+                name: "Africa",
+                associatedURL: nil,
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
+            ),
+            OPassion(
+                name: "Antarctica",
+                associatedURL: nil,
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
+            ),
+            OPassion(
+                name: "Asia",
+                associatedURL: nil,
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
+            ),
+            OPassion(
+                name: "Europe",
+                associatedURL: nil,
+                records: (0..<2).map { _ in OPassionRecord(date: Date()) }
+            ),
+            OPassion(
+                name: "Oceania",
+                associatedURL: nil,
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
+            ),
+            OPassion(
+                name: "North America",
+                associatedURL: nil,
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
+            ),
+            OPassion(
+                name: "South America",
+                associatedURL: nil,
+                records: (0..<0).map { _ in OPassionRecord(date: Date()) }
             )
         ]
     )

@@ -45,7 +45,7 @@ struct CategoryView: View {
                 ]
             ),
             maxValue: 10,
-            color: Color.mGetColor(forListIndex: 1)
+            color: Color.mGetPaletteColor(.red, forListIndex: 1)
         )
         Spacer()
     }

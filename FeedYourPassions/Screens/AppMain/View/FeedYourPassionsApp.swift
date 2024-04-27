@@ -15,6 +15,7 @@ struct FeedYourPassionsApp: App {
 
     @StateObject var alerter: Alerter = Alerter()
     @State var selectedItem: OPassionCategory?
+    @Injected(\.passionsController) private var passionsController
 
     init() {
         UINavigationBar.navigationBarColors(background: UIColor(Color.mBackground), titleColor: UIColor(Color.mLightText), tintColor: UIColor(Color.red))
@@ -26,22 +27,34 @@ struct FeedYourPassionsApp: App {
                 NavigationSplitView(
                     columnVisibility: .constant(.doubleColumn),
                     sidebar: {
-                        CategoriesListView(viewModel: CategoriesListViewModel(passionsController: Container.shared.passionsController()), selectedItem: $selectedItem)
+                        ZStack {
+                            Rectangle()
+                                .fill(.clear)
+                                .alert(isPresented: $alerter.isShowingAlert) {
+                                    alerter.alert ?? Alert(title: Text(""))
+                                }
+
+                            CategoriesListView(viewModel: CategoriesListViewModel(passionsController: Container.shared.passionsController()), selectedItem: $selectedItem)
+                                .navigationBarTitleDisplayMode(.inline)
+                                .toolbar(removing: .sidebarToggle)
+                        }
                     },
                     detail: {
-                        if let selectedItem {
-                            CategoryDetailView(viewModel: .init(category: selectedItem))
-                        } else {
+                        if selectedItem == nil {
                             emptyView
+                                .navigationBarTitleDisplayMode(.inline)
+                        } else {
+                            CategoryDetailView(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
+                                .navigationBarTitleDisplayMode(.inline)
                         }
                     }
                 )
                 .navigationSplitViewStyle(.balanced)
                 .navigationBarTitleDisplayMode(.inline)
-                .tint(Color.mLightText)
                 .environment(\.alerterKey, alerter)
-                .alert(isPresented: $alerter.isShowingAlert) {
-                    alerter.alert ?? Alert(title: Text(""))
+                .tint(Color.mLightText)
+                .onAppear {
+                    passionsController.fetchCategories()
                 }
             }
         }

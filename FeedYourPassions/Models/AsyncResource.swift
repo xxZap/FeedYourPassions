@@ -21,7 +21,7 @@ enum AsyncResource<T> {
         }
     }
 
-    func map<R>(mapCompletion: ((T) -> R)) -> AsyncResource<R> {
+    func asyncMap<R>(mapCompletion: ((T) -> R)) -> AsyncResource<R> {
         switch self {
         case .loading:
             return .loading
@@ -30,5 +30,45 @@ enum AsyncResource<T> {
         case .success(let item):
             return .success(mapCompletion(item))
         }
+    }
+}
+
+extension AsyncResource: Equatable {
+    static func == (lhs: AsyncResource<T>, rhs: AsyncResource<T>) -> Bool {
+        switch (lhs, rhs) {
+        case (.loading, .loading), (.failure, .failure):
+            return true
+        case let (.success(lhsItem), .success(rhsItem)):
+            return lhsItem == rhsItem
+        default:
+            return false
+        }
+    }
+}
+
+private func ==<L, R>(lhs: L, rhs: R) -> Bool {
+    guard
+        let equatableLhs = lhs as? any Equatable,
+        let equatableRhs = rhs as? any Equatable
+    else {
+        return false
+    }
+
+    return equatableLhs.isEqual(equatableRhs)
+}
+
+private extension Equatable {
+    func isEqual(_ other: any Equatable) -> Bool {
+        guard let other = other as? Self else {
+            return other.isExactlyEqual(self)
+        }
+        return self == other
+    }
+
+    private func isExactlyEqual(_ other: any Equatable) -> Bool {
+        guard let other = other as? Self else {
+            return false
+        }
+        return self == other
     }
 }
