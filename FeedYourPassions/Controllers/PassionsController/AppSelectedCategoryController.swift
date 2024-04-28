@@ -39,9 +39,9 @@ class AppSelectedCategoryController: SelectedCategoryController {
             .combineLatest(passionsController.selectedCategoryID)
             .receive(on: DispatchQueue.main )
             .sink { asyncCategories, asyncSelectedCategoryID in
-                asyncCategories.asyncMap { [weak self] categories in
+                _ = asyncCategories.asyncMap { [weak self] categories in
                     if let asyncSelectedCategoryID = asyncSelectedCategoryID {
-                        asyncSelectedCategoryID.asyncMap { [weak self] selectedCategoryID in
+                        _ = asyncSelectedCategoryID.asyncMap { [weak self] selectedCategoryID in
                             guard let category = categories.first(where: { $0.id == selectedCategoryID }) else {
                                 self?._selectedCategory.send(.failure(NSError()))
                                 return
@@ -66,3 +66,45 @@ class AppSelectedCategoryController: SelectedCategoryController {
         passionsController.addNewRecord(record, to: selectedCategoryID, and: passionID)
     }
 }
+
+#if DEBUG
+class MockedSelectedCategory: SelectedCategoryController {
+
+    enum Scenario {
+        case loading
+        case empty
+        case valid(passionsCount: Int)
+        case error
+    }
+
+    private let _category: CurrentValueSubject<AsyncResource<OPassionCategory>?, Never>
+    var selectedCategory: AnyPublisher<AsyncResource<OPassionCategory>?, Never> { _category.eraseToAnyPublisher() }
+
+    var maxValue: Int
+
+    init(_ scenario: Scenario) {
+        switch scenario {
+        case .loading:
+            maxValue = 0
+            _category = CurrentValueSubject(.loading)
+        case .empty:
+            maxValue = 0
+            _category = CurrentValueSubject(nil)
+        case .valid(let count):
+            maxValue = 0
+            _category = CurrentValueSubject(.success(.init(name: "Passion", passions: (0..<count).map { OPassion(name: "#\($0) Passion", associatedURL: "some", records: [])})))
+        case .error:
+            maxValue = 0
+            _category = CurrentValueSubject(.failure(NSError()))
+        }
+    }
+
+    func addNewPassion(_ passion: OPassion) {
+
+    }
+    
+    func addNewRecord(_ record: OPassionRecord, to passionID: OPassionID) {
+
+    }
+}
+#endif

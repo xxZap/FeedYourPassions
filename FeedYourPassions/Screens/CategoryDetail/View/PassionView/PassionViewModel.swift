@@ -21,6 +21,7 @@ class PassionViewModel: ObservableObject {
 
     var passion: OPassion
     var maxValue: Int { selectedCategoryController.maxValue }
+    var associatedURL: URL? { if let string = passion.associatedURL { URL(string: string) } else { nil } }
     @Published var alertContainer: AlertContainer?
 
     private var onNewRecordAction: ((OPassionRecord, OPassionID) -> Void)?
