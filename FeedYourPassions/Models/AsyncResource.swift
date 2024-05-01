@@ -36,8 +36,10 @@ enum AsyncResource<T> {
 extension AsyncResource: Equatable {
     static func == (lhs: AsyncResource<T>, rhs: AsyncResource<T>) -> Bool {
         switch (lhs, rhs) {
-        case (.loading, .loading), (.failure, .failure):
+        case (.loading, .loading):
             return true
+        case let (.failure(lhsError), .failure(rhsError)):
+            return lhsError.localizedDescription == rhsError.localizedDescription
         case let (.success(lhsItem), .success(rhsItem)):
             return lhsItem == rhsItem
         default:
