@@ -14,10 +14,13 @@ import Meteor
 struct FeedYourPassionsApp: App {
 
     @StateObject var alerter: Alerter = Alerter()
-    @Injected(\.passionsController) private var passionsController
 
     init() {
-        UINavigationBar.navigationBarColors(background: UIColor(Color.mBackground), titleColor: UIColor(Color.mLightText), tintColor: UIColor(Color.red))
+        UINavigationBar.navigationBarColors(
+            background: UIColor(Color.mBackground),
+            titleColor: UIColor(Color.mLightText),
+            tintColor: UIColor(Color.red)
+        )
     }
 
     var body: some Scene {
@@ -30,7 +33,6 @@ struct FeedYourPassionsApp: App {
                     }
 
                 CategoriesListScreen(viewModel: .init(passionsController: Container.shared.passionsController()))
-
             }
             .environment(\.alerterKey, alerter)
         }

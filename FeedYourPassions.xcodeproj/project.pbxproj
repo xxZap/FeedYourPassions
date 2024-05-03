@@ -200,9 +200,9 @@
 		6D36A8622BD3D33300F238EC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6D37C6B72BD416A8003B1DA0 /* CategoryView */,
-				6D36A8382BD3CDD700F238EC /* CategoriesListView.swift */,
 				6D698CA02BE4EF1E00A8FFD5 /* CategoriesListScreen.swift */,
+				6D36A8382BD3CDD700F238EC /* CategoriesListView.swift */,
+				6D37C6B72BD416A8003B1DA0 /* CategoryView */,
 			);
 			path = View;
 			sourceTree = "<group>";

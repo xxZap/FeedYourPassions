@@ -7,11 +7,14 @@
 
 import SwiftUI
 import Meteor
+import Factory
 
 struct CategoriesListView: View {
 
     var uiState: CategoriesListUIState
     var calls: CategoriesListCalls
+
+    @State private var selectedCategoryID: OPassionCategoryID?
 
     var body: some View {
         Group {
@@ -26,9 +29,7 @@ struct CategoriesListView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
-        .animation(.smooth, value: uiState)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("List of categories")
+        .animation(.smooth, value: uiState == .loading)
     }
 
     private func categoryList(_ content: CategoriesListUIContent) -> some View {
@@ -37,6 +38,7 @@ struct CategoriesListView: View {
                 let category = content.categories[index]
                 Button {
                     calls.onCategoryTap(category)
+                    selectedCategoryID = category.id
                 } label: {
                     CategoryView(
                         category: category,
@@ -45,8 +47,12 @@ struct CategoriesListView: View {
                     )
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
+                    .background(itemColor(for: category.id))
                 }
                 .buttonStyle(MPressable())
+                .navigationDestination(isPresented: bindingForScreen(category.id)) {
+                    CategoryDetailScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
+                }
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
@@ -71,6 +77,25 @@ struct CategoriesListView: View {
             Text(error.localizedDescription)
             Spacer()
         }
+    }
+}
+
+private extension CategoriesListView {
+    func bindingForScreen(_ categoryID: OPassionCategoryID) -> Binding<Bool> {
+        Binding(
+            get: { selectedCategoryID == categoryID },
+            set: { value in
+                if value {
+                    selectedCategoryID = categoryID
+                } else if selectedCategoryID == categoryID {
+                    selectedCategoryID = nil
+                }
+            }
+        )
+    }
+
+    private func itemColor(for categoryID: OPassionCategoryID) -> Color {
+        selectedCategoryID == categoryID ? Color.mBackgroundDark : Color.clear
     }
 }
 

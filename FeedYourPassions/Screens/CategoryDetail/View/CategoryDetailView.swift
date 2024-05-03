@@ -29,9 +29,6 @@ struct CategoryDetailView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
-        .animation(.smooth(duration: MAnimationDuration.fast.rawValue), value: uiState)
-        .navigationTitle(uiState?.successOrNil?.category.name ?? "Select a category")
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     private func passionsList(_ passions: [OPassion]) -> some View {

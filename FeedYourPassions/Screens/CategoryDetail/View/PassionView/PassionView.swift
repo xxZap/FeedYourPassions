@@ -14,7 +14,7 @@ struct PassionView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.alerterKey) var alerter
 
-    @ObservedObject var viewModel: PassionViewModel
+    @StateObject var viewModel: PassionViewModel
     let barColor: Color
 
     var body: some View {

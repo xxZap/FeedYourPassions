@@ -10,7 +10,7 @@ import SwiftUI
 struct NewPassionScreen: View {
 
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: NewPassionViewModel
+    @StateObject var viewModel: NewPassionViewModel
 
     var body: some View {
         NewPassionView(

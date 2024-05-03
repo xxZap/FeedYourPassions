@@ -10,8 +10,7 @@ import Meteor
 
 struct CategoriesListScreen: View {
 
-    @Environment(\.alerterKey) var alerter
-    @ObservedObject var viewModel: CategoriesListViewModel
+    @StateObject var viewModel: CategoriesListViewModel
 
     var body: some View {
         NavigationSplitView(
@@ -21,39 +20,30 @@ struct CategoriesListScreen: View {
                     uiState: viewModel.uiState,
                     calls: .init(
                         onCategoryTap: { category in
-
+                            viewModel.setSelectedCategory(category.id)
                         }
                     )
                 )
-                .navigationBarTitleDisplayMode(.inline)
                 .toolbar(removing: .sidebarToggle)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Home")
             },
             detail: {
-//                if selectedItem == nil {
-//                    emptyView
-//                        .navigationBarTitleDisplayMode(.inline)
-//                } else {
-//                    CategoryDetailScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
-//                        .navigationBarTitleDisplayMode(.inline)
-//                }
+                ZStack {
+                    Color.mBackground
+                        .ignoresSafeArea()
+
+                    Text("Choose one option on the left")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.mLightText)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                }
+                .navigationBarTitleDisplayMode(.inline)
             }
         )
         .navigationSplitViewStyle(.balanced)
         .navigationBarTitleDisplayMode(.inline)
-        .environment(\.alerterKey, alerter)
         .tint(Color.mLightText)
-    }
-
-    private var emptyView: some View {
-        ZStack {
-            Color.mBackground
-                .ignoresSafeArea()
-
-            Text("Choose one option on the left")
-                .font(.subheadline)
-                .foregroundStyle(Color.mLightText)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-        }
     }
 }

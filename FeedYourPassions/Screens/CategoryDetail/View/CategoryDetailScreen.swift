@@ -25,6 +25,8 @@ struct CategoryDetailScreen: View {
                 }
             )
         )
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(viewModel.uiState?.successOrNil?.category.name ?? "")
         .sheet(isPresented: $addNewPassion) {
             NewPassionScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
         }
