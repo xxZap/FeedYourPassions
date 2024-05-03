@@ -6,53 +6,47 @@
 //
 
 import SwiftUI
-import Factory
 import Meteor
 
 struct CategoriesListView: View {
 
-    @ObservedObject var viewModel: CategoriesListViewModel
-
-    @Binding var selectedItem: OPassionCategory?
+    var uiState: CategoriesListUIState
+    var calls: CategoriesListCalls
 
     var body: some View {
         Group {
-            switch viewModel.categories {
+            switch uiState {
             case .loading:
                 loadingView
             case .failure(let error):
                 errorView(error)
-            case .success(let categories):
-                categoryList(categories)
+            case .success(let content):
+                categoryList(content)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
-        .animation(.smooth, value: viewModel.categories)
+        .animation(.smooth, value: uiState)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("List of categories")
     }
 
-    private func categoryList(_ categories: [OPassionCategory]) -> some View {
-        List(selection: Binding(
-            get: { selectedItem },
-            set: {
-                viewModel.setSelectedCategory($0?.id)
-                selectedItem = $0
-            }
-        )) {
-            ForEach(categories.indices, id: \.self) { index in
-                let category = categories[index]
-                CategoryView(
-                    category: category,
-                    maxValue: viewModel.maxValue,
-                    color: Color.mGetPaletteColor(.red, forListIndex: index)
-                )
-                .overlay(
-                    NavigationLink(value: category) {
-                        EmptyView()
-                    }.opacity(0)
-                )
+    private func categoryList(_ content: CategoriesListUIContent) -> some View {
+        List {
+            ForEach(content.categories.indices, id: \.self) { index in
+                let category = content.categories[index]
+                Button {
+                    calls.onCategoryTap(category)
+                } label: {
+                    CategoryView(
+                        category: category,
+                        maxValue: content.maxValue,
+                        color: Color.mGetPaletteColor(.red, forListIndex: index)
+                    )
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                }
+                .buttonStyle(MPressable())
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
@@ -83,8 +77,10 @@ struct CategoriesListView: View {
 #if DEBUG
 #Preview("\(CategoriesListView.self)") {
     CategoriesListView(
-        viewModel: CategoriesListViewModel(passionsController: Container.shared.passionsController()),
-        selectedItem: .constant(nil)
+        uiState: .success(.init(categories: mockedCategories, maxValue: 20)),
+        calls: .init(
+            onCategoryTap: { _ in }
+        )
     )
 }
 #endif

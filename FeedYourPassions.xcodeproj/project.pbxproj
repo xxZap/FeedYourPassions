@@ -33,6 +33,14 @@
 		6D59FB802BDC019B00D0C087 /* AppSelectedCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59FB7F2BDC019B00D0C087 /* AppSelectedCategoryController.swift */; };
 		6D59FB822BDD468100D0C087 /* PassionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59FB812BDD468100D0C087 /* PassionView.swift */; };
 		6D59FB842BDD46C500D0C087 /* PassionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59FB832BDD46C500D0C087 /* PassionViewModel.swift */; };
+		6D698C9F2BE4E6C400A8FFD5 /* CategoriesListUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D698C9E2BE4E6C400A8FFD5 /* CategoriesListUIState.swift */; };
+		6D698CA12BE4EF1E00A8FFD5 /* CategoriesListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D698CA02BE4EF1E00A8FFD5 /* CategoriesListScreen.swift */; };
+		6DE73CD62BE296F200DB3106 /* NewPassionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CD52BE296F200DB3106 /* NewPassionView.swift */; };
+		6DE73CD92BE2A64800DB3106 /* NewPassionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CD82BE2A64800DB3106 /* NewPassionViewModel.swift */; };
+		6DE73CDB2BE2A66100DB3106 /* NewPassionUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CDA2BE2A66100DB3106 /* NewPassionUIState.swift */; };
+		6DE73CDD2BE2A67E00DB3106 /* NewPassionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CDC2BE2A67E00DB3106 /* NewPassionScreen.swift */; };
+		6DE73CDF2BE2A6A200DB3106 /* CategoryDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CDE2BE2A6A200DB3106 /* CategoryDetailScreen.swift */; };
+		6DE73CE22BE2A6E700DB3106 /* CategoryDetailUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CE12BE2A6E700DB3106 /* CategoryDetailUIState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +88,14 @@
 		6D59FB7F2BDC019B00D0C087 /* AppSelectedCategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectedCategoryController.swift; sourceTree = "<group>"; };
 		6D59FB812BDD468100D0C087 /* PassionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionView.swift; sourceTree = "<group>"; };
 		6D59FB832BDD46C500D0C087 /* PassionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionViewModel.swift; sourceTree = "<group>"; };
+		6D698C9E2BE4E6C400A8FFD5 /* CategoriesListUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListUIState.swift; sourceTree = "<group>"; };
+		6D698CA02BE4EF1E00A8FFD5 /* CategoriesListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListScreen.swift; sourceTree = "<group>"; };
+		6DE73CD52BE296F200DB3106 /* NewPassionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassionView.swift; sourceTree = "<group>"; };
+		6DE73CD82BE2A64800DB3106 /* NewPassionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassionViewModel.swift; sourceTree = "<group>"; };
+		6DE73CDA2BE2A66100DB3106 /* NewPassionUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassionUIState.swift; sourceTree = "<group>"; };
+		6DE73CDC2BE2A67E00DB3106 /* NewPassionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassionScreen.swift; sourceTree = "<group>"; };
+		6DE73CDE2BE2A6A200DB3106 /* CategoryDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailScreen.swift; sourceTree = "<group>"; };
+		6DE73CE12BE2A6E700DB3106 /* CategoryDetailUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailUIState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,8 +181,9 @@
 			isa = PBXGroup;
 			children = (
 				6D37C6B62BD41144003B1DA0 /* AppMain */,
-				6D37C7122BD7962C003B1DA0 /* CategoryDetail */,
 				6D36A8612BD3D32200F238EC /* CategoriesList */,
+				6D37C7122BD7962C003B1DA0 /* CategoryDetail */,
+				6DE73CD32BE296CB00DB3106 /* NewPassion */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -174,6 +191,7 @@
 		6D36A8612BD3D32200F238EC /* CategoriesList */ = {
 			isa = PBXGroup;
 			children = (
+				6DE73CE32BE2A91D00DB3106 /* ViewModel */,
 				6D36A8622BD3D33300F238EC /* View */,
 			);
 			path = CategoriesList;
@@ -184,7 +202,7 @@
 			children = (
 				6D37C6B72BD416A8003B1DA0 /* CategoryView */,
 				6D36A8382BD3CDD700F238EC /* CategoriesListView.swift */,
-				6D37C6C32BD42D94003B1DA0 /* CategoriesListViewModel.swift */,
+				6D698CA02BE4EF1E00A8FFD5 /* CategoriesListScreen.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -283,6 +301,7 @@
 		6D37C7122BD7962C003B1DA0 /* CategoryDetail */ = {
 			isa = PBXGroup;
 			children = (
+				6DE73CE02BE2A6D200DB3106 /* ViewModel */,
 				6D37C7132BD79649003B1DA0 /* View */,
 			);
 			path = CategoryDetail;
@@ -291,9 +310,9 @@
 		6D37C7132BD79649003B1DA0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6D59FB7C2BDAE06400D0C087 /* PassionView */,
+				6DE73CDE2BE2A6A200DB3106 /* CategoryDetailScreen.swift */,
 				6D37C7142BD79658003B1DA0 /* CategoryDetailView.swift */,
-				6D59FB792BDAE01300D0C087 /* CategoryDetailViewModel.swift */,
+				6D59FB7C2BDAE06400D0C087 /* PassionView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -332,6 +351,51 @@
 				6D59FB832BDD46C500D0C087 /* PassionViewModel.swift */,
 			);
 			path = PassionView;
+			sourceTree = "<group>";
+		};
+		6DE73CD32BE296CB00DB3106 /* NewPassion */ = {
+			isa = PBXGroup;
+			children = (
+				6DE73CD42BE296E100DB3106 /* View */,
+				6DE73CD72BE2A63B00DB3106 /* ViewModel */,
+			);
+			path = NewPassion;
+			sourceTree = "<group>";
+		};
+		6DE73CD42BE296E100DB3106 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6DE73CDC2BE2A67E00DB3106 /* NewPassionScreen.swift */,
+				6DE73CD52BE296F200DB3106 /* NewPassionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6DE73CD72BE2A63B00DB3106 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6DE73CDA2BE2A66100DB3106 /* NewPassionUIState.swift */,
+				6DE73CD82BE2A64800DB3106 /* NewPassionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6DE73CE02BE2A6D200DB3106 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6DE73CE12BE2A6E700DB3106 /* CategoryDetailUIState.swift */,
+				6D59FB792BDAE01300D0C087 /* CategoryDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6DE73CE32BE2A91D00DB3106 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6D698C9E2BE4E6C400A8FFD5 /* CategoriesListUIState.swift */,
+				6D37C6C32BD42D94003B1DA0 /* CategoriesListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,22 +535,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D59FB822BDD468100D0C087 /* PassionView.swift in Sources */,
+				6DE73CD92BE2A64800DB3106 /* NewPassionViewModel.swift in Sources */,
 				6D37C71C2BD79901003B1DA0 /* AsyncResource.swift in Sources */,
 				6D37C7182BD7971D003B1DA0 /* PassionsController.swift in Sources */,
 				6D59FB842BDD46C500D0C087 /* PassionViewModel.swift in Sources */,
+				6DE73CE22BE2A6E700DB3106 /* CategoryDetailUIState.swift in Sources */,
 				6D37C6B92BD416C9003B1DA0 /* CategoryView.swift in Sources */,
+				6DE73CDF2BE2A6A200DB3106 /* CategoryDetailScreen.swift in Sources */,
 				6D37C6E42BD520E9003B1DA0 /* Passions.xcdatamodeld in Sources */,
 				6D37C6FC2BD66532003B1DA0 /* OPassionCategory.swift in Sources */,
+				6DE73CDB2BE2A66100DB3106 /* NewPassionUIState.swift in Sources */,
 				6D59FB802BDC019B00D0C087 /* AppSelectedCategoryController.swift in Sources */,
 				6D37C71A2BD79867003B1DA0 /* AppPassionsController.swift in Sources */,
+				6DE73CDD2BE2A67E00DB3106 /* NewPassionScreen.swift in Sources */,
 				6D37C6CE2BD51BD4003B1DA0 /* DataController.swift in Sources */,
 				6D37C6FB2BD66532003B1DA0 /* OPassion.swift in Sources */,
 				6D36A8392BD3CDD700F238EC /* CategoriesListView.swift in Sources */,
+				6D698C9F2BE4E6C400A8FFD5 /* CategoriesListUIState.swift in Sources */,
 				6D59FB7A2BDAE01300D0C087 /* CategoryDetailViewModel.swift in Sources */,
 				6D37C7152BD79658003B1DA0 /* CategoryDetailView.swift in Sources */,
 				6D37C6D02BD51C07003B1DA0 /* AppDataController.swift in Sources */,
+				6D698CA12BE4EF1E00A8FFD5 /* CategoriesListScreen.swift in Sources */,
 				6D59FB7E2BDC013200D0C087 /* SelectedCategoryController.swift in Sources */,
 				6D59FB772BDA52BD00D0C087 /* Alerter.swift in Sources */,
+				6DE73CD62BE296F200DB3106 /* NewPassionView.swift in Sources */,
 				6D36A8372BD3CDD700F238EC /* FeedYourPassionsApp.swift in Sources */,
 				6D37C6C42BD42D94003B1DA0 /* CategoriesListViewModel.swift in Sources */,
 			);

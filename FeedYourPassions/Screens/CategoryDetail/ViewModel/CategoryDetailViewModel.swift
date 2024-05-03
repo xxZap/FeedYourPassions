@@ -5,11 +5,11 @@
 //  Created by Alessio Boerio on 25/04/24.
 //
 
-import SwiftUI
+import Foundation
 import Combine
 
 class CategoryDetailViewModel: ObservableObject {
-    @Published var category: AsyncResource<OPassionCategory>?
+    @Published var uiState: CategoryDetailUIState?
 
     private var cancellables = Set<AnyCancellable>()
     private let selectedCategoryController: SelectedCategoryController
@@ -20,7 +20,13 @@ class CategoryDetailViewModel: ObservableObject {
         selectedCategoryController.selectedCategory
             .receive(on: DispatchQueue.main )
             .sink { [weak self] asyncSelectedCategory in
-                self?.category = asyncSelectedCategory
+                if let asyncSelectedCategory {
+                    _ = asyncSelectedCategory.asyncMap { [weak self] value in
+                        self?.uiState = .success(CategoryDetailUIContent(category: value))
+                    }
+                } else {
+                    self?.uiState = nil
+                }
             }
             .store(in: &cancellables)
     }
@@ -32,7 +38,7 @@ class CategoryDetailViewModel: ObservableObject {
         // selectedCategoryController.addNewPassion(newPassion)
     }
 
-    func createNewRecord(record: OPassionRecord, to passionID: OPassionID) {
+    func addNewRecord(record: OPassionRecord, to passionID: OPassionID) {
         selectedCategoryController.addNewRecord(record, to: passionID)
     }
 }

@@ -14,7 +14,6 @@ import Meteor
 struct FeedYourPassionsApp: App {
 
     @StateObject var alerter: Alerter = Alerter()
-    @State var selectedItem: OPassionCategory?
     @Injected(\.passionsController) private var passionsController
 
     init() {
@@ -23,53 +22,17 @@ struct FeedYourPassionsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            GeometryReader { geoProxy in
-                NavigationSplitView(
-                    columnVisibility: .constant(.doubleColumn),
-                    sidebar: {
-                        ZStack {
-                            Rectangle()
-                                .fill(.clear)
-                                .alert(isPresented: $alerter.isShowingAlert) {
-                                    alerter.alert ?? Alert(title: Text(""))
-                                }
-
-                            CategoriesListView(viewModel: CategoriesListViewModel(passionsController: Container.shared.passionsController()), selectedItem: $selectedItem)
-                                .navigationBarTitleDisplayMode(.inline)
-                                .toolbar(removing: .sidebarToggle)
-                        }
-                    },
-                    detail: {
-                        if selectedItem == nil {
-                            emptyView
-                                .navigationBarTitleDisplayMode(.inline)
-                        } else {
-                            CategoryDetailView(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
-                                .navigationBarTitleDisplayMode(.inline)
-                        }
+            ZStack {
+                Rectangle()
+                    .fill(.clear)
+                    .alert(isPresented: $alerter.isShowingAlert) {
+                        alerter.alert ?? Alert(title: Text(""))
                     }
-                )
-                .navigationSplitViewStyle(.balanced)
-                .navigationBarTitleDisplayMode(.inline)
-                .environment(\.alerterKey, alerter)
-                .tint(Color.mLightText)
-                .onAppear {
-                    passionsController.fetchCategories()
-                }
+
+                CategoriesListScreen(viewModel: .init(passionsController: Container.shared.passionsController()))
+
             }
-        }
-    }
-
-    private var emptyView: some View {
-        ZStack {
-            Color.mBackground
-                .ignoresSafeArea()
-
-            Text("Choose one option on the left")
-                .font(.subheadline)
-                .foregroundStyle(Color.mLightText)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
+            .environment(\.alerterKey, alerter)
         }
     }
 }

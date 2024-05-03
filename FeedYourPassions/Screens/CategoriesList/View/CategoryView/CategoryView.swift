@@ -23,9 +23,6 @@ struct CategoryView: View {
 
             MProgressView(value: category.currentValue, total: maxValue, color: color, height: 44)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-        .background(Color.clear)
     }
 }
 

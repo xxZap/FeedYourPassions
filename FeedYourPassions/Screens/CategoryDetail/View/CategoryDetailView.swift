@@ -11,25 +11,26 @@ import Meteor
 
 struct CategoryDetailView: View {
 
-    @StateObject var viewModel: CategoryDetailViewModel
+    var uiState: CategoryDetailUIState?
+    var calls: CategoryDetailCalls
 
     var body: some View {
         Group {
-            switch viewModel.category {
+            switch uiState {
             case .none:
                 emptyView
             case .loading:
                 loadingView
             case .failure(let error):
                 errorView(error)
-            case .success(let category):
-                passionsList(category.passions)
+            case .success(let content):
+                passionsList(content.category.passions)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
-        .animation(.smooth(duration: AnimationDuration.fast.rawValue), value: viewModel.category?.successOrNil?.passions)
-        .navigationTitle(viewModel.category?.successOrNil?.name ?? "Select a category")
+        .animation(.smooth(duration: MAnimationDuration.fast.rawValue), value: uiState)
+        .navigationTitle(uiState?.successOrNil?.category.name ?? "Select a category")
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -44,7 +45,7 @@ struct CategoryDetailView: View {
                                 passion: passion,
                                 selectedCategoryController: Container.shared.selectedCategoryController()
                             ) { newRecord, passionID in
-                                viewModel.createNewRecord(record: newRecord, to: passionID)
+                                calls.onAddRecord((newRecord, passionID))
                             },
                             barColor: Color.mGetPaletteColor(.pink, forListIndex: index)
                         )
@@ -61,7 +62,9 @@ struct CategoryDetailView: View {
             .padding(.horizontal, 8)
 
             MSideButton(
-                onTap: { viewModel.createNewPassion() },
+                onTap: {
+                    calls.onCreatePassion()
+                },
                 image: Image(systemName: "plus"),
                 side: .attachedToTheRight
             )
@@ -97,27 +100,16 @@ struct CategoryDetailView: View {
 }
 
 #if DEBUG
-#Preview("Empty") {
+#Preview {
     CategoryDetailView(
-        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.empty))
-    )
-}
-
-#Preview("Error") {
-    CategoryDetailView(
-        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.error))
-    )
-}
-
-#Preview("Loading") {
-    CategoryDetailView(
-        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.loading))
-    )
-}
-
-#Preview("Valid") {
-    CategoryDetailView(
-        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.valid(passionsCount: 4)))
+        uiState: .success(.init(category: OPassionCategory(
+            name: "Category",
+            passions: [OPassion(name: "Passion name", records: [])]
+        ))),
+        calls: .init(
+            onCreatePassion: { },
+            onAddRecord: { _ in }
+        )
     )
 }
 #endif
