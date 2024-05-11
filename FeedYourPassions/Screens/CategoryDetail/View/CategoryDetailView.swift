@@ -17,11 +17,20 @@ struct CategoryDetailView: View {
     var body: some View {
         Group {
             if let category = uiState.category {
-                if category.passions.isEmpty {
-                    emptyView
-                } else {
-                    passionsList(category.passions)
+                ZStack(alignment: .bottomTrailing) {
+                    Group {
+                        if category.passions.isEmpty {
+                            emptyView
+                        } else {
+                            passionsList(category.passions)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                    addNewPassionButton
                 }
+                .background(Color.mBackground)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 loadingView
             }
@@ -31,40 +40,38 @@ struct CategoryDetailView: View {
     }
 
     private func passionsList(_ passions: [Passion]) -> some View {
-        ZStack(alignment: .bottomTrailing) {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 350))]) {
-                    ForEach(Array(passions.enumerated()), id: \.element) { index, passion in
-                        PassionView(
-                            viewModel: .init(passion: passion),
-//                            ) { newRecord, passionID in
-//                                calls.onAddRecord((newRecord, passionID))
-//                            },
-                            barColor: Color.mGetPaletteColor(.pink, forListIndex: index)
-                        )
-                        .padding(8)
-                    }
-                    
-                    Rectangle()
-                        .fill(.clear)
-                        .listRowBackground(Color.clear)
-                        .frame(height: 1)
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 350))]) {
+                ForEach(Array(passions.enumerated()), id: \.element) { index, passion in
+                    PassionView(
+                        viewModel: .init(passion: passion),
+//                    ) { newRecord, passionID in
+//                        calls.onAddRecord((newRecord, passionID))
+//                    },
+                        barColor: Color.mGetPaletteColor(.pink, forListIndex: index)
+                    )
+                    .padding(8)
                 }
-                .padding(.top, 8)
-            }
-            .padding(.horizontal, 8)
 
-            MSideButton(
-                onTap: {
-                    calls.onCreatePassionTap()
-                },
-                image: Image(systemName: "plus"),
-                side: .attachedToTheRight
-            )
-            .padding(.bottom, 32)
+                Rectangle()
+                    .fill(.clear)
+                    .listRowBackground(Color.clear)
+                    .frame(height: 1)
+            }
+            .padding(.top, 8)
         }
-        .background(Color.mBackground)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.horizontal, 8)
+    }
+
+    private var addNewPassionButton: some View {
+        MSideButton(
+            onTap: {
+                calls.onCreatePassionTap()
+            },
+            image: Image(systemName: "plus"),
+            side: .attachedToTheRight
+        )
+        .padding(.bottom, 32)
     }
 
     private var loadingView: some View {
@@ -89,7 +96,7 @@ struct CategoryDetailView: View {
     CategoryDetailView(
         uiState: .init(category: PassionCategory(
             type: .family,
-            passions: [Passion(name: "Passion name", records: [])]
+            passions: []
         )),
         calls: .init(
             onCreatePassionTap: { }

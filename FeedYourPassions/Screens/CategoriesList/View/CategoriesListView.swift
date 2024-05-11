@@ -67,10 +67,12 @@ struct CategoriesListView: View {
                 }
                 .buttonStyle(MPressable())
                 .navigationDestination(isPresented: bindingForScreen(category.type)) {
-                    CategoryDetailScreen(viewModel: .init(
-                        category: category,
-                        dataController: Container.shared.dataController()
-                    ))
+                    if selectedCategoryType == category.type {
+                        CategoryDetailScreen(viewModel: .init(
+                            category: category,
+                            dataController: Container.shared.dataController()
+                        ))
+                    }
                 }
             }
             .listRowSeparator(.hidden)
