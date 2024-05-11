@@ -13,38 +13,9 @@ struct CategoryView: View {
     let maxValue: Int
     let color: Color
 
-    private var name: String {
-        switch category.type {
-        case .music:
-            "🎵 Music"
-        case .food:
-            "🍴 Food"
-        case .sport:
-            "🏅 Sport"
-        case .health:
-            "❤️ Health"
-        case .reading:
-            "📖 Reading"
-        case .tv:
-            "📺 TV"
-        case .theater:
-            "🎭 Theater"
-        case .friends:
-            "😆 Friends"
-        case .family:
-            "🏡 Family"
-        case .personal:
-            "🛠️ Personal projects"
-        case .videogames:
-            "🎮 Videogames"
-        case .travel:
-            "✈️ Travel"
-        }
-    }
-
     var body: some View {
         VStack(spacing: 8) {
-            Text(name)
+            Text(category.name)
                 .font(.body.weight(.semibold))
                 .foregroundStyle(Color.mLightText)
                 .multilineTextAlignment(.leading)

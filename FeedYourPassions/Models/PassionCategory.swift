@@ -19,6 +19,35 @@ class PassionCategory: Equatable, Hashable, Codable {
         passions.map { $0.records.count }.max() ?? 0
     }
 
+    var name: String {
+        switch type {
+        case .music:
+            "🎵 Music"
+        case .food:
+            "🍴 Food"
+        case .sport:
+            "🏅 Sport"
+        case .health:
+            "❤️ Health"
+        case .reading:
+            "📖 Reading"
+        case .tv:
+            "📺 TV"
+        case .theater:
+            "🎭 Theater"
+        case .friends:
+            "😆 Friends"
+        case .family:
+            "🏡 Family"
+        case .personal:
+            "🛠️ Personal projects"
+        case .videogames:
+            "🎮 Videogames"
+        case .travel:
+            "✈️ Travel"
+        }
+    }
+
     init(type: PassionCategoryType, passions: [Passion]) {
         self.type = type
         self.passions = passions

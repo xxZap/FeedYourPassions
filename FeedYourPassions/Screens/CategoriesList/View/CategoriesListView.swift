@@ -53,8 +53,8 @@ struct CategoriesListView: View {
         List {
             ForEach(Array(categories.enumerated()), id: \.element) { index, category in
                 Button {
-//                    calls.onCategoryTap(category)
-//                    selectedCategoryID = category.id
+                    calls.onCategoryTap(category)
+                    selectedCategoryType = category.type
                 } label: {
                     CategoryView(
                         category: category,
@@ -63,12 +63,15 @@ struct CategoriesListView: View {
                     )
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-//                    .background(selectedCategoryID == categoryID ? Color.mBackgroundDark : Color.clear)
+                    .background(selectedCategoryType == category.type ? Color.mBackgroundDark : Color.clear)
                 }
                 .buttonStyle(MPressable())
-//                .navigationDestination(isPresented: bindingForScreen(category.id)) {
-//                    CategoryDetailScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
-//                }
+                .navigationDestination(isPresented: bindingForScreen(category.type)) {
+                    CategoryDetailScreen(viewModel: .init(
+                        category: category,
+                        dataController: Container.shared.dataController()
+                    ))
+                }
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)

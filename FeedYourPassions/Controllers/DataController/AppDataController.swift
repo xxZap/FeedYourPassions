@@ -123,3 +123,27 @@ class AppDataController: DataController {
             }
     }
 }
+
+#if DEBUG
+class MockedDataController: DataController {
+    enum Scenario {
+        case none
+        case empty
+        case valid
+    }
+
+    private let _passionCategories: CurrentValueSubject<[PassionCategory]?, Never>
+    var passionCategories: AnyPublisher<[PassionCategory]?, Never> { _passionCategories.eraseToAnyPublisher() }
+
+    init(_ scenario: Scenario) {
+        switch scenario {
+        case .none:
+            _passionCategories = CurrentValueSubject(nil)
+        case .empty:
+            _passionCategories = CurrentValueSubject([])
+        case .valid:
+            _passionCategories = CurrentValueSubject(mockedCategories)
+        }
+    }
+}
+#endif

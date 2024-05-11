@@ -7,14 +7,12 @@
 
 import Foundation
 
-//typealias CategoryDetailUIState = AsyncResource<CategoryDetailUIContent>
-//
-//struct CategoryDetailUIContent {
-//    var category: PassionCategory
-//}
-//
+struct CategoryDetailUIState {
+    var category: PassionCategory?
+}
+
 //typealias CategoryDetailOnAddRecordResult = (record: PassionRecord, passionID: PassionID)
-//struct CategoryDetailCalls {
-//    var onCreatePassion: (() -> Void)
+struct CategoryDetailCalls {
+    var onCreatePassionTap: (() -> Void)
 //    var onAddRecord: (CategoryDetailOnAddRecordResult) -> Void
-//}
+}

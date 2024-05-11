@@ -8,53 +8,56 @@
 import SwiftUI
 import Factory
 
-//struct CategoryDetailScreen: View {
-//
-//    @StateObject var viewModel: CategoryDetailViewModel
-//    @State private var addNewPassion: Bool = false
-//
-//    var body: some View {
-//        CategoryDetailView(
-//            uiState: viewModel.uiState,
-//            calls: .init(
-//                onCreatePassion: {
-//                    addNewPassion = true
-//                },
+struct CategoryDetailScreen: View {
+
+    @ObservedObject var viewModel: CategoryDetailViewModel
+    @State private var addNewPassion: Bool = false
+
+    var body: some View {
+        CategoryDetailView(
+            uiState: viewModel.uiState,
+            calls: .init(
+                onCreatePassionTap: {
+                    addNewPassion = true
+                }
 //                onAddRecord: { (record, passion) in
 //                    viewModel.addNewRecord(record: record, to: passion)
 //                }
-//            )
-//        )
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationTitle(viewModel.uiState?.successOrNil?.category.name ?? "")
-//        .sheet(isPresented: $addNewPassion) {
+            )
+        )
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(viewModel.uiState.category?.name ?? "")
+        .sheet(isPresented: $addNewPassion) {
 //            NewPassionScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
-//        }
-//    }
-//}
-//
-//#if DEBUG
-//#Preview("Empty") {
-//    CategoryDetailScreen(
-//        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.empty))
-//    )
-//}
-//
-//#Preview("Error") {
-//    CategoryDetailScreen(
-//        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.error))
-//    )
-//}
-//
-//#Preview("Loading") {
-//    CategoryDetailScreen(
-//        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.loading))
-//    )
-//}
-//
-//#Preview("Valid") {
-//    CategoryDetailScreen(
-//        viewModel: .init(selectedCategoryController: MockedSelectedCategory(.valid(passionsCount: 4)))
-//    )
-//}
-//#endif
+        }
+    }
+}
+
+#if DEBUG
+#Preview("None") {
+    CategoryDetailScreen(
+        viewModel: .init(
+            category: PassionCategory(type: .family, passions: []),
+            dataController: MockedDataController(.none)
+        )
+    )
+}
+
+#Preview("Empty") {
+    CategoryDetailScreen(
+        viewModel: .init(
+            category: PassionCategory(type: .family, passions: []),
+            dataController: MockedDataController(.empty)
+        )
+    )
+}
+
+#Preview("Valid") {
+    CategoryDetailScreen(
+        viewModel: .init(
+            category: PassionCategory(type: .family, passions: []),
+            dataController: MockedDataController(.valid)
+        )
+    )
+}
+#endif
