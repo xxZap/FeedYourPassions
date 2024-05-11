@@ -10,30 +10,22 @@ import Combine
 
 class CategoriesListViewModel: ObservableObject {
 
-    @Published var uiState: CategoriesListUIState = .loading
+    @Published var uiState: CategoriesListUIState = .init(categories: nil, maxValue: 0)
 
     private var cancellables = Set<AnyCancellable>()
-    private let passionsController: PassionsController
+    private let dataController: DataController
 
-    init(passionsController: PassionsController) {
-        self.passionsController = passionsController
+    init(dataController: DataController) {
+        self.dataController = dataController
 
-        passionsController.categories
+        dataController.passionCategories
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] categories in
-                _ = categories
-                    .asyncMap { 
-                        self?.uiState = .success(.init(
-                            categories: $0.sorted(by: { $0.currentValue > $1.currentValue }),
-                            maxValue: $0.map { $0.currentValue }.max() ?? 0
-                        ))
-                    }
+                self?.uiState = .init(
+                    categories: categories?.sorted(by: { $0.currentValue > $1.currentValue }),
+                    maxValue: categories?.map { $0.currentValue }.max() ?? 0
+                )
             }
             .store(in: &cancellables)
-
-        passionsController.fetchCategories()
-    }
-
-    func setSelectedCategory(_ categoryID: OPassionCategoryID?) {
-        passionsController.setSelectedCategory(categoryID)
     }
 }

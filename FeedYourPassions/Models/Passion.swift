@@ -6,16 +6,17 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-class OPassionRecord: Equatable, Hashable {
+class PassionRecord: Equatable, Hashable, Codable {
 
-    let date: Date
+    let date: Timestamp
 
     init(date: Date) {
-        self.date = date
+        self.date = Timestamp(date: date)
     }
 
-    static func == (lhs: OPassionRecord, rhs: OPassionRecord) -> Bool {
+    static func == (lhs: PassionRecord, rhs: PassionRecord) -> Bool {
         lhs.date == rhs.date
     }
 
@@ -24,34 +25,26 @@ class OPassionRecord: Equatable, Hashable {
     }
 }
 
-typealias OPassionID = UUID
-
-class OPassion: Equatable, Hashable {
-    let id: OPassionID
+class Passion: Equatable, Hashable, Codable {
     var name: String
     var associatedURL: String?
-    var records: [OPassionRecord]
+    var records: [PassionRecord]
 
-    init(name: String, associatedURL: String? = nil, records: [OPassionRecord]) {
-        self.id = OPassionID()
+    init(name: String, associatedURL: String? = nil, records: [PassionRecord]) {
         self.name = name
         self.associatedURL = associatedURL
         self.records = records
     }
 
-    static func == (lhs: OPassion, rhs: OPassion) -> Bool {
-        lhs.id == rhs.id
-        && lhs.name == rhs.name
+    static func == (lhs: Passion, rhs: Passion) -> Bool {
+        lhs.name == rhs.name
         && lhs.associatedURL == rhs.associatedURL
-        && lhs.records.count == rhs.records.count
         && lhs.records == rhs.records
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
         hasher.combine(name)
         hasher.combine(associatedURL)
-        hasher.combine(records.count)
         hasher.combine(records)
     }
 }

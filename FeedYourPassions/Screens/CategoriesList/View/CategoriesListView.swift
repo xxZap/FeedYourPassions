@@ -14,53 +14,23 @@ struct CategoriesListView: View {
     var uiState: CategoriesListUIState
     var calls: CategoriesListCalls
 
-    @State private var selectedCategoryID: OPassionCategoryID?
+    @State private var selectedCategoryType: PassionCategoryType?
 
     var body: some View {
         Group {
-            switch uiState {
-            case .loading:
+            if let categories = uiState.categories {
+                if categories.isEmpty {
+                    emptyView
+                } else {
+                    categoryList(categories, maxValue: uiState.maxValue)
+                }
+            } else {
                 loadingView
-            case .failure(let error):
-                errorView(error)
-            case .success(let content):
-                categoryList(content)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
-        .animation(.smooth, value: uiState == .loading)
-    }
-
-    private func categoryList(_ content: CategoriesListUIContent) -> some View {
-        List {
-            ForEach(content.categories.indices, id: \.self) { index in
-                let category = content.categories[index]
-                Button {
-                    calls.onCategoryTap(category)
-                    selectedCategoryID = category.id
-                } label: {
-                    CategoryView(
-                        category: category,
-                        maxValue: content.maxValue,
-                        color: Color.mGetPaletteColor(.red, forListIndex: index)
-                    )
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(itemColor(for: category.id))
-                }
-                .buttonStyle(MPressable())
-                .navigationDestination(isPresented: bindingForScreen(category.id)) {
-                    CategoryDetailScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
-                }
-            }
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
-        }
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .tint(Color.mBackgroundDark)
+        .animation(.smooth, value: uiState.categories)
     }
 
     private var loadingView: some View {
@@ -71,38 +41,64 @@ struct CategoriesListView: View {
         }
     }
 
-    private func errorView(_ error: Error) -> some View {
+    private var emptyView: some View {
         VStack {
             Spacer()
-            Text(error.localizedDescription)
+            Text("Empty")
             Spacer()
         }
+    }
+
+    private func categoryList(_ categories: [PassionCategory], maxValue: Int) -> some View {
+        List {
+            ForEach(Array(categories.enumerated()), id: \.element) { index, category in
+                Button {
+//                    calls.onCategoryTap(category)
+//                    selectedCategoryID = category.id
+                } label: {
+                    CategoryView(
+                        category: category,
+                        maxValue: maxValue,
+                        color: Color.mGetPaletteColor(.red, forListIndex: index)
+                    )
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+//                    .background(selectedCategoryID == categoryID ? Color.mBackgroundDark : Color.clear)
+                }
+                .buttonStyle(MPressable())
+//                .navigationDestination(isPresented: bindingForScreen(category.id)) {
+//                    CategoryDetailScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
+//                }
+            }
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .tint(Color.mBackgroundDark)
     }
 }
 
 private extension CategoriesListView {
-    func bindingForScreen(_ categoryID: OPassionCategoryID) -> Binding<Bool> {
+    func bindingForScreen(_ categoryType: PassionCategoryType) -> Binding<Bool> {
         Binding(
-            get: { selectedCategoryID == categoryID },
+            get: { selectedCategoryType == categoryType },
             set: { value in
                 if value {
-                    selectedCategoryID = categoryID
-                } else if selectedCategoryID == categoryID {
-                    selectedCategoryID = nil
+                    selectedCategoryType = categoryType
+                } else if selectedCategoryType == categoryType {
+                    selectedCategoryType = nil
                 }
             }
         )
-    }
-
-    private func itemColor(for categoryID: OPassionCategoryID) -> Color {
-        selectedCategoryID == categoryID ? Color.mBackgroundDark : Color.clear
     }
 }
 
 #if DEBUG
 #Preview("\(CategoriesListView.self)") {
     CategoriesListView(
-        uiState: .success(.init(categories: mockedCategories, maxValue: 20)),
+        uiState: .init(categories: mockedCategories, maxValue: 20),
         calls: .init(
             onCategoryTap: { _ in }
         )

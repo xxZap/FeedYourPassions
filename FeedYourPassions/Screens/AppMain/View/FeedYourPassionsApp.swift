@@ -9,11 +9,20 @@ import SwiftUI
 import Combine
 import Factory
 import Meteor
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
 
 @main
 struct FeedYourPassionsApp: App {
 
     @StateObject var alerter: Alerter = Alerter()
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     init() {
         UINavigationBar.navigationBarColors(
@@ -32,7 +41,7 @@ struct FeedYourPassionsApp: App {
                         alerter.alert ?? Alert(title: Text(""))
                     }
 
-                CategoriesListScreen(viewModel: .init(passionsController: Container.shared.passionsController()))
+                CategoriesListScreen(viewModel: .init(dataController: Container.shared.dataController()))
             }
             .environment(\.alerterKey, alerter)
         }

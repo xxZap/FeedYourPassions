@@ -7,13 +7,11 @@
 
 import Foundation
 
-typealias CategoriesListUIState = AsyncResource<CategoriesListUIContent>
-
-struct CategoriesListUIContent {
-    let categories: [OPassionCategory]
+struct CategoriesListUIState {
+    let categories: [PassionCategory]?
     let maxValue: Int
 }
 
 struct CategoriesListCalls {
-    var onCategoryTap: (OPassionCategory) -> Void
+    var onCategoryTap: (PassionCategory) -> Void
 }

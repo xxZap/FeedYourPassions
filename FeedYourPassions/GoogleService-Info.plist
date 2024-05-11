@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyChxePJ8YEqcLQYpP25KTwmStgY6FC9Et4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>608821014200</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.boer.zap.FeedYourPassions</string>
+	<key>PROJECT_ID</key>
+	<string>feedyourpassions-60846</string>
+	<key>STORAGE_BUCKET</key>
+	<string>feedyourpassions-60846.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:608821014200:ios:7ae9777e0248c7999e0e4d</string>
+</dict>
+</plist>

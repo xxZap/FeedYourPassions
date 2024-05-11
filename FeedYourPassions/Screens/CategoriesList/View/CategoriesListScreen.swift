@@ -20,7 +20,8 @@ struct CategoriesListScreen: View {
                     uiState: viewModel.uiState,
                     calls: .init(
                         onCategoryTap: { category in
-                            viewModel.setSelectedCategory(category.id)
+                            // TODO: on tap missing implementation
+//                            viewModel.setSelectedCategory(category.id)
                         }
                     )
                 )

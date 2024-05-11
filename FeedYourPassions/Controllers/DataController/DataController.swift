@@ -5,8 +5,8 @@
 //  Created by Alessio Boerio on 21/04/24.
 //
 
-import CoreData
+import Combine
 
 protocol DataController {
-    var container: NSPersistentContainer { get }
+    var passionCategories: AnyPublisher<[PassionCategory]?, Never> { get }
 }

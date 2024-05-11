@@ -9,13 +9,42 @@ import SwiftUI
 import Meteor
 
 struct CategoryView: View {
-    let category: OPassionCategory
+    let category: PassionCategory
     let maxValue: Int
     let color: Color
 
+    private var name: String {
+        switch category.type {
+        case .music:
+            "🎵 Music"
+        case .food:
+            "🍴 Food"
+        case .sport:
+            "🏅 Sport"
+        case .health:
+            "❤️ Health"
+        case .reading:
+            "📖 Reading"
+        case .tv:
+            "📺 TV"
+        case .theater:
+            "🎭 Theater"
+        case .friends:
+            "😆 Friends"
+        case .family:
+            "🏡 Family"
+        case .personal:
+            "🛠️ Personal projects"
+        case .videogames:
+            "🎮 Videogames"
+        case .travel:
+            "✈️ Travel"
+        }
+    }
+
     var body: some View {
         VStack(spacing: 8) {
-            Text(category.name)
+            Text(name)
                 .font(.body.weight(.semibold))
                 .foregroundStyle(Color.mLightText)
                 .multilineTextAlignment(.leading)
@@ -31,13 +60,13 @@ struct CategoryView: View {
     VStack {
         Spacer()
         CategoryView(
-            category: OPassionCategory(
-                name: "Group",
+            category: PassionCategory(
+                type: .family,
                 passions: [
-                    OPassion(
+                    Passion(
                         name: "Spotify",
                         associatedURL: "https://open.spotify.com",
-                        records: (0..<7).map { _ in OPassionRecord(date: Date()) }
+                        records: (0..<7).map { _ in PassionRecord(date: Date()) }
                     )
                 ]
             ),
