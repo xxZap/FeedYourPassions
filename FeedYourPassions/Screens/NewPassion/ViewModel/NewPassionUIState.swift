@@ -7,13 +7,16 @@
 
 import Foundation
 
-//struct NewPassionUIState {
-//    var title: String
-//    var associatedURL: String?
-//}
-//
-//struct NewPassionCalls {
-//    var onEditTitle: ((String) -> Void)
-//    var onSave: (() -> Void)
-//    var onCancel: (() -> Void)
-//}
+struct NewPassionUIState {
+    var title: String
+    var associatedURL: String
+    var category: PassionCategory
+    var canBeSaved: Bool
+}
+
+struct NewPassionCalls {
+    var onEditTitle: ((String) -> Void)
+    var onEditAssociatedURL: ((String) -> Void)
+    var onSave: (() -> Void)
+    var onCancel: (() -> Void)
+}

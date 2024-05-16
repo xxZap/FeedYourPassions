@@ -19,32 +19,65 @@ class PassionCategory: Equatable, Hashable, Codable {
         passions.map { $0.records.count }.max() ?? 0
     }
 
+    var extendedName: String {
+        "\(emoji) \(name)"
+    }
+
+    var emoji: String {
+        switch type {
+        case .music:
+            "🎵"
+        case .food:
+            "🍴"
+        case .sport:
+            "🏅"
+        case .health:
+            "❤️"
+        case .reading:
+            "📖"
+        case .tv:
+            "📺"
+        case .theater:
+            "🎭"
+        case .friends:
+            "😆"
+        case .family:
+            "🏡"
+        case .personal:
+            "🛠️"
+        case .videogames:
+            "🎮"
+        case .travel:
+            "✈️"
+        }
+    }
+
     var name: String {
         switch type {
         case .music:
-            "🎵 Music"
+            "Music"
         case .food:
-            "🍴 Food"
+            "Food"
         case .sport:
-            "🏅 Sport"
+            "Sport"
         case .health:
-            "❤️ Health"
+            "Health"
         case .reading:
-            "📖 Reading"
+            "Reading"
         case .tv:
-            "📺 TV"
+            "TV"
         case .theater:
-            "🎭 Theater"
+            "Theater"
         case .friends:
-            "😆 Friends"
+            "Friends"
         case .family:
-            "🏡 Family"
+            "Family"
         case .personal:
-            "🛠️ Personal projects"
+            "Personal projects"
         case .videogames:
-            "🎮 Videogames"
+            "Videogames"
         case .travel:
-            "✈️ Travel"
+            "Travel"
         }
     }
 

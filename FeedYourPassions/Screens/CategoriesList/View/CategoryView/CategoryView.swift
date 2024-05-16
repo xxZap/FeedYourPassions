@@ -15,7 +15,7 @@ struct CategoryView: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            Text(category.name)
+            Text(category.extendedName)
                 .font(.body.weight(.semibold))
                 .foregroundStyle(Color.mLightText)
                 .multilineTextAlignment(.leading)

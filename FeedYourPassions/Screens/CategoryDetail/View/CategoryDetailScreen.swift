@@ -28,7 +28,12 @@ struct CategoryDetailScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(viewModel.uiState.category?.name ?? "")
         .sheet(isPresented: $addNewPassion) {
-//            NewPassionScreen(viewModel: .init(selectedCategoryController: Container.shared.selectedCategoryController()))
+            NewPassionScreen(
+                viewModel: .init(
+                    currentCategory: viewModel.category,
+                    dataController: Container.shared.dataController()
+                )
+            )
         }
     }
 }

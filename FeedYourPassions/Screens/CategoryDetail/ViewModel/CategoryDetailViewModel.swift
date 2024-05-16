@@ -11,7 +11,7 @@ import Combine
 class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState
 
-    private var category: PassionCategory
+    private(set) var category: PassionCategory
     private let dataController: DataController
     private var cancellables = Set<AnyCancellable>()
 

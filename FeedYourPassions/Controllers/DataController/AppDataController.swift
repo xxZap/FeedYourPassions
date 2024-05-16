@@ -81,6 +81,12 @@ class AppDataController: DataController {
             .store(in: &cancellables)
     }
 
+    func addNewPassion(_ passion: Passion, to category: PassionCategory) {
+
+    }
+}
+
+extension AppDataController {
     private func createDefaultData(for user: UserDetail) async throws {
         do {
             try db.collection("users").document(user.id).setData(from: user)
@@ -144,6 +150,10 @@ class MockedDataController: DataController {
         case .valid:
             _passionCategories = CurrentValueSubject(mockedCategories)
         }
+    }
+
+    func addNewPassion(_ passion: Passion, to category: PassionCategory) {
+        
     }
 }
 #endif

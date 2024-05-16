@@ -53,7 +53,7 @@ extension UINavigationBar {
         background: UIColor?,
         titleColor: UIColor? = nil,
         tintColor: UIColor? = nil
-    ){
+    ) {
         let navigationAppearance = UINavigationBarAppearance()
         navigationAppearance.configureWithOpaqueBackground()
         navigationAppearance.backgroundColor = background ?? .clear

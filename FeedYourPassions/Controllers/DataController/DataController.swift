@@ -9,4 +9,6 @@ import Combine
 
 protocol DataController {
     var passionCategories: AnyPublisher<[PassionCategory]?, Never> { get }
+
+    func addNewPassion(_ passion: Passion, to category: PassionCategory)
 }
