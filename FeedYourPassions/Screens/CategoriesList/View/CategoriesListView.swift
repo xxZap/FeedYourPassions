@@ -70,7 +70,7 @@ struct CategoriesListView: View {
                     if selectedCategoryType == category.type {
                         CategoryDetailScreen(viewModel: .init(
                             category: category,
-                            dataController: Container.shared.dataController()
+                            categoriesController: Container.shared.categoriesController()
                         ))
                     }
                 }

@@ -28,15 +28,15 @@ class NewPassionViewModel: ObservableObject {
     }
 
     private let currentCategory: PassionCategory
-    private let dataController: DataController
+    private let categoriesController: CategoriesController
     private var cancellables = Set<AnyCancellable>()
 
     init(
         currentCategory: PassionCategory,
-        dataController: DataController
+        categoriesController: CategoriesController
     ) {
         self.currentCategory = currentCategory
-        self.dataController = dataController
+        self.categoriesController = categoriesController
         self.uiStatePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] uiState in
@@ -60,9 +60,10 @@ class NewPassionViewModel: ObservableObject {
             records: []
         )
 
-        dataController.addNewPassion(
-            newPassion,
-            to: currentCategory
-        )
+        // TODO: add new passion
+//        categoriesController.addNewPassion(
+//            newPassion,
+//            to: currentCategory
+//        )
     }
 }

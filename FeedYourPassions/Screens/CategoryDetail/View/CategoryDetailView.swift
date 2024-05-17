@@ -96,7 +96,10 @@ struct CategoryDetailView: View {
     CategoryDetailView(
         uiState: .init(category: PassionCategory(
             type: .family,
-            passions: []
+            passions: [
+                Passion(name: "Spotify", records: []),
+                Passion(name: "Radio", records: [])
+            ]
         )),
         calls: .init(
             onCreatePassionTap: { }

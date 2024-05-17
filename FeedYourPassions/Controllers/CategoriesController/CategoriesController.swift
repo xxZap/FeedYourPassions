@@ -1,5 +1,5 @@
 //
-//  DataController.swift
+//  CategoriesController.swift
 //  FeedYourPassions
 //
 //  Created by Alessio Boerio on 21/04/24.
@@ -7,8 +7,8 @@
 
 import Combine
 
-protocol DataController {
+protocol CategoriesController {
     var passionCategories: AnyPublisher<[PassionCategory]?, Never> { get }
 
-    func addNewPassion(_ passion: Passion, to category: PassionCategory)
+//    func addNewPassion(_ passion: Passion, to category: PassionCategory)
 }

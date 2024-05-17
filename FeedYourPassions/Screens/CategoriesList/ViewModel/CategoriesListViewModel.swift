@@ -13,12 +13,12 @@ class CategoriesListViewModel: ObservableObject {
     @Published var uiState: CategoriesListUIState = .init(categories: nil, maxValue: 0)
 
     private var cancellables = Set<AnyCancellable>()
-    private let dataController: DataController
+    private let categoriesController: CategoriesController
 
-    init(dataController: DataController) {
-        self.dataController = dataController
+    init(categoriesController: CategoriesController) {
+        self.categoriesController = categoriesController
 
-        dataController.passionCategories
+        categoriesController.passionCategories
             .receive(on: DispatchQueue.main)
             .sink { [weak self] categories in
                 self?.uiState = .init(

@@ -8,10 +8,9 @@
 import Foundation
 import Combine
 
-//protocol SelectedCategoryController {
-//    var selectedCategory: AnyPublisher<AsyncResource<PassionCategory>?, Never> { get }
-//    var maxValue: Int { get }
-//
-//    func addNewPassion(_ passion: Passion)
-//    func addNewRecord(_ record: PassionRecord, to passionID: PassionID)
-//}
+protocol SelectedCategoryController {
+    var selectedCategory: AnyPublisher<PassionCategory?, Never> { get }
+    var maxValue: Int { get }
+
+    func addNewPassion(_ passion: Passion)
+}

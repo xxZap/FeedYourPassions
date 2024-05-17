@@ -12,15 +12,15 @@ class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState
 
     private(set) var category: PassionCategory
-    private let dataController: DataController
+    private let categoriesController: CategoriesController
     private var cancellables = Set<AnyCancellable>()
 
-    init(category: PassionCategory, dataController: DataController) {
+    init(category: PassionCategory, categoriesController: CategoriesController) {
         self.category = category
-        self.dataController = dataController
+        self.categoriesController = categoriesController
         self.uiState = .init(category: category)
 
-        dataController.passionCategories
+        categoriesController.passionCategories
             .receive(on: DispatchQueue.main )
             .sink { [weak self] categories in
                 guard

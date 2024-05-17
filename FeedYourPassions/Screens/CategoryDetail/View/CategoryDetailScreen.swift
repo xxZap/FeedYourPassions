@@ -31,7 +31,7 @@ struct CategoryDetailScreen: View {
             NewPassionScreen(
                 viewModel: .init(
                     currentCategory: viewModel.category,
-                    dataController: Container.shared.dataController()
+                    categoriesController: Container.shared.categoriesController()
                 )
             )
         }
@@ -43,7 +43,7 @@ struct CategoryDetailScreen: View {
     CategoryDetailScreen(
         viewModel: .init(
             category: PassionCategory(type: .family, passions: []),
-            dataController: MockedDataController(.none)
+            categoriesController: MockedCategoriesController(.none)
         )
     )
 }
@@ -52,7 +52,7 @@ struct CategoryDetailScreen: View {
     CategoryDetailScreen(
         viewModel: .init(
             category: PassionCategory(type: .family, passions: []),
-            dataController: MockedDataController(.empty)
+            categoriesController: MockedCategoriesController(.empty)
         )
     )
 }
@@ -61,7 +61,7 @@ struct CategoryDetailScreen: View {
     CategoryDetailScreen(
         viewModel: .init(
             category: PassionCategory(type: .family, passions: []),
-            dataController: MockedDataController(.valid)
+            categoriesController: MockedCategoriesController(.valid)
         )
     )
 }

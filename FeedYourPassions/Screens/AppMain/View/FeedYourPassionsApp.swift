@@ -18,9 +18,31 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+class RootViewModel: ObservableObject {
+
+    @Published var user: UserDetail? = nil
+
+    private let sessionController: SessionController
+    private var cancellables = Set<AnyCancellable>()
+
+    init(sessionController: SessionController) {
+        self.sessionController = sessionController
+
+        sessionController.loggedUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.user = user
+            }
+            .store(in: &cancellables)
+
+        sessionController.authenticateAnonymously()
+    }
+}
+
 @main
 struct FeedYourPassionsApp: App {
 
+    @StateObject var viewModel = RootViewModel(sessionController: Container.shared.sessionController())
     @StateObject var alerter: Alerter = Alerter()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
@@ -41,7 +63,11 @@ struct FeedYourPassionsApp: App {
                         alerter.alert ?? Alert(title: Text(""))
                     }
 
-                CategoriesListScreen(viewModel: .init(dataController: Container.shared.dataController()))
+                if let user = viewModel.user {
+                    CategoriesListScreen(viewModel: .init(categoriesController: Container.shared.categoriesController()))
+                } else {
+                    MSpinner(size: .large, color: .dark)
+                }
             }
             .environment(\.alerterKey, alerter)
         }
