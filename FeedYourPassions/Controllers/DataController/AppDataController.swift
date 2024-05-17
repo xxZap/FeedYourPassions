@@ -82,7 +82,17 @@ class AppDataController: DataController {
     }
 
     func addNewPassion(_ passion: Passion, to category: PassionCategory) {
+        guard let user = self._user.value else { return }
+        do {
+            try db
+                .collection("users").document(user.uid)
+                .collection("passionCategories").document(category.id ?? "")
+                .collection("passions").addDocument(from: passion)
 
+            print("✅ New passion \"\(passion.name)\" added to category \"\(category.name)\" [\(category.id ?? "")]")
+        } catch {
+            print("❌ Failed to add passion \"\(passion.name)\" to category \"\(category.name)\" [\(category.id ?? "")]: \(error)")
+        }
     }
 }
 
@@ -121,11 +131,16 @@ extension AppDataController {
                     return
                 }
 
-                let categories = snapshot?.documents.compactMap{ try? $0.data(as: PassionCategory.self) }
+                let categories: [PassionCategory] = snapshot?.documents
+                    .compactMap{ ($0.documentID, try? $0.data(as: PassionCategory.self)) }
+                    .compactMap{ id, category in
+                        category?.id = id
+                        return category
+                    } ?? []
 
                 self?._passionCategories.send(categories)
 
-                print("✅ Got categories: \(categories ?? [])")
+                print("✅ Got categories: \(categories.map { "\n\t- \($0.name)(\($0.currentValue))" }.joined())")
             }
     }
 }

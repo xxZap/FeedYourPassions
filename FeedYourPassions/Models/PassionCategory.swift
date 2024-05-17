@@ -10,6 +10,7 @@ import Foundation
 class PassionCategory: Equatable, Hashable, Codable {
     let type: PassionCategoryType
     var passions: [Passion]
+    var id: String?
 
     var currentValue: Int {
         passions.isEmpty ? 0 : passions.map { $0.records.count }.reduce(0, +)
@@ -88,11 +89,13 @@ class PassionCategory: Equatable, Hashable, Codable {
 
     static func == (lhs: PassionCategory, rhs: PassionCategory) -> Bool {
         lhs.type == rhs.type
+        && lhs.id == rhs.id
         && lhs.passions == rhs.passions
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(type)
+        hasher.combine(id)
         hasher.combine(passions)
     }
 }
@@ -100,7 +103,6 @@ class PassionCategory: Equatable, Hashable, Codable {
 let mockedCategories: [PassionCategory] = [
     PassionCategory(
         type: .music,
-//        name: "🎵 Music",
         passions: [
             Passion(
                 name: "Spotify",
@@ -116,7 +118,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .food,
-//        name: "🍴 Food",
         passions: [
             Passion(
                 name: "Sushi",
@@ -132,7 +133,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .sport,
-//        name: "🏅 Sport",
         passions: [
             Passion(
                 name: "Gym",
@@ -158,7 +158,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .health,
-//        name: "❤️ Health",
         passions: [
             Passion(
                 name: "Dentist",
@@ -179,7 +178,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .reading,
-//        name: "📖 Reading",
         passions: [
             Passion(
                 name: "Manga",
@@ -195,7 +193,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .tv,
-//        name: "📺 TV",
         passions: [
             Passion(
                 name: "Anime",
@@ -226,7 +223,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .theater,
-//        name: "🎭 Theater",
         passions: [
             Passion(
                 name: "Opera",
@@ -242,7 +238,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .friends,
-//        name: "😆 Friends",
         passions: [
             Passion(
                 name: "Friends events",
@@ -253,7 +248,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .family,
-//        name: "🏡 Family",
         passions: [
             Passion(
                 name: "Family events",
@@ -264,7 +258,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .videogames,
-//        name: "🎮 Videogames",
         passions: [
             Passion(
                 name: "League of Legends",
@@ -285,7 +278,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .personal,
-//        name: "🛠️ Personal projects",
         passions: [
             Passion(
                 name: "App",
@@ -296,7 +288,6 @@ let mockedCategories: [PassionCategory] = [
     ),
     PassionCategory(
         type: .travel,
-//        name: "✈️ Travel",
         passions: [
             Passion(
                 name: "Africa",
