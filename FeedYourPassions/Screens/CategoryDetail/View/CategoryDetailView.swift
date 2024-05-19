@@ -101,7 +101,7 @@ struct CategoryDetailView: View {
                 Passion(
                     name: "Very long Passion name that can extend on a lot of multiple lines",
                     associatedURL: "some",
-                    recordsCount: 2,
+                    recordsCount: 222,
                     latestUpdate: Timestamp(date: Date(timeIntervalSince1970: 1716041900))
                 ),
                 Passion(

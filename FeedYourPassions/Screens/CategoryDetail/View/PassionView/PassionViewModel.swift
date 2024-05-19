@@ -27,6 +27,7 @@ class PassionViewModel: ObservableObject {
 
     var passion: Passion
     var latestUpdateString: String
+    var color: Color?   // TODO: customize color
     var associatedURL: URL? { if let string = passion.associatedURL { URL(string: string) } else { nil } }
     @Published var alertContainer: AlertContainer?
 

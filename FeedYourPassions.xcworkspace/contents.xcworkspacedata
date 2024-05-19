@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../Meteor">
+      location = "group:../MeteorDesignSystem">
    </FileRef>
    <FileRef
       location = "container:FeedYourPassions.xcodeproj">
