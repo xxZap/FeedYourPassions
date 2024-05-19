@@ -11,27 +11,25 @@ import Combine
 class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState
 
-    private(set) var category: PassionCategory
+    private(set) var category: PassionCategory?
     private let categoriesController: CategoriesController
+    private let categoryDetailController: CategoryDetailController
     private var cancellables = Set<AnyCancellable>()
 
-    init(category: PassionCategory, categoriesController: CategoriesController) {
+    init(
+        category: PassionCategory,
+        categoriesController: CategoriesController,
+        categoryDetailController: CategoryDetailController
+    ) {
         self.category = category
         self.categoriesController = categoriesController
-        self.uiState = .init(category: category)
+        self.categoryDetailController = categoryDetailController
+        self.uiState = .init(category: category, passions: nil)
 
-        categoriesController.passionCategories
-            .receive(on: DispatchQueue.main )
-            .sink { [weak self] categories in
-                guard
-                    let self = self,
-                    let updatedCategory = categories?.first(where: { $0.type == self.category.type })
-                else {
-                    return
-                }
-
-                self.category = updatedCategory
-                self.uiState = .init(category: updatedCategory)
+        categoryDetailController.passions
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] passions in
+                self?.uiState = .init(category: self?.category, passions: passions)
             }
             .store(in: &cancellables)
     }

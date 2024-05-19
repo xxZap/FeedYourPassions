@@ -10,7 +10,7 @@ import Combine
 
 class NewPassionViewModel: ObservableObject {
 
-    @Published var uiState: NewPassionUIState = NewPassionUIState(title: "", associatedURL: "", category: .init(type: .health, passions: []), canBeSaved: false)
+    @Published var uiState: NewPassionUIState = NewPassionUIState(title: "", associatedURL: "", category: .init(type: .health), canBeSaved: false)
 
     private var title = CurrentValueSubject<String, Never>("")
     private var associatedURL = CurrentValueSubject<String, Never>("")
@@ -20,7 +20,7 @@ class NewPassionViewModel: ObservableObject {
                 NewPassionUIState(
                     title: title,
                     associatedURL: associatedURL,
-                    category: self?.currentCategory ?? .init(type: .family, passions: []),
+                    category: self?.currentCategory ?? .init(type: .family),
                     canBeSaved: !title.isEmpty
                 )
             }

@@ -90,7 +90,7 @@ struct NewPassionView: View {
         uiState: .init(
             title: "",
             associatedURL: "",
-            category: .init(type: .food, passions: []),
+            category: .init(type: .food),
             canBeSaved: true
         ),
         calls: .init(

@@ -16,13 +16,13 @@ struct CategoryDetailView: View {
 
     var body: some View {
         Group {
-            if let category = uiState.category {
+            if let passions = uiState.passions {
                 ZStack(alignment: .bottomTrailing) {
                     Group {
-                        if category.passions.isEmpty {
+                        if passions.isEmpty {
                             emptyView
                         } else {
-                            passionsList(category.passions)
+                            passionsList(passions)
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -94,13 +94,7 @@ struct CategoryDetailView: View {
 #if DEBUG
 #Preview {
     CategoryDetailView(
-        uiState: .init(category: PassionCategory(
-            type: .family,
-            passions: [
-                Passion(name: "Spotify", records: []),
-                Passion(name: "Radio", records: [])
-            ]
-        )),
+        uiState: .init(category: PassionCategory(type: .family)),
         calls: .init(
             onCreatePassionTap: { }
 //            onAddRecord: { _ in }

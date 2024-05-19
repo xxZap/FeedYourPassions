@@ -28,4 +28,8 @@ class CategoriesListViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    func setSelectedCategory(_ category: PassionCategory?) {
+        categoriesController.selectCategory(category)
+    }
 }

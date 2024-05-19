@@ -28,12 +28,14 @@ struct CategoryDetailScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(viewModel.uiState.category?.name ?? "")
         .sheet(isPresented: $addNewPassion) {
-            NewPassionScreen(
-                viewModel: .init(
-                    currentCategory: viewModel.category,
-                    categoriesController: Container.shared.categoriesController()
+            if let category = viewModel.uiState.category {
+                NewPassionScreen(
+                    viewModel: .init(
+                        currentCategory: category,
+                        categoriesController: Container.shared.categoriesController()
+                    )
                 )
-            )
+            }
         }
     }
 }
@@ -42,8 +44,9 @@ struct CategoryDetailScreen: View {
 #Preview("None") {
     CategoryDetailScreen(
         viewModel: .init(
-            category: PassionCategory(type: .family, passions: []),
-            categoriesController: MockedCategoriesController(.none)
+            category: PassionCategory(type: .family),
+            categoriesController: MockedCategoriesController(.none), 
+            categoryDetailController: MockedCategoryDetailController(.valid(count: 2))
         )
     )
 }
@@ -51,8 +54,9 @@ struct CategoryDetailScreen: View {
 #Preview("Empty") {
     CategoryDetailScreen(
         viewModel: .init(
-            category: PassionCategory(type: .family, passions: []),
-            categoriesController: MockedCategoriesController(.empty)
+            category: PassionCategory(type: .family),
+            categoriesController: MockedCategoriesController(.empty),
+            categoryDetailController: MockedCategoryDetailController(.valid(count: 2))
         )
     )
 }
@@ -60,8 +64,9 @@ struct CategoryDetailScreen: View {
 #Preview("Valid") {
     CategoryDetailScreen(
         viewModel: .init(
-            category: PassionCategory(type: .family, passions: []),
-            categoriesController: MockedCategoriesController(.valid)
+            category: PassionCategory(type: .family),
+            categoriesController: MockedCategoriesController(.valid),
+            categoryDetailController: MockedCategoryDetailController(.valid(count: 2))
         )
     )
 }

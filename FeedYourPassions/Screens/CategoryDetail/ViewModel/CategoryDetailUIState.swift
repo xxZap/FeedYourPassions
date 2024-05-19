@@ -9,6 +9,7 @@ import Foundation
 
 struct CategoryDetailUIState {
     var category: PassionCategory?
+    var passions: [Passion]?
 }
 
 //typealias CategoryDetailOnAddRecordResult = (record: PassionRecord, passionID: PassionID)

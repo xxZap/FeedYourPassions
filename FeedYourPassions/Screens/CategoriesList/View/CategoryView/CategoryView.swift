@@ -31,16 +31,7 @@ struct CategoryView: View {
     VStack {
         Spacer()
         CategoryView(
-            category: PassionCategory(
-                type: .family,
-                passions: [
-                    Passion(
-                        name: "Spotify",
-                        associatedURL: "https://open.spotify.com",
-                        records: (0..<7).map { _ in PassionRecord(date: Date()) }
-                    )
-                ]
-            ),
+            category: PassionCategory(type: .family),
             maxValue: 10,
             color: Color.mGetPaletteColor(.red, forListIndex: 1)
         )

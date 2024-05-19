@@ -7,8 +7,13 @@
 
 import Factory
 import Combine
-import FirebaseAuth
 import FirebaseFirestore
+
+enum DBCollectionKey: String {
+    case users
+    case passionCategories
+    case passions
+}
 
 extension Container {
     var categoriesController: Factory<CategoriesController> {
@@ -20,9 +25,14 @@ extension Container {
 
 class AppCategoriesController: CategoriesController {
 
-    private var _passionCategories: CurrentValueSubject<[PassionCategory]?, Never>
+    private var _passionCategories = CurrentValueSubject<[PassionCategory]?, Never>(nil)
     var passionCategories: AnyPublisher<[PassionCategory]?, Never> {
         _passionCategories.eraseToAnyPublisher()
+    }
+
+    private var _selectedCategory = CurrentValueSubject<PassionCategory?, Never>(nil)
+    var selectedCategory: AnyPublisher<PassionCategory?, Never> {
+        _selectedCategory.eraseToAnyPublisher()
     }
 
     private let db: Firestore
@@ -33,7 +43,6 @@ class AppCategoriesController: CategoriesController {
         self.sessionController = sessionController
 
         self.db = Firestore.firestore()
-        self._passionCategories = CurrentValueSubject(nil)
 
         self.sessionController.loggedUser
             .sink { [weak self] user in
@@ -43,20 +52,22 @@ class AppCategoriesController: CategoriesController {
                     guard let self = self else { return }
 
                     do {
-                        let userRef = self.db.collection("users").document(user.id)
-                        let userDoc = try await userRef.getDocument()
-                        if userDoc.exists {
-                            print("✅ User \"\(user.id)\" document already exists")
+                        let categoriesRef = self.db
+                            .collection(DBCollectionKey.users.rawValue).document(user.id)
+                            .collection(DBCollectionKey.passionCategories.rawValue)
+                        let categoriesDoc = try await categoriesRef.getDocuments()
+                        if !categoriesDoc.isEmpty {
+                            print("✅ Categories already exist")
                             // load data here ...
                         } else {
-                            print("❌ User \"\(user.id)\" document does not exist")
-                            print("➡️ Going to create default passion categories structure...")
-                            try await createDefaultData(for: user)
+                            print("❌ User \"\(user.id)\" has no categories")
+                            print("➡️ Going to create default passion categories...")
+                            try await createDefaultCategories(for: user)
                         }
                     } catch {
-                        print("❌ User \"\(user.id)\" document not found")
-                        print("➡️ Going to create default passion categories structure...")
-                        try await createDefaultData(for: user)
+                        print("❌ User \"\(user.id)\"'s categories document not found")
+                        print("➡️ Going to create default passion categories...")
+                        try await createDefaultCategories(for: user)
                     }
 
                     self.attachListener(to: user)
@@ -65,31 +76,20 @@ class AppCategoriesController: CategoriesController {
             .store(in: &cancellables)
     }
 
-//    func addNewPassion(_ passion: Passion, to category: PassionCategory) {
-//        guard let user = self._user.value else { return }
-//        do {
-//            try db
-//                .collection("users").document(user.uid)
-//                .collection("passionCategories").document(category.id ?? "")
-//                .collection("passions").addDocument(from: passion)
-//
-//            print("✅ New passion \"\(passion.name)\" added to category \"\(category.name)\" [\(category.id ?? "")]")
-//        } catch {
-//            print("❌ Failed to add passion \"\(passion.name)\" to category \"\(category.name)\" [\(category.id ?? "")]: \(error)")
-//        }
-//    }
+    func selectCategory(_ category: PassionCategory?) {
+        _selectedCategory.send(category)
+    }
 }
 
 extension AppCategoriesController {
-    private func createDefaultData(for user: UserDetail) async throws {
+    private func createDefaultCategories(for user: UserDetail) async throws {
         do {
             try PassionCategoryType.allCases.forEach { try addPassionCategory($0, to: user) }
-
             print("✅ Default data successfully created for user \(user.id)")
         } catch {
             print("❌ Failed to create default data for user \(user.id): \(error)")
             do {
-                try await db.collection("users").document(user.id).delete()
+                try await db.collection(DBCollectionKey.users.rawValue).document(user.id).delete()
                 print("Successfully delete row data for user \(user.id)")
             } catch {
                 print("❌ Failed to delete dirty data for user \(user.id): \(error)")
@@ -99,22 +99,27 @@ extension AppCategoriesController {
 
     private func addPassionCategory(_ type: PassionCategoryType, to user: UserDetail) throws {
         try db
-            .collection("users").document(user.id)
-            .collection("passionCategories").addDocument(from: PassionCategory(type: type, passions: []))
+            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.passionCategories.rawValue).addDocument(from: PassionCategory(type: type))
     }
 
     private func attachListener(to user: UserDetail) {
         db
-            .collection("users").document(user.id)
-            .collection("passionCategories")
+            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.passionCategories.rawValue)
             .addSnapshotListener { [weak self] snapshot, error in
                 if let error = error {
-                    print("❌ Error getting passionCategories: \(error)")
+                    print("❌ Error attaching listener to passion categories: \(error)")
                     return
                 }
 
                 let categories: [PassionCategory] = snapshot?.documents
-                    .compactMap{ ($0.documentID, try? $0.data(as: PassionCategory.self)) }
+                    .compactMap{
+                        (
+                            $0.documentID,
+                            try? $0.data(as: PassionCategory.self)
+                        )
+                    }
                     .compactMap{ id, category in
                         category?.id = id
                         return category
@@ -135,6 +140,10 @@ class MockedCategoriesController: CategoriesController {
         case valid
     }
 
+    var selectedCategory: AnyPublisher<PassionCategory?, Never> {
+        Just(nil).eraseToAnyPublisher()
+    }
+
     private let _passionCategories: CurrentValueSubject<[PassionCategory]?, Never>
     var passionCategories: AnyPublisher<[PassionCategory]?, Never> { _passionCategories.eraseToAnyPublisher() }
 
@@ -150,6 +159,10 @@ class MockedCategoriesController: CategoriesController {
     }
 
     func addNewPassion(_ passion: Passion, to category: PassionCategory) {
+        
+    }
+
+    func selectCategory(_ category: PassionCategory?) {
         
     }
 }

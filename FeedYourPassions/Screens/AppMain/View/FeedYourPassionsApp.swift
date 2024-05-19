@@ -63,14 +63,28 @@ struct FeedYourPassionsApp: App {
                         alerter.alert ?? Alert(title: Text(""))
                     }
 
-                if let user = viewModel.user {
-                    CategoriesListScreen(viewModel: .init(categoriesController: Container.shared.categoriesController()))
+                if viewModel.user == nil {
+                    emptyView
                 } else {
-                    MSpinner(size: .large, color: .dark)
+                    CategoriesListScreen(viewModel: .init(categoriesController: Container.shared.categoriesController()))
                 }
             }
             .environment(\.alerterKey, alerter)
         }
+    }
+
+    private var emptyView: some View {
+        VStack {
+            Spacer()
+            MSpinner(size: .large, color: .accent)
+            Text("Logging in...")
+                .font(.footnote)
+                .foregroundStyle(Color.mLightText)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+        .background(Color.mBackground)
     }
 }
 

@@ -17,6 +17,7 @@ struct UserDetail: Codable {
 
 protocol SessionController {
     var loggedUser: AnyPublisher<UserDetail?, Never> { get }
+    var user: UserDetail? { get }
 
     func authenticateAnonymously()
 }
