@@ -8,6 +8,12 @@
 import SwiftUI
 import Combine
 
+private var relativeDateFormatter: RelativeDateTimeFormatter = {
+    let formatter = RelativeDateTimeFormatter()
+    formatter.unitsStyle = .full
+    return formatter
+}()
+
 class PassionViewModel: ObservableObject {
 
     struct AlertContainer: Equatable {
@@ -20,6 +26,7 @@ class PassionViewModel: ObservableObject {
     }
 
     var passion: Passion
+    var latestUpdateString: String
     var associatedURL: URL? { if let string = passion.associatedURL { URL(string: string) } else { nil } }
     @Published var alertContainer: AlertContainer?
 
@@ -33,6 +40,10 @@ class PassionViewModel: ObservableObject {
     ) {
 //        self.selectedCategoryController = selectedCategoryController
         self.passion = passion
+        self.latestUpdateString = relativeDateFormatter.localizedString(
+            for: passion.latestUpdate.dateValue(),
+            relativeTo: Date.now
+        )
 //        self.onNewRecordAction = onNewRecordAction
     }
 

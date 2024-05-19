@@ -32,7 +32,7 @@ struct CategoryDetailScreen: View {
                 NewPassionScreen(
                     viewModel: .init(
                         currentCategory: category,
-                        categoriesController: Container.shared.categoriesController()
+                        categoryDetailController: Container.shared.categoryDetailController()
                     )
                 )
             }
@@ -45,8 +45,15 @@ struct CategoryDetailScreen: View {
     CategoryDetailScreen(
         viewModel: .init(
             category: PassionCategory(type: .family),
-            categoriesController: MockedCategoriesController(.none), 
-            categoryDetailController: MockedCategoryDetailController(.valid(count: 2))
+            categoriesController: MockedCategoriesController(.none),
+            categoryDetailController: MockedCategoryDetailController(
+                .valid(
+                    items: [
+                        Date(timeIntervalSince1970: 8124698),
+                        Date(timeIntervalSince1970: 9124698),
+                    ]
+                )
+            )
         )
     )
 }
@@ -56,7 +63,14 @@ struct CategoryDetailScreen: View {
         viewModel: .init(
             category: PassionCategory(type: .family),
             categoriesController: MockedCategoriesController(.empty),
-            categoryDetailController: MockedCategoryDetailController(.valid(count: 2))
+            categoryDetailController: MockedCategoryDetailController(
+                .valid(
+                    items: [
+                        Date(timeIntervalSince1970: 8124698),
+                        Date(timeIntervalSince1970: 9124698),
+                    ]
+                )
+            )
         )
     )
 }
@@ -66,7 +80,14 @@ struct CategoryDetailScreen: View {
         viewModel: .init(
             category: PassionCategory(type: .family),
             categoriesController: MockedCategoriesController(.valid),
-            categoryDetailController: MockedCategoryDetailController(.valid(count: 2))
+            categoryDetailController: MockedCategoryDetailController(
+                .valid(
+                    items: [
+                        Date(timeIntervalSince1970: 8124698),
+                        Date(timeIntervalSince1970: 9124698),
+                    ]
+                )
+            )
         )
     )
 }

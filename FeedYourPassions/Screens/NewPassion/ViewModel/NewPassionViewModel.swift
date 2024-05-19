@@ -5,8 +5,9 @@
 //  Created by Alessio Boerio on 01/05/24.
 //
 
-import Foundation
 import Combine
+import Foundation
+import FirebaseFirestore
 
 class NewPassionViewModel: ObservableObject {
 
@@ -28,15 +29,15 @@ class NewPassionViewModel: ObservableObject {
     }
 
     private let currentCategory: PassionCategory
-    private let categoriesController: CategoriesController
+    private let categoryDetailController: CategoryDetailController
     private var cancellables = Set<AnyCancellable>()
 
     init(
         currentCategory: PassionCategory,
-        categoriesController: CategoriesController
+        categoryDetailController: CategoryDetailController
     ) {
         self.currentCategory = currentCategory
-        self.categoriesController = categoriesController
+        self.categoryDetailController = categoryDetailController
         self.uiStatePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] uiState in
@@ -57,13 +58,10 @@ class NewPassionViewModel: ObservableObject {
         let newPassion = Passion(
             name: uiState.title,
             associatedURL: uiState.associatedURL,
-            records: []
+            recordsCount: 0,
+            latestUpdate: Timestamp(date: Date())
         )
 
-        // TODO: add new passion
-//        categoriesController.addNewPassion(
-//            newPassion,
-//            to: currentCategory
-//        )
+        categoryDetailController.addNewPassion(newPassion)
     }
 }

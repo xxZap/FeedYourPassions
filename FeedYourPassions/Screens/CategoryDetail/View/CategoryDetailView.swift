@@ -5,9 +5,10 @@
 //  Created by Alessio Boerio on 23/04/24.
 //
 
+import Meteor
 import SwiftUI
 import Factory
-import Meteor
+import FirebaseFirestore
 
 struct CategoryDetailView: View {
 
@@ -94,7 +95,23 @@ struct CategoryDetailView: View {
 #if DEBUG
 #Preview {
     CategoryDetailView(
-        uiState: .init(category: PassionCategory(type: .family)),
+        uiState: .init(
+            category: PassionCategory(type: .family),
+            passions: [
+                Passion(
+                    name: "Very long Passion name that can extend on a lot of multiple lines",
+                    associatedURL: "some",
+                    recordsCount: 2,
+                    latestUpdate: Timestamp(date: Date(timeIntervalSince1970: 1716041900))
+                ),
+                Passion(
+                    name: "Passion",
+                    associatedURL: nil,
+                    recordsCount: 3,
+                    latestUpdate: Timestamp(date: Date(timeIntervalSince1970: 1706041900))
+                )
+            ]
+        ),
         calls: .init(
             onCreatePassionTap: { }
 //            onAddRecord: { _ in }

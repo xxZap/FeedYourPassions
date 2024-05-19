@@ -5,9 +5,10 @@
 //  Created by Alessio Boerio on 27/04/24.
 //
 
+import Meteor
 import SwiftUI
 import Factory
-import Meteor
+import FirebaseFirestore
 
 struct PassionView: View {
 
@@ -21,8 +22,12 @@ struct PassionView: View {
         HStack(alignment: .center, spacing: 8) {
             avatarView
 
-            title
-                .padding(.leading, 8)
+            VStack(spacing: 4) {
+                title
+                subtitle
+            }
+            .frame(minHeight: 60)
+            .padding(.leading, 8)
 
             counter
         }
@@ -66,7 +71,7 @@ struct PassionView: View {
 
     private var counter: some View {
         HStack(alignment: .center, spacing: 8) {
-            Text("\(viewModel.passion.records.count)")
+            Text("\(viewModel.passion.recordsCount)")
                 .font(.body.weight(.bold))
                 .foregroundStyle(Color.mLightText)
                 .multilineTextAlignment(.trailing)
@@ -88,7 +93,17 @@ struct PassionView: View {
             .font(.body.weight(.semibold))
             .foregroundStyle(Color.mLightText)
             .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
+            .lineLimit(2)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var subtitle: some View {
+        Text(viewModel.latestUpdateString)
+            .font(.footnote)
+            .foregroundStyle(Color.mLightText)
+            .multilineTextAlignment(.leading)
+            .lineLimit(1)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -98,7 +113,12 @@ struct PassionView: View {
         Spacer()
         PassionView(
             viewModel: .init(
-                passion: .init(name: "Passion", associatedURL: "nil", records: [])
+                passion: .init(
+                    name: "Passion",
+                    associatedURL: "some",
+                    recordsCount: 0,
+                    latestUpdate: Timestamp(date: Date())
+                )
             ),
             barColor: Color.red
         )

@@ -1,5 +1,5 @@
 //
-//  OPassion.swift
+//  Passion.swift
 //  FeedYourPassions
 //
 //  Created by Alessio Boerio on 20/04/24.
@@ -28,23 +28,27 @@ class PassionRecord: Equatable, Hashable, Codable {
 class Passion: Equatable, Hashable, Codable {
     var name: String
     var associatedURL: String?
-    var records: [PassionRecord]
+    var recordsCount: Int
+    var latestUpdate: Timestamp
 
-    init(name: String, associatedURL: String? = nil, records: [PassionRecord]) {
+    init(name: String, associatedURL: String? = nil, recordsCount: Int, latestUpdate: Timestamp) {
         self.name = name
         self.associatedURL = associatedURL
-        self.records = records
+        self.recordsCount = recordsCount
+        self.latestUpdate = latestUpdate
     }
 
     static func == (lhs: Passion, rhs: Passion) -> Bool {
         lhs.name == rhs.name
         && lhs.associatedURL == rhs.associatedURL
-        && lhs.records == rhs.records
+        && lhs.recordsCount == rhs.recordsCount
+        && lhs.latestUpdate == rhs.latestUpdate
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(associatedURL)
-        hasher.combine(records)
+        hasher.combine(recordsCount)
+        hasher.combine(latestUpdate)
     }
 }

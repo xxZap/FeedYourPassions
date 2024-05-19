@@ -78,6 +78,7 @@ extension AppSessionController {
             try db.collection(DBCollectionKey.users.rawValue).document(sessionUser.uid).setData(from: user)
             print("✅ User db data succesfully created")
             self._loggedUser.send(user)
+            self.user = user
         } catch {
             print("❌ Failed to init user \(sessionUser.uid) to DB: \(error)")
             self._loggedUser.send(nil)

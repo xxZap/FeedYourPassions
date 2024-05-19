@@ -158,10 +158,6 @@ class MockedCategoriesController: CategoriesController {
         }
     }
 
-    func addNewPassion(_ passion: Passion, to category: PassionCategory) {
-        
-    }
-
     func selectCategory(_ category: PassionCategory?) {
         
     }

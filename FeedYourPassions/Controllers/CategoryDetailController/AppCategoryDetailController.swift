@@ -76,17 +76,17 @@ class AppCategoryDetailController: CategoryDetailController {
         else {
             return
         }
-        // TODO: missing implementation
-//        do {
-//            try db
-//                .collection(DBCollectionKey.users.rawValue).document(user.uid)
-//                .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
-//                .collection(DBCollectionKey.passions.rawValue).addDocument(from: passion)
-//
-//            print("✅ New passion \"\(passion.name)\" added to category \"\(category.name)\" [\(category.id ?? "")]")
-//        } catch {
-//            print("❌ Failed to add passion \"\(passion.name)\" to category \"\(category.name)\" [\(category.id ?? "")]: \(error)")
-//        }
+
+        do {
+            try db
+                .collection(DBCollectionKey.users.rawValue).document(user.id)
+                .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+                .collection(DBCollectionKey.passions.rawValue).addDocument(from: passion)
+
+            print("✅ New passion \"\(passion.name)\" added to category \"\(category.name)\" [\(category.id ?? "")]")
+        } catch {
+            print("❌ Failed to add passion \"\(passion.name)\" to category \"\(category.name)\" [\(category.id ?? "")]: \(error)")
+        }
     }
 }
 
@@ -108,15 +108,6 @@ extension AppCategoryDetailController {
                     return
                 }
 
-//                let remoteCategory: PassionCategory? = snapshot.documents
-//                    .compactMap{
-//                        ($0.documentID, try? $0.data(as: PassionCategory.self))
-//                    }
-//                    .compactMap{ id, category in
-//                        category?.id = id
-//                        return category
-//                    }.first
-
                 let passions = snapshot.documents.compactMap {
                     try? $0.data(as: Passion.self)
                 }
@@ -133,7 +124,7 @@ class MockedCategoryDetailController: CategoryDetailController {
     enum Scenario {
         case failure
         case empty
-        case valid(count: Int)
+        case valid(items: [Date])
     }
 
     private(set) var category: PassionCategory?
@@ -153,9 +144,16 @@ class MockedCategoryDetailController: CategoryDetailController {
         case .empty:
             maxValue = 0
             _passions = CurrentValueSubject([])
-        case .valid(let count):
+        case .valid(let items):
             maxValue = 0
-            _passions = CurrentValueSubject((0 ..< count).map { Passion(name: "#\($0) Passion", associatedURL: "url", records: [])})
+            _passions = CurrentValueSubject(items.enumerated().map {
+                Passion(
+                    name: "#\($0.offset) Passion",
+                    associatedURL: "url",
+                    recordsCount: 0,
+                    latestUpdate: Timestamp(date: $0.element)
+                )
+            })
         }
     }
 
