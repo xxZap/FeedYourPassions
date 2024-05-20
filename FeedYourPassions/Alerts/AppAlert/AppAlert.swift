@@ -43,3 +43,83 @@ extension View {
         )
     }
 }
+
+// ZAPTODO: to move and redefine with AppAlert
+extension View {
+    func alertWithTextField(
+        title: String,
+        message: String,
+        text: Binding<String?>,
+        actionTitle: String,
+        actionButtonStyle: UIAlertAction.Style,
+        onAction: @escaping (_ fromKeyboard: Bool) -> Void,
+        cancelTitle: String,
+        cancelButtonStyle: UIAlertAction.Style,
+        onCancelAction: @escaping () -> Void
+    ) -> some View {
+        let isPresented = Binding(
+            get: { text.wrappedValue != nil },
+            set: { value in
+                text.wrappedValue = value ? "" : nil
+            }
+        )
+        return self.alert(
+            title,
+            isPresented: isPresented,
+            actions: {
+                TextField(
+                    "",
+                    text: Binding(
+                        get: { text.wrappedValue ?? "" },
+                        set: { value in
+                            text.wrappedValue = value
+                        }
+                    )
+                )
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .onSubmit {
+                    if isPresented.wrappedValue {
+                        onAction(true)
+                    }
+                    isPresented.wrappedValue = false
+                }
+
+                if !actionTitle.isEmpty {
+                    Button(actionTitle, role: actionButtonStyle.role) {
+                        if isPresented.wrappedValue {
+                            onAction(false)
+                        }
+                        isPresented.wrappedValue = false
+                    }
+                }
+                if !cancelTitle.isEmpty {
+                    Button(cancelTitle, role: cancelButtonStyle.role) {
+                        onCancelAction()
+                        isPresented.wrappedValue = false
+                    }
+                }
+            },
+            message: {
+                if !message.isEmpty {
+                    Text(message)
+                }
+            }
+        )
+    }
+}
+
+extension UIAlertAction.Style {
+    var role: ButtonRole? {
+        switch self {
+        case .cancel:
+                .cancel
+        case .destructive:
+                .destructive
+        case .default:
+            nil
+        @unknown default:
+            nil
+        }
+    }
+}

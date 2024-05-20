@@ -10,6 +10,7 @@ import Combine
 
 class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState
+    @Published var alert: AppAlert?
 
     private(set) var category: PassionCategory?
     private let categoriesController: CategoriesController
@@ -41,7 +42,18 @@ class CategoryDetailViewModel: ObservableObject {
         // selectedCategoryController.addNewPassion(newPassion)
     }
 
-//    func addNewRecord(record: PassionRecord, to passionID: PassionID) {
-//        selectedCategoryController.addNewRecord(record, to: passionID)
-//    }
+    func rename(passion: Passion, into name: String?) {
+        guard let name = name, name.count > 2 else {
+            alert = AppAlert.Error.PassionNameLength(onDismiss: { [weak self] in
+                self?.alert = nil
+            })
+            return
+        }
+
+        categoryDetailController.rename(passion, into: name)
+    }
+
+    func setAssociatedURL(passion: Passion, url: String?) {
+        categoryDetailController.setAssociatedURL(passion, url: url ?? "")
+    }
 }

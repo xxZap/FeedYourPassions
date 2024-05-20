@@ -49,10 +49,26 @@ struct CategoryDetailView: View {
                             passion: passion,
                             categoryDetailController: Container.shared.categoryDetailController()
                         ),
-//                    ) { newRecord, passionID in
-//                        calls.onAddRecord((newRecord, passionID))
-//                    },
-                        barColor: Color.mGetPaletteColor(.pink, forListIndex: index)
+                        calls: .init(
+                            onTap: {
+                                calls.onPassionTap(passion)
+                            },
+                            onLaunchTap: { url in
+                                calls.onPassionLaunchTap(passion, url)
+                            },
+                            onAddRecordTap: {
+                                calls.onPassionAddRecordTap(passion)
+                            },
+                            onEditColorTap: {
+                                calls.onPassionEditColorTap(passion)
+                            },
+                            onRenameTap: {
+                                calls.onPassionRenameTap(passion)
+                            },
+                            onEditURLTap: {
+                                calls.onPassionEditURLTap(passion)
+                            }
+                        )
                     )
                     .padding(8)
                 }
@@ -116,8 +132,13 @@ struct CategoryDetailView: View {
             ]
         ),
         calls: .init(
-            onCreatePassionTap: { }
-//            onAddRecord: { _ in }
+            onCreatePassionTap: { },
+            onPassionTap: { _ in },
+            onPassionLaunchTap: { _, _ in },
+            onPassionAddRecordTap: { _ in },
+            onPassionEditColorTap: { _ in },
+            onPassionRenameTap: { _ in },
+            onPassionEditURLTap: { _ in }
         )
     )
 }

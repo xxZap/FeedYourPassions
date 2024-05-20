@@ -10,15 +10,19 @@ import SwiftUI
 import Factory
 import FirebaseFirestore
 
+struct PassionViewCalls {
+    var onTap: (() -> Void)
+    var onLaunchTap: ((URL) -> Void)
+    var onAddRecordTap: (() -> Void)
+    var onEditColorTap: (() -> Void)
+    var onRenameTap: (() -> Void)
+    var onEditURLTap: (() -> Void)
+}
+
 struct PassionView: View {
 
-    @Environment(\.openURL) private var openURL
-    @Environment(\.alerterKey) var alerter
-
     @StateObject var viewModel: PassionViewModel
-    let barColor: Color
-
-    @State private var newName: String?
+    let calls: PassionViewCalls
 
     var body: some View {
         HStack(spacing: 0) {
@@ -32,59 +36,51 @@ struct PassionView: View {
                     }
                     .padding(.vertical, 8)
 
-                    VStack(spacing: 0) {
-                        Spacer()
-                        MIconButton(type: .accentGhost, size: .small, image: Image(systemName: "plus")) {
-                            print("tap on plus")
-                        }
-                        .padding(12)
-                        Spacer()
-                    }
-                    .background(Color.mBackgroundDark)
+                    trailingControls
                 }
             }
         }
         .background(Color.mBackground)
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
         .shadow(radius: 8)
-        .onChange(of: viewModel.alert) { old, new in
-            alerter.alert = new
-        }
         .contextMenu(ContextMenu(menuItems: {
+            // Launch
             let url = viewModel.associatedURL
             Button {
-                if let url { openURL(url) }
+                if let url { calls.onLaunchTap(url) }
             } label: {
-                Label("Open", systemImage: "link")
+                Label("Launch", systemImage: "arrow.up.forward.app")
             }
             .disabled(url == nil)
 
+            // Add record
             Button {
-                // ZAPTODO: implement image customization
-                print("Edit Picture: missing implementation")
+                calls.onAddRecordTap()
             } label: {
-                Label("Edit Picture", systemImage: "pencil.tip.crop.circle")
+                Label("Add record", systemImage: "plus")
             }
 
+            // Customize color
             Button {
-                newName = ""
+                calls.onEditColorTap()
+            } label: {
+                Label("Edit Color", systemImage: "drop.halffull")
+            }
+
+            // Rename
+            Button {
+                calls.onRenameTap()
             } label: {
                 Label("Rename", systemImage: "character.cursor.ibeam")
             }
+
+            // Edit URL
+            Button {
+                calls.onEditURLTap()
+            } label: {
+                Label("Edit URL", systemImage: "link")
+            }
         }))
-        .alertWithTextField(
-            title: "Rename",
-            message: "Update the name of the \"\(viewModel.passion.name)\" passion",
-            text: $newName,
-            actionTitle: "Confirm",
-            actionButtonStyle: .default,
-            onAction: { _ in
-                viewModel.rename(into: newName)
-            },
-            cancelTitle: "Cancel",
-            cancelButtonStyle: .cancel,
-            onCancelAction: { }
-        )
     }
 
     private var avatarView: some View {
@@ -122,6 +118,24 @@ struct PassionView: View {
                 .multilineTextAlignment(.leading)
         }
     }
+
+    private var trailingControls: some View {
+        VStack(spacing: 0) {
+            Spacer(minLength: 0)
+            MIconButton(type: .accentGhost, size: .small, image: Image(systemName: "plus")) {
+                print("tap on plus")
+            }
+            .padding(.horizontal, 8)
+            if let url = viewModel.associatedURL {
+                Spacer(minLength: 0)
+                MIconButton(type: .accentGhost, size: .small, image: Image(systemName: "arrow.up.forward.app")) {
+                    calls.onLaunchTap(url)
+                }
+                .padding(.horizontal, 8)
+            }
+            Spacer(minLength: 0)
+        }
+    }
 }
 
 #if DEBUG
@@ -138,87 +152,17 @@ struct PassionView: View {
                 ),
                 categoryDetailController: MockedCategoryDetailController(.valid(items: []))
             ),
-            barColor: Color.red
+            calls: .init(
+                onTap: { },
+                onLaunchTap: { _ in },
+                onAddRecordTap: { },
+                onEditColorTap: { },
+                onRenameTap: { },
+                onEditURLTap: { }
+            )
         )
         Spacer()
     }
     .background(Color.mBackground)
 }
 #endif
-
-extension View {
-    func alertWithTextField(
-        title: String,
-        message: String,
-        text: Binding<String?>,
-        actionTitle: String,
-        actionButtonStyle: UIAlertAction.Style,
-        onAction: @escaping (_ fromKeyboard: Bool) -> Void,
-        cancelTitle: String,
-        cancelButtonStyle: UIAlertAction.Style,
-        onCancelAction: @escaping () -> Void
-    ) -> some View {
-        let isPresented = Binding(
-            get: { text.wrappedValue != nil },
-            set: { value in
-                text.wrappedValue = value ? "" : nil
-            }
-        )
-        return self.alert(
-            title,
-            isPresented: isPresented,
-            actions: {
-                TextField(
-                    "",
-                    text: Binding(
-                        get: { text.wrappedValue ?? "" },
-                        set: { value in
-                            text.wrappedValue = value
-                        }
-                    )
-                )
-                .onSubmit {
-                    if isPresented.wrappedValue {
-                        onAction(true)
-                    }
-                    isPresented.wrappedValue = false
-                }
-
-                if !actionTitle.isEmpty {
-                    Button(actionTitle, role: actionButtonStyle.role) {
-                        if isPresented.wrappedValue {
-                            onAction(false)
-                        }
-                        isPresented.wrappedValue = false
-                    }
-                }
-                if !cancelTitle.isEmpty {
-                    Button(cancelTitle, role: cancelButtonStyle.role) {
-                        onCancelAction()
-                        isPresented.wrappedValue = false
-                    }
-                }
-            },
-            message: {
-                if !message.isEmpty {
-                    Text(message)
-                }
-            }
-        )
-    }
-}
-
-private extension UIAlertAction.Style {
-    var role: ButtonRole? {
-        switch self {
-        case .cancel:
-                .cancel
-        case .destructive:
-                .destructive
-        case .default:
-            nil
-        @unknown default:
-            nil
-        }
-    }
-}

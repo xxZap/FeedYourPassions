@@ -12,8 +12,12 @@ struct CategoryDetailUIState {
     var passions: [Passion]?
 }
 
-//typealias CategoryDetailOnAddRecordResult = (record: PassionRecord, passionID: PassionID)
 struct CategoryDetailCalls {
     var onCreatePassionTap: (() -> Void)
-//    var onAddRecord: (CategoryDetailOnAddRecordResult) -> Void
+    var onPassionTap: ((Passion) -> Void)
+    var onPassionLaunchTap: ((Passion, URL) -> Void)
+    var onPassionAddRecordTap: ((Passion) -> Void)
+    var onPassionEditColorTap: ((Passion) -> Void)
+    var onPassionRenameTap: ((Passion) -> Void)
+    var onPassionEditURLTap: ((Passion) -> Void)
 }

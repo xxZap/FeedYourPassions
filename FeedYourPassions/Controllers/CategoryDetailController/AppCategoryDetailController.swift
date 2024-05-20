@@ -97,17 +97,30 @@ class AppCategoryDetailController: CategoryDetailController {
             return
         }
 
-        do {
-            try db
-                .collection(DBCollectionKey.users.rawValue).document(user.id)
-                .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
-                .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
-                .updateData(["name": name])
+        db
+            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
+            .updateData(["name": name])
 
-            print("✅ Passion \"\(passion.name)\" succesfully renamed into \"\(name)\"")
-        } catch {
-            print("❌ Failed to rename passion \"\(passion.name)\" into \"\(name)\": \(error)")
+        print("✅ Passion \"\(passion.name)\" has succesfully renamed into \"\(name)\"")
+    }
+
+    func setAssociatedURL(_ passion: Passion, url: String) {
+        guard
+            let user = self.sessionController.user,
+            let category = category
+        else {
+            return
         }
+
+        db
+            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
+            .updateData(["associatedURL": url])
+
+        print("✅ Passion \"\(passion.name)\" has now been associated to \"\(url)\"")
     }
 }
 
@@ -183,6 +196,10 @@ class MockedCategoryDetailController: CategoryDetailController {
     }
 
     func rename(_ passion: Passion, into name: String) {
+        
+    }
+
+    func setAssociatedURL(_ passion: Passion, url: String) {
         
     }
 }
