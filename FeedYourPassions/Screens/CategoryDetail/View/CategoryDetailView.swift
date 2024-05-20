@@ -45,7 +45,10 @@ struct CategoryDetailView: View {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 350))]) {
                 ForEach(Array(passions.enumerated()), id: \.element) { index, passion in
                     PassionView(
-                        viewModel: .init(passion: passion),
+                        viewModel: .init(
+                            passion: passion,
+                            categoryDetailController: Container.shared.categoryDetailController()
+                        ),
 //                    ) { newRecord, passionID in
 //                        calls.onAddRecord((newRecord, passionID))
 //                    },

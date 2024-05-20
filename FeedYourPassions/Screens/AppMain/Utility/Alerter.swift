@@ -9,7 +9,7 @@ import SwiftUI
 
 class Alerter: ObservableObject {
     @Published var isShowingAlert = false
-    @Published var alert: Alert? {
+    @Published var alert: AppAlert? {
         didSet { isShowingAlert = alert != nil }
     }
 }

@@ -16,30 +16,22 @@ private var relativeDateFormatter: RelativeDateTimeFormatter = {
 
 class PassionViewModel: ObservableObject {
 
-    struct AlertContainer: Equatable {
-        static func == (lhs: PassionViewModel.AlertContainer, rhs: PassionViewModel.AlertContainer) -> Bool {
-            lhs.id == rhs.id
-        }
-
-        let id = UUID()
-        let alert: Alert
-    }
-
     var passion: Passion
     var latestUpdateString: String
     var color: Color?   // TODO: customize color
     var associatedURL: URL? { if let string = passion.associatedURL { URL(string: string) } else { nil } }
-    @Published var alertContainer: AlertContainer?
+    @Published var alert: AppAlert?
 
 //    private var onNewRecordAction: ((PassionRecord, PassionID) -> Void)?
-//    private let selectedCategoryController: SelectedCategoryController
+    private let categoryDetailController: CategoryDetailController
 
     init(
-        passion: Passion
-//        selectedCategoryController: SelectedCategoryController,
+        passion: Passion,
+        categoryDetailController: CategoryDetailController
 //        onNewRecordAction: ((PassionRecord, PassionID) -> Void)?
     ) {
-//        self.selectedCategoryController = selectedCategoryController
+        self.categoryDetailController = categoryDetailController
+
         self.passion = passion
         self.latestUpdateString = relativeDateFormatter.localizedString(
             for: passion.latestUpdate.dateValue(),
@@ -61,4 +53,15 @@ class PassionViewModel: ObservableObject {
 //    private func createNewRecord(for date: Date) {
 //        onNewRecordAction?(PassionRecord(date: date), passion.id)
 //    }
+
+    func rename(into name: String?) {
+        guard let name = name, name.count > 2 else {
+            alert = AppAlert.Error.PassionNameLength(onDismiss: { [weak self] in
+                self?.alert = nil
+            })
+            return
+        }
+
+        categoryDetailController.rename(passion, into: name)
+    }
 }

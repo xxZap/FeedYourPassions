@@ -17,10 +17,11 @@ struct NewPassionScreen: View {
         ZStack {
             Rectangle()
                 .fill(.clear)
-                .alert(isPresented: $alerter.isShowingAlert) {
-                    alerter.alert ?? Alert(title: Text(""))
+                .alert(isPresented: $alerter.isShowingAlert, appAlert: alerter.alert)
+                .onChange(of: viewModel.alert) { old, new in
+                    alerter.alert = new
                 }
-            
+
             NewPassionView(
                 uiState: viewModel.uiState,
                 calls: .init(
@@ -31,11 +32,22 @@ struct NewPassionScreen: View {
                         viewModel.setAssociatedURL(urlString)
                     },
                     onSave: {
-                        viewModel.save()
-                        dismiss()
+                        if viewModel.save() {
+                            dismiss()
+                        }
                     },
                     onCancel: {
                         dismiss()
+                    },
+                    onPassionNameDefinition: {
+                        alerter.alert = AppAlert.Definition.PassionName(onDismiss: {
+                            alerter.alert = nil
+                        })
+                    },
+                    onAssociatedURLDefinition: {
+                        alerter.alert = AppAlert.Definition.AssociatedURL(onDismiss: {
+                            alerter.alert = nil
+                        })
                     }
                 )
             )

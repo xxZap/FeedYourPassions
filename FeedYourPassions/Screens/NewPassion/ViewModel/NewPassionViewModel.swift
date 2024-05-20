@@ -6,12 +6,14 @@
 //
 
 import Combine
+import SwiftUI
 import Foundation
 import FirebaseFirestore
 
 class NewPassionViewModel: ObservableObject {
 
     @Published var uiState: NewPassionUIState = NewPassionUIState(title: "", associatedURL: "", category: .init(type: .health), canBeSaved: false)
+    @Published var alert: AppAlert?
 
     private var title = CurrentValueSubject<String, Never>("")
     private var associatedURL = CurrentValueSubject<String, Never>("")
@@ -54,7 +56,14 @@ class NewPassionViewModel: ObservableObject {
         associatedURL.send(url)
     }
 
-    func save() {
+    func save() -> Bool {
+        guard title.value.count > 2 else {
+            alert = AppAlert.Error.PassionNameLength(onDismiss: { [weak self] in
+                self?.alert = nil
+            })
+            return false
+        }
+
         let newPassion = Passion(
             name: uiState.title,
             associatedURL: uiState.associatedURL,
@@ -63,5 +72,6 @@ class NewPassionViewModel: ObservableObject {
         )
 
         categoryDetailController.addNewPassion(newPassion)
+        return true
     }
 }

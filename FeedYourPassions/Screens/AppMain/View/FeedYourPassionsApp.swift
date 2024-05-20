@@ -59,9 +59,7 @@ struct FeedYourPassionsApp: App {
             ZStack {
                 Rectangle()
                     .fill(.clear)
-                    .alert(isPresented: $alerter.isShowingAlert) {
-                        alerter.alert ?? Alert(title: Text(""))
-                    }
+                    .alert(isPresented: $alerter.isShowingAlert, appAlert: alerter.alert)
 
                 if viewModel.user == nil {
                     emptyView

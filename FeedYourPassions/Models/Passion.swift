@@ -26,6 +26,7 @@ class PassionRecord: Equatable, Hashable, Codable {
 }
 
 class Passion: Equatable, Hashable, Codable {
+    @DocumentID var id: String?
     var name: String
     var associatedURL: String?
     var recordsCount: Int

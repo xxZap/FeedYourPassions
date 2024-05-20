@@ -15,4 +15,5 @@ protocol CategoryDetailController {
     var maxValue: Int { get }
 
     func addNewPassion(_ passion: Passion)
+    func rename(_ passion: Passion, into name: String)
 }

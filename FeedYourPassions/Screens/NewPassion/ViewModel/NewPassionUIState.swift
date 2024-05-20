@@ -19,4 +19,7 @@ struct NewPassionCalls {
     var onEditAssociatedURL: ((String) -> Void)
     var onSave: (() -> Void)
     var onCancel: (() -> Void)
+
+    var onPassionNameDefinition: (() -> Void)
+    var onAssociatedURLDefinition: (() -> Void)
 }

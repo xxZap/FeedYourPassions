@@ -18,6 +18,8 @@ struct PassionView: View {
     @StateObject var viewModel: PassionViewModel
     let barColor: Color
 
+    @State private var newName: String?
+
     var body: some View {
         HStack(spacing: 0) {
             avatarView
@@ -45,8 +47,8 @@ struct PassionView: View {
         .background(Color.mBackground)
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
         .shadow(radius: 8)
-        .onChange(of: viewModel.alertContainer) { old, new in
-            alerter.alert = new?.alert
+        .onChange(of: viewModel.alert) { old, new in
+            alerter.alert = new
         }
         .contextMenu(ContextMenu(menuItems: {
             let url = viewModel.associatedURL
@@ -65,17 +67,29 @@ struct PassionView: View {
             }
 
             Button {
-                // ZAPTODO: implement image customization
-                print("Edit Title: missing implementation")
+                newName = ""
             } label: {
-                Label("Edit Title", systemImage: "character.cursor.ibeam")
+                Label("Rename", systemImage: "character.cursor.ibeam")
             }
         }))
+        .alertWithTextField(
+            title: "Rename",
+            message: "Update the name of the \"\(viewModel.passion.name)\" passion",
+            text: $newName,
+            actionTitle: "Confirm",
+            actionButtonStyle: .default,
+            onAction: { _ in
+                viewModel.rename(into: newName)
+            },
+            cancelTitle: "Cancel",
+            cancelButtonStyle: .cancel,
+            onCancelAction: { }
+        )
     }
 
     private var avatarView: some View {
         RoundedRectangle(cornerRadius: 16)
-            .fill(viewModel.color ?? Color.mGetPaletteColor(.pink, forListIndex: Int.random(in: 0..<5)))
+            .fill(viewModel.color ?? Color.mBackgroundDark)
             .stroke(Color.mBorder, lineWidth: 2)
             .frame(width: 48, height: 64)
             .padding(12)
@@ -121,7 +135,8 @@ struct PassionView: View {
                     associatedURL: "some",
                     recordsCount: 0,
                     latestUpdate: Timestamp(date: Date())
-                )
+                ),
+                categoryDetailController: MockedCategoryDetailController(.valid(items: []))
             ),
             barColor: Color.red
         )
@@ -130,3 +145,80 @@ struct PassionView: View {
     .background(Color.mBackground)
 }
 #endif
+
+extension View {
+    func alertWithTextField(
+        title: String,
+        message: String,
+        text: Binding<String?>,
+        actionTitle: String,
+        actionButtonStyle: UIAlertAction.Style,
+        onAction: @escaping (_ fromKeyboard: Bool) -> Void,
+        cancelTitle: String,
+        cancelButtonStyle: UIAlertAction.Style,
+        onCancelAction: @escaping () -> Void
+    ) -> some View {
+        let isPresented = Binding(
+            get: { text.wrappedValue != nil },
+            set: { value in
+                text.wrappedValue = value ? "" : nil
+            }
+        )
+        return self.alert(
+            title,
+            isPresented: isPresented,
+            actions: {
+                TextField(
+                    "",
+                    text: Binding(
+                        get: { text.wrappedValue ?? "" },
+                        set: { value in
+                            text.wrappedValue = value
+                        }
+                    )
+                )
+                .onSubmit {
+                    if isPresented.wrappedValue {
+                        onAction(true)
+                    }
+                    isPresented.wrappedValue = false
+                }
+
+                if !actionTitle.isEmpty {
+                    Button(actionTitle, role: actionButtonStyle.role) {
+                        if isPresented.wrappedValue {
+                            onAction(false)
+                        }
+                        isPresented.wrappedValue = false
+                    }
+                }
+                if !cancelTitle.isEmpty {
+                    Button(cancelTitle, role: cancelButtonStyle.role) {
+                        onCancelAction()
+                        isPresented.wrappedValue = false
+                    }
+                }
+            },
+            message: {
+                if !message.isEmpty {
+                    Text(message)
+                }
+            }
+        )
+    }
+}
+
+private extension UIAlertAction.Style {
+    var role: ButtonRole? {
+        switch self {
+        case .cancel:
+                .cancel
+        case .destructive:
+                .destructive
+        case .default:
+            nil
+        @unknown default:
+            nil
+        }
+    }
+}

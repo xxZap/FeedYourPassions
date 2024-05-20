@@ -10,8 +10,6 @@ import Meteor
 
 struct NewPassionView: View {
 
-    @Environment(\.alerterKey) var alerter
-
     var uiState: NewPassionUIState
     var calls: NewPassionCalls
 
@@ -30,10 +28,7 @@ struct NewPassionView: View {
                     title: "Passion name",
                     isMandatory: true
                 ) {
-                    alerter.alert = Alert(
-                        title: Text("Passion name"),
-                        message: Text("The name of the passion that you'll see inside its category")
-                    )
+                    calls.onPassionNameDefinition()
                 }
 
                 MTextField(
@@ -45,14 +40,7 @@ struct NewPassionView: View {
                     title: "Associated URL (optional)",
                     isMandatory: false
                 ) {
-                    alerter.alert = Alert(
-                        title: Text("Associated URL"),
-                        message: Text("""
-                        If a passion has an associated URL, you'll be able to launch it with a dedicated button:
-                        - if the associated URL can open the related App, it will do it.
-                        - otherwise it will open Safari as well.
-                        """)
-                    )
+                    calls.onAssociatedURLDefinition()
                 }
 
                 Spacer()
@@ -97,7 +85,9 @@ struct NewPassionView: View {
             onEditTitle: { _ in },
             onEditAssociatedURL: { _ in },
             onSave: { },
-            onCancel: { }
+            onCancel: { },
+            onPassionNameDefinition: { },
+            onAssociatedURLDefinition: { }
         )
     )
 }
