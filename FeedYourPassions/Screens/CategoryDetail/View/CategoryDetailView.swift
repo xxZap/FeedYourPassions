@@ -38,6 +38,8 @@ struct CategoryDetailView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
+        .animation(.smooth, value: uiState.category)
+        .animation(.smooth, value: uiState.passions)
     }
 
     private func passionsList(_ passions: [Passion]) -> some View {

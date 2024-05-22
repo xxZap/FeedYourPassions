@@ -9,23 +9,20 @@ import Foundation
 import Combine
 
 class CategoryDetailViewModel: ObservableObject {
-    @Published var uiState: CategoryDetailUIState
+    @Published var uiState: CategoryDetailUIState = .init(category: nil, passions: nil)
     @Published var alert: AppAlert?
 
-    private(set) var category: PassionCategory?
+    private var category: PassionCategory? { categoryDetailController.category }
     private let categoriesController: CategoriesController
     private let categoryDetailController: CategoryDetailController
     private var cancellables = Set<AnyCancellable>()
 
     init(
-        category: PassionCategory,
         categoriesController: CategoriesController,
         categoryDetailController: CategoryDetailController
     ) {
-        self.category = category
         self.categoriesController = categoriesController
         self.categoryDetailController = categoryDetailController
-        self.uiState = .init(category: category, passions: nil)
 
         categoryDetailController.passions
             .receive(on: DispatchQueue.main)

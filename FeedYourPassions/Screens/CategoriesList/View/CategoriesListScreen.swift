@@ -10,6 +10,7 @@ import Meteor
 
 struct CategoriesListScreen: View {
 
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject var viewModel: CategoriesListViewModel
 
     var body: some View {
@@ -17,6 +18,7 @@ struct CategoriesListScreen: View {
             columnVisibility: .constant(.doubleColumn),
             sidebar: {
                 CategoriesListView(
+                    isInSidebar: horizontalSizeClass == .regular,
                     uiState: viewModel.uiState,
                     calls: .init(
                         onCategoryTap: { category in

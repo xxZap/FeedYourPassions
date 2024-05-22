@@ -9,9 +9,10 @@ import Foundation
 
 struct CategoriesListUIState {
     let categories: [PassionCategory]?
+    let selectedCategoryType: PassionCategoryType?
     let maxValue: Int
 }
 
 struct CategoriesListCalls {
-    var onCategoryTap: (PassionCategory) -> Void
+    var onCategoryTap: (PassionCategory?) -> Void
 }

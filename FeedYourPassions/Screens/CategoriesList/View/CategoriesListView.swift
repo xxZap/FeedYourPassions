@@ -11,10 +11,9 @@ import Factory
 
 struct CategoriesListView: View {
 
+    var isInSidebar: Bool
     var uiState: CategoriesListUIState
     var calls: CategoriesListCalls
-
-    @State private var selectedCategoryType: PassionCategoryType?
 
     var body: some View {
         Group {
@@ -31,6 +30,15 @@ struct CategoriesListView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.mBackground)
         .animation(.smooth, value: uiState.categories)
+        .animation(.smooth, value: uiState.selectedCategoryType)
+        .navigationDestination(isPresented: bindingForScreen(uiState.selectedCategoryType)) {
+            if uiState.selectedCategoryType != nil {
+                CategoryDetailScreen(viewModel: .init(
+                    categoriesController: Container.shared.categoriesController(),
+                    categoryDetailController: Container.shared.categoryDetailController()
+                ))
+            }
+        }
     }
 
     private var loadingView: some View {
@@ -54,7 +62,6 @@ struct CategoriesListView: View {
             ForEach(Array(categories.enumerated()), id: \.element) { index, category in
                 Button {
                     calls.onCategoryTap(category)
-                    selectedCategoryType = category.type
                 } label: {
                     CategoryView(
                         category: category,
@@ -63,18 +70,13 @@ struct CategoriesListView: View {
                     )
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(selectedCategoryType == category.type ? Color.mBackgroundDark : Color.clear)
+                    .background(
+                        isInSidebar && uiState.selectedCategoryType == category.type
+                        ? Color.mAccent
+                        : Color.clear
+                    )
                 }
                 .buttonStyle(MPressable())
-                .navigationDestination(isPresented: bindingForScreen(category.type)) {
-                    if selectedCategoryType == category.type {
-                        CategoryDetailScreen(viewModel: .init(
-                            category: category,
-                            categoriesController: Container.shared.categoriesController(),
-                            categoryDetailController: Container.shared.categoryDetailController()
-                        ))
-                    }
-                }
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
@@ -87,14 +89,14 @@ struct CategoriesListView: View {
 }
 
 private extension CategoriesListView {
-    func bindingForScreen(_ categoryType: PassionCategoryType) -> Binding<Bool> {
+    func bindingForScreen(_ categoryType: PassionCategoryType?) -> Binding<Bool> {
         Binding(
-            get: { selectedCategoryType == categoryType },
+            get: {
+                categoryType != nil && uiState.selectedCategoryType == categoryType
+            },
             set: { value in
-                if value {
-                    selectedCategoryType = categoryType
-                } else if selectedCategoryType == categoryType {
-                    selectedCategoryType = nil
+                if value == false {
+                    calls.onCategoryTap(nil)
                 }
             }
         )
@@ -104,7 +106,12 @@ private extension CategoriesListView {
 #if DEBUG
 #Preview("\(CategoriesListView.self)") {
     CategoriesListView(
-        uiState: .init(categories: mockedCategories, maxValue: 20),
+        isInSidebar: false,
+        uiState: .init(
+            categories: mockedCategories,
+            selectedCategoryType: nil,
+            maxValue: 20
+        ),
         calls: .init(
             onCategoryTap: { _ in }
         )

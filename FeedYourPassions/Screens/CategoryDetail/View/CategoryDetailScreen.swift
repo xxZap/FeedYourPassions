@@ -100,7 +100,6 @@ struct CategoryDetailScreen: View {
 #Preview("None") {
     CategoryDetailScreen(
         viewModel: .init(
-            category: PassionCategory(type: .family),
             categoriesController: MockedCategoriesController(.none),
             categoryDetailController: MockedCategoryDetailController(
                 .valid(
@@ -117,7 +116,6 @@ struct CategoryDetailScreen: View {
 #Preview("Empty") {
     CategoryDetailScreen(
         viewModel: .init(
-            category: PassionCategory(type: .family),
             categoriesController: MockedCategoriesController(.empty),
             categoryDetailController: MockedCategoryDetailController(
                 .valid(
@@ -134,7 +132,6 @@ struct CategoryDetailScreen: View {
 #Preview("Valid") {
     CategoryDetailScreen(
         viewModel: .init(
-            category: PassionCategory(type: .family),
             categoriesController: MockedCategoriesController(.valid),
             categoryDetailController: MockedCategoryDetailController(
                 .valid(

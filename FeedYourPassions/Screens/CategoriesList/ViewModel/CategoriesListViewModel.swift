@@ -10,19 +10,22 @@ import Combine
 
 class CategoriesListViewModel: ObservableObject {
 
-    @Published var uiState: CategoriesListUIState = .init(categories: nil, maxValue: 0)
+    @Published var uiState: CategoriesListUIState
 
     private var cancellables = Set<AnyCancellable>()
     private let categoriesController: CategoriesController
 
     init(categoriesController: CategoriesController) {
         self.categoriesController = categoriesController
+        self.uiState = .init(categories: nil, selectedCategoryType: nil, maxValue: 0)
 
         categoriesController.passionCategories
+            .combineLatest(categoriesController.selectedCategory)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] categories in
+            .sink { [weak self] categories, selectedCategory in
                 self?.uiState = .init(
                     categories: categories?.sorted(by: { $0.currentValue > $1.currentValue }),
+                    selectedCategoryType: selectedCategory?.type,
                     maxValue: categories?.map { $0.currentValue }.max() ?? 0
                 )
             }
