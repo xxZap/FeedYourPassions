@@ -87,12 +87,11 @@ struct CategoryDetailView: View {
 
     private var addNewPassionButton: some View {
         MSideButton(
-            onTap: {
-                calls.onCreatePassionTap()
-            },
             image: Image(systemName: "plus"),
             side: .attachedToTheRight
-        )
+        ) {
+            calls.onCreatePassionTap()
+        }
         .padding(.bottom, 32)
     }
 

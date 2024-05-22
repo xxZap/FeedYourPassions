@@ -122,13 +122,13 @@ struct PassionView: View {
     private var trailingControls: some View {
         VStack(spacing: 0) {
             Spacer(minLength: 0)
-            MIconButton(type: .accentGhost, size: .small, image: Image(systemName: "plus")) {
+            MIconButton(type: .primaryGhost, size: .small, image: Image(systemName: "plus")) {
                 print("tap on plus")
             }
             .padding(.horizontal, 8)
             if let url = viewModel.associatedURL {
                 Spacer(minLength: 0)
-                MIconButton(type: .accentGhost, size: .small, image: Image(systemName: "arrow.up.forward.app")) {
+                MIconButton(type: .primaryGhost, size: .small, image: Image(systemName: "arrow.up.forward.app")) {
                     calls.onLaunchTap(url)
                 }
                 .padding(.horizontal, 8)
