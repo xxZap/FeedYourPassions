@@ -42,6 +42,8 @@ struct NewPassionView: View {
                 ) {
                     calls.onAssociatedURLDefinition()
                 }
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.none)
 
                 Spacer()
             }
