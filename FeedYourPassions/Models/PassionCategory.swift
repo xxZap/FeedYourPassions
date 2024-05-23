@@ -20,7 +20,7 @@ enum PassionCategoryType: String, Codable, CaseIterable {
     case friends
     case family
     case personal
-    case videogames
+    case games
     case travel
 }
 
@@ -61,8 +61,8 @@ class PassionCategory: Equatable, Hashable, Codable {
         case .family:
             "🏡"
         case .personal:
-            "🛠️"
-        case .videogames:
+            "🌱"
+        case .games:
             "🎮"
         case .travel:
             "✈️"
@@ -90,9 +90,9 @@ class PassionCategory: Equatable, Hashable, Codable {
         case .family:
             "Family"
         case .personal:
-            "Personal projects"
-        case .videogames:
-            "Videogames"
+            "Personal"
+        case .games:
+            "Games"
         case .travel:
             "Travel"
         }
