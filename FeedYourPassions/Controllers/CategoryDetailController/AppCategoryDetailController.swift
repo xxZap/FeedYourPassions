@@ -101,9 +101,13 @@ class AppCategoryDetailController: CategoryDetailController {
             .collection(DBCollectionKey.users.rawValue).document(user.id)
             .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
-            .updateData(["name": name])
-
-        print("✅ Passion \"\(passion.name)\" has succesfully renamed into \"\(name)\"")
+            .updateData(["name": name]) { error in
+                if let error {
+                    print("❌ Failed to rename \"\(name)\" Passion \"\(passion.name)\": \(error.localizedDescription)")
+                } else {
+                    print("✅ Passion \"\(passion.name)\" has succesfully renamed into \"\(name)\"")
+                }
+            }
     }
 
     func setAssociatedURL(_ passion: Passion, url: String) {
@@ -118,9 +122,33 @@ class AppCategoryDetailController: CategoryDetailController {
             .collection(DBCollectionKey.users.rawValue).document(user.id)
             .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
-            .updateData(["associatedURL": url])
+            .updateData(["associatedURL": url]) { error in
+                if let error {
+                    print("❌ Failed to set associated URL \"\(url)\" to Passion \"\(passion.name)\": \(error.localizedDescription)")
+                } else {
+                    print("✅ Passion \"\(passion.name)\" has now been associated to \"\(url)\"")
+                }
+            }
+    }
 
-        print("✅ Passion \"\(passion.name)\" has now been associated to \"\(url)\"")
+    func delete(_ passion: Passion) {
+        guard
+            let user = self.sessionController.user,
+            let category = category
+        else {
+            return
+        }
+
+        db
+            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "").delete { error in
+                if let error {
+                    print("❌ Failed to delete Passion \"\(passion.name)\": \(error.localizedDescription)")
+                } else {
+                    print("✅ Passion \"\(passion.name)\" has been succesfully deleted")
+                }
+            }
     }
 }
 
@@ -201,6 +229,10 @@ class MockedCategoryDetailController: CategoryDetailController {
 
     func setAssociatedURL(_ passion: Passion, url: String) {
         
+    }
+
+    func delete(_ passion: Passion) {
+
     }
 }
 #endif

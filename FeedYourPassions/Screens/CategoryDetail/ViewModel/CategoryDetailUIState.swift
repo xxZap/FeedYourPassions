@@ -20,4 +20,5 @@ struct CategoryDetailCalls {
     var onPassionEditColorTap: ((Passion) -> Void)
     var onPassionRenameTap: ((Passion) -> Void)
     var onPassionEditURLTap: ((Passion) -> Void)
+    var onPassionDeleteTap: ((Passion) -> Void)
 }

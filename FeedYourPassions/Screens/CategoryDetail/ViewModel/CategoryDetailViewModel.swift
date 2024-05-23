@@ -53,4 +53,14 @@ class CategoryDetailViewModel: ObservableObject {
     func setAssociatedURL(passion: Passion, url: String?) {
         categoryDetailController.setAssociatedURL(passion, url: url ?? "")
     }
+
+    func delete(passion: Passion) {
+        alert = AppAlert.Confirmation.DeletePassion(passionName: passion.name) { [weak self] confirmed in
+            if confirmed {
+                self?.categoryDetailController.delete(passion)
+            }
+            
+            self?.alert = nil
+        }
+    }
 }

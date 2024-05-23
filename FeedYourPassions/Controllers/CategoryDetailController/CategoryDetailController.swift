@@ -17,4 +17,5 @@ protocol CategoryDetailController {
     func addNewPassion(_ passion: Passion)
     func rename(_ passion: Passion, into name: String)
     func setAssociatedURL(_ passion: Passion, url: String)
+    func delete(_ passion: Passion)
 }

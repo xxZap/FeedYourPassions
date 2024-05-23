@@ -43,6 +43,9 @@ struct CategoryDetailScreen: View {
                 onPassionEditURLTap: { passion in
                     editingPassion = passion
                     newURL = passion.associatedURL ?? ""
+                },
+                onPassionDeleteTap: { passion in
+                    viewModel.delete(passion: passion)
                 }
             )
         )

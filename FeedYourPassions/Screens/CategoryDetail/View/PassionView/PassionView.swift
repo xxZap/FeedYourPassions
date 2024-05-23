@@ -17,6 +17,7 @@ struct PassionViewCalls {
     var onEditColorTap: (() -> Void)
     var onRenameTap: (() -> Void)
     var onEditURLTap: (() -> Void)
+    var onDeleteTap: (() -> Void)
 }
 
 struct PassionView: View {
@@ -79,6 +80,13 @@ struct PassionView: View {
                 calls.onEditURLTap()
             } label: {
                 Label("Edit URL", systemImage: "link")
+            }
+
+            // Delete
+            Button {
+                calls.onDeleteTap()
+            } label: {
+                Label("Delete passion", systemImage: "xmark.bin")
             }
         }))
     }
@@ -158,7 +166,8 @@ struct PassionView: View {
                 onAddRecordTap: { },
                 onEditColorTap: { },
                 onRenameTap: { },
-                onEditURLTap: { }
+                onEditURLTap: { },
+                onDeleteTap: { }
             )
         )
         Spacer()

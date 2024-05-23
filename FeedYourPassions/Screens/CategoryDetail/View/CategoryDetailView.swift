@@ -69,6 +69,9 @@ struct CategoryDetailView: View {
                             },
                             onEditURLTap: {
                                 calls.onPassionEditURLTap(passion)
+                            },
+                            onDeleteTap: {
+                                calls.onPassionDeleteTap(passion)
                             }
                         )
                     )
@@ -139,7 +142,8 @@ struct CategoryDetailView: View {
             onPassionAddRecordTap: { _ in },
             onPassionEditColorTap: { _ in },
             onPassionRenameTap: { _ in },
-            onPassionEditURLTap: { _ in }
+            onPassionEditURLTap: { _ in },
+            onPassionDeleteTap: { _ in }
         )
     )
 }
