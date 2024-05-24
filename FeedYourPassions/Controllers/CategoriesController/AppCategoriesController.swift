@@ -137,7 +137,7 @@ class MockedCategoriesController: CategoriesController {
     enum Scenario {
         case none
         case empty
-        case valid
+        case valid(categories: [PassionCategory])
     }
 
     var selectedCategory: AnyPublisher<PassionCategory?, Never> {
@@ -153,8 +153,8 @@ class MockedCategoriesController: CategoriesController {
             _passionCategories = CurrentValueSubject(nil)
         case .empty:
             _passionCategories = CurrentValueSubject([])
-        case .valid:
-            _passionCategories = CurrentValueSubject(mockedCategories)
+        case .valid(let categories):
+            _passionCategories = CurrentValueSubject(categories)
         }
     }
 

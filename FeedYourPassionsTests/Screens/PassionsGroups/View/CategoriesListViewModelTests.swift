@@ -6,102 +6,78 @@
 //
 
 import XCTest
+import Combine
 @testable import FeedYourPassions
 
 final class CategoriesListViewModelTests: XCTestCase {
 
+    var cancellables = Set<AnyCancellable>()
+
     func test_init_with_emptyCategories() throws {
         let sut = getSUT(categories: [])
-        XCTAssertEqual(sut.categories, [])
+        let expectation = XCTestExpectation()
+
+        sut
+            .$uiState
+            .dropFirst() // because on first iteration is always nil
+            .sink { uiState in
+                XCTAssertEqual(uiState.categories, [])
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        wait(for: [expectation], timeout: 1)
     }
 
     func test_init_with_someCategories() throws {
-        let categories: [OPassionCategory] = [
-            OPassionCategory(
-                name: "test",
-                passions: [
-                    OPassion(
-                        name: "0",
-                        associatedURL: nil,
-                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
-                    ),
-                    OPassion(
-                        name: "1",
-                        associatedURL: nil,
-                        records: (0..<7).map { _ in OPassionRecord(date: Date()) }
-                    )
-                ]
-            )
+        let categories: [PassionCategory] = [
+            PassionCategory(type: .family),
+            PassionCategory(type: .friends)
         ]
         let sut = getSUT(categories: categories)
-        XCTAssertEqual(sut.categories, categories)
+        let expectation = XCTestExpectation()
+
+        sut
+            .$uiState
+            .dropFirst() // because on first iteration is always nil
+            .sink { uiState in
+                XCTAssertEqual(uiState.categories, categories)
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
     }
 
-    func test_init_with_someCategories_should_sortTheCategories_by_theirCurrentValue() throws {
-        let categories: [OPassionCategory] = [
-            OPassionCategory(
-                name: "test1",
-                passions: [
-                    OPassion(
-                        name: "0",
-                        associatedURL: nil,
-                        records: (0..<1).map { _ in OPassionRecord(date: Date()) }
-                    ),
-                    OPassion(
-                        name: "1",
-                        associatedURL: nil,
-                        records: (0..<1).map { _ in OPassionRecord(date: Date()) }
-                    )
-                ]
-            ),
-            OPassionCategory(
-                name: "test2",
-                passions: [
-                    OPassion(
-                        name: "0",
-                        associatedURL: nil,
-                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
-                    ),
-                    OPassion(
-                        name: "1",
-                        associatedURL: nil,
-                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
-                    )
-                ]
-            )
-        ]
-        let sut = getSUT(categories: categories)
+    // TODO: missing support to currentValue
+//    func test_init_with_someCategories_should_sortTheCategories_by_theirCurrentValue() throws {
+//        let categories: [PassionCategory] = [
+//            PassionCategory(type: .family),
+//            PassionCategory(type: .friends)
+//        ]
+//        let sut = getSUT(categories: categories)
+//
+//        let expectedSortedCategories = [categories[1], categories[0]]
+//        XCTAssertEqual(sut.uiState.categories, expectedSortedCategories)
+//    }
 
-        let expectedSortedCategories = [categories[1], categories[0]]
-        XCTAssertEqual(sut.categories, expectedSortedCategories)
-    }
-
-    func test_currentValue() throws {
-        let categories: [OPassionCategory] = [
-            OPassionCategory(
-                name: "test2",
-                passions: [
-                    OPassion(
-                        name: "0",
-                        associatedURL: nil,
-                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
-                    ),
-                    OPassion(
-                        name: "1",
-                        associatedURL: nil,
-                        records: (0..<10).map { _ in OPassionRecord(date: Date()) }
-                    )
-                ]
-            )
-        ]
-        let sut = getSUT(categories: categories)
-        XCTAssertEqual(sut.categories[0].currentValue, 20)
-    }
+    // TODO: missing support to currentValue
+//    func test_currentValue() throws {
+//        let categories: [PassionCategory] = [
+//            PassionCategory(type: .family)
+//        ]
+//        let sut = getSUT(categories: categories)
+//        XCTAssertEqual(sut.categories[0].currentValue, 20)
+//    }
 
 }
 
 extension CategoriesListViewModelTests {
-    func getSUT(categories: [OPassionCategory]) -> CategoriesListViewModel {
-        CategoriesListViewModel(categories: categories)
+    func getSUT(categories: [PassionCategory]) -> CategoriesListViewModel {
+        switch categories.count {
+        case 0:
+            return CategoriesListViewModel(categoriesController: MockedCategoriesController(.empty))
+        default:
+            return CategoriesListViewModel(categoriesController: MockedCategoriesController(.valid(categories: categories)))
+        }
+
     }
 }

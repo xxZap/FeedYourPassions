@@ -135,7 +135,7 @@ struct CategoryDetailScreen: View {
 #Preview("Valid") {
     CategoryDetailScreen(
         viewModel: .init(
-            categoriesController: MockedCategoriesController(.valid),
+            categoriesController: MockedCategoriesController(.valid(categories: mockedCategories)),
             categoryDetailController: MockedCategoryDetailController(
                 .valid(
                     items: [
