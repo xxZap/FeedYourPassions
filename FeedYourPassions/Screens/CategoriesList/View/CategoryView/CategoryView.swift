@@ -12,12 +12,13 @@ struct CategoryView: View {
     let category: PassionCategory
     let maxValue: Int
     let color: Color
+    let selected: Bool
 
     var body: some View {
         VStack(spacing: 8) {
             Text(category.extendedName)
                 .font(.body.weight(.semibold))
-                .foregroundStyle(Color.mLightText)
+                .foregroundStyle(selected ? Color.mDarkText : Color.mLightText)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -33,7 +34,8 @@ struct CategoryView: View {
         CategoryView(
             category: PassionCategory(type: .family),
             maxValue: 10,
-            color: Color.mGetPaletteColor(.red, forListIndex: 1)
+            color: Color.mGetPaletteColor(.red, forListIndex: 1),
+            selected: false
         )
         Spacer()
     }

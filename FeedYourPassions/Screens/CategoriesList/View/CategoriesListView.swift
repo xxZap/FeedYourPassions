@@ -66,7 +66,8 @@ struct CategoriesListView: View {
                     CategoryView(
                         category: category,
                         maxValue: maxValue,
-                        color: Color.mGetPaletteColor(.red, forListIndex: index)
+                        color: Color.mGetPaletteColor(.red, forListIndex: index),
+                        selected: isInSidebar && uiState.selectedCategoryType == category.type
                     )
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
