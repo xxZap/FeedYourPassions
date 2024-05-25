@@ -5,8 +5,9 @@
 //  Created by Alessio Boerio on 25/04/24.
 //
 
-import Foundation
+import SwiftUI
 import Combine
+import Foundation
 
 class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState = .init(category: nil, passions: nil)
@@ -62,5 +63,9 @@ class CategoryDetailViewModel: ObservableObject {
             
             self?.alert = nil
         }
+    }
+
+    func setColor(passion: Passion, color: String) {
+        categoryDetailController.setColor(passion, color: color)
     }
 }

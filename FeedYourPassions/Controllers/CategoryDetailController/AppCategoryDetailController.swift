@@ -131,6 +131,27 @@ class AppCategoryDetailController: CategoryDetailController {
             }
     }
 
+    func setColor(_ passion: Passion, color: String) {
+        guard
+            let user = self.sessionController.user,
+            let category = category
+        else {
+            return
+        }
+
+        db
+            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
+            .updateData(["color": color]) { error in
+                if let error {
+                    print("❌ Failed to set color \"\(color)\" to Passion \"\(passion.name)\": \(error.localizedDescription)")
+                } else {
+                    print("✅ Passion \"\(passion.name)\" has now custom color \"\(color)\"")
+                }
+            }
+    }
+
     func delete(_ passion: Passion) {
         guard
             let user = self.sessionController.user,
@@ -213,7 +234,8 @@ class MockedCategoryDetailController: CategoryDetailController {
                     name: "#\($0.offset) Passion",
                     associatedURL: "url",
                     recordsCount: 0,
-                    latestUpdate: Timestamp(date: $0.element)
+                    latestUpdate: Timestamp(date: $0.element),
+                    color: ""
                 )
             })
         }
@@ -229,6 +251,10 @@ class MockedCategoryDetailController: CategoryDetailController {
 
     func setAssociatedURL(_ passion: Passion, url: String) {
         
+    }
+
+    func setColor(_ passion: Passion, color: String) {
+
     }
 
     func delete(_ passion: Passion) {

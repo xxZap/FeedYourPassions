@@ -14,8 +14,10 @@ struct CategoryDetailScreen: View {
     @Environment(\.alerterKey) var alerter
     
     @ObservedObject var viewModel: CategoryDetailViewModel
-    @State private var addNewPassion: Bool = false
+    @State private var addNewPassionIsPresented: Bool = false
+    @State private var passionColorPickerIsPresented: Bool = false
     @State private var editingPassion: Passion?
+    @State private var editingColor: Color = Color.mBackgroundDark
     @State private var newName: String?
     @State private var newURL: String?
 
@@ -24,7 +26,7 @@ struct CategoryDetailScreen: View {
             uiState: viewModel.uiState,
             calls: .init(
                 onCreatePassionTap: {
-                    addNewPassion = true
+                    addNewPassionIsPresented = true
                 },
                 onPassionTap: { passion in
                 },
@@ -35,6 +37,9 @@ struct CategoryDetailScreen: View {
 
                 },
                 onPassionEditColorTap: { passion in
+                    editingPassion = passion
+                    editingColor = Color(hex: passion.color) ?? Color.mBackgroundDark
+                    passionColorPickerIsPresented = true
                 },
                 onPassionRenameTap: { passion in
                     editingPassion = passion
@@ -54,7 +59,7 @@ struct CategoryDetailScreen: View {
         .onChange(of: viewModel.alert) { old, new in
             alerter.alert = new
         }
-        .sheet(isPresented: $addNewPassion) {
+        .sheet(isPresented: $addNewPassionIsPresented) {
             if let category = viewModel.uiState.category {
                 NewPassionScreen(
                     viewModel: .init(
@@ -62,6 +67,19 @@ struct CategoryDetailScreen: View {
                         categoryDetailController: Container.shared.categoryDetailController()
                     )
                 )
+            }
+        }
+        .sheet(
+            isPresented: $passionColorPickerIsPresented,
+            onDismiss: {
+                editingPassion = nil
+            }
+        ) {
+            PassionColorPickerView(selectedColor: editingColor) { color in
+                if let editingPassion, let hexColorString = color.toHex() {
+                    viewModel.setColor(passion: editingPassion, color: hexColorString)
+                }
+                passionColorPickerIsPresented = false
             }
         }
         .alertWithTextField(

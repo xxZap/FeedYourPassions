@@ -125,13 +125,15 @@ struct CategoryDetailView: View {
                     name: "Very long Passion name that can extend on a lot of multiple lines",
                     associatedURL: "some",
                     recordsCount: 222,
-                    latestUpdate: Timestamp(date: Date(timeIntervalSince1970: 1716041900))
+                    latestUpdate: Timestamp(date: Date(timeIntervalSince1970: 1716041900)),
+                    color: Color.blue.toHex() ?? ""
                 ),
                 Passion(
                     name: "Passion",
                     associatedURL: nil,
                     recordsCount: 3,
-                    latestUpdate: Timestamp(date: Date(timeIntervalSince1970: 1706041900))
+                    latestUpdate: Timestamp(date: Date(timeIntervalSince1970: 1706041900)),
+                    color: Color.orange.toHex() ?? ""
                 )
             ]
         ),

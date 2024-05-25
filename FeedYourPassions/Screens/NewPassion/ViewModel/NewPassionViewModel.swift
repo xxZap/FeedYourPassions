@@ -5,6 +5,7 @@
 //  Created by Alessio Boerio on 01/05/24.
 //
 
+import Meteor
 import Combine
 import SwiftUI
 import Foundation
@@ -68,7 +69,8 @@ class NewPassionViewModel: ObservableObject {
             name: uiState.title,
             associatedURL: uiState.associatedURL,
             recordsCount: 0,
-            latestUpdate: Timestamp(date: Date())
+            latestUpdate: Timestamp(date: Date()),
+            color: ""
         )
 
         categoryDetailController.addNewPassion(newPassion)

@@ -83,7 +83,7 @@ struct PassionView: View {
             }
 
             // Delete
-            Button {
+            Button(role: .destructive) {
                 calls.onDeleteTap()
             } label: {
                 Label("Delete passion", systemImage: "xmark.bin")
@@ -156,7 +156,8 @@ struct PassionView: View {
                     name: "Passion",
                     associatedURL: "some",
                     recordsCount: 0,
-                    latestUpdate: Timestamp(date: Date())
+                    latestUpdate: Timestamp(date: Date()),
+                    color: Color.blue.toHex() ?? ""
                 ),
                 categoryDetailController: MockedCategoryDetailController(.valid(items: []))
             ),
