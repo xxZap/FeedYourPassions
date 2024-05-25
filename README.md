@@ -23,3 +23,6 @@ iOS Mobile Application to always remember you matter, you have passions and you 
 
 ## Roadmap
 🚧 work in progress...
+
+## License
+[Apache License 2.0][license]. See Apache Software Foundation's [licensing FAQ][licensing-faq]
