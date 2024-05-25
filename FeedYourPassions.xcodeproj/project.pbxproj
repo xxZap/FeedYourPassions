@@ -67,7 +67,7 @@
 		6D2614152BFB604A00A934DE /* AlertHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHint.swift; sourceTree = "<group>"; };
 		6D2614172BFB640000A934DE /* BaseAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAlertType.swift; sourceTree = "<group>"; };
 		6D26141A2BFB691000A934DE /* AppAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlert.swift; sourceTree = "<group>"; };
-		6D36A8332BD3CDD700F238EC /* FeedYourPassions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FeedYourPassions.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D36A8332BD3CDD700F238EC /* Grouap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grouap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D36A8362BD3CDD700F238EC /* FeedYourPassionsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedYourPassionsApp.swift; sourceTree = "<group>"; };
 		6D36A8382BD3CDD700F238EC /* CategoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
 		6D36A83A2BD3CDD800F238EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		6D36A8342BD3CDD700F238EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6D36A8332BD3CDD700F238EC /* FeedYourPassions.app */,
+				6D36A8332BD3CDD700F238EC /* Grouap.app */,
 				6D36A8432BD3CDD800F238EC /* FeedYourPassionsTests.xctest */,
 			);
 			name = Products;
@@ -454,7 +454,7 @@
 				6D7A7F802BEE492B0001F60A /* FirebaseFirestoreSwift */,
 			);
 			productName = FeedYourPassions;
-			productReference = 6D36A8332BD3CDD700F238EC /* FeedYourPassions.app */;
+			productReference = 6D36A8332BD3CDD700F238EC /* Grouap.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6D36A8422BD3CDD800F238EC /* FeedYourPassionsTests */ = {
@@ -726,18 +726,20 @@
 				DEVELOPMENT_TEAM = 52APURX8D7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.boer.zap.FeedYourPassions;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Grouap;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -754,18 +756,20 @@
 				DEVELOPMENT_TEAM = 52APURX8D7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.boer.zap.FeedYourPassions;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Grouap;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -781,7 +785,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 52APURX8D7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.boer.zap.FeedYourPassionsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -801,7 +805,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 52APURX8D7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.boer.zap.FeedYourPassionsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
