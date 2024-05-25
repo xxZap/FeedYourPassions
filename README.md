@@ -12,7 +12,7 @@ iOS Mobile Application to always remember you matter, you have passions and you 
 
 <p align="center">
     <img src="https://img.shields.io/badge/iOS-v17-blue"/>
-    <a href="https://github.com/xxZap/FeedYourPassions/blob/main/LICENSE.txt">
+    <a href="https://github.com/xxZap/FeedYourPassions/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/license-apache 2.0-gold"/>
     </a>
 </p>
