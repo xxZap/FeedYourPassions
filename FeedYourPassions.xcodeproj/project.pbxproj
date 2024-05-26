@@ -45,6 +45,7 @@
 		6DB501072C0105A0004DA8C5 /* PassionColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB501062C0105A0004DA8C5 /* PassionColorPickerView.swift */; };
 		6DB5010A2C01081B004DA8C5 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB501092C01081B004DA8C5 /* Color+Extensions.swift */; };
 		6DB5010F2C03BB3C004DA8C5 /* DBCollectionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB5010E2C03BB3C004DA8C5 /* DBCollectionKeys.swift */; };
+		6DB501152C03C4E9004DA8C5 /* PassionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB501142C03C4E9004DA8C5 /* PassionRecord.swift */; };
 		6DE73CD62BE296F200DB3106 /* NewPassionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CD52BE296F200DB3106 /* NewPassionView.swift */; };
 		6DE73CD92BE2A64800DB3106 /* NewPassionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CD82BE2A64800DB3106 /* NewPassionViewModel.swift */; };
 		6DE73CDB2BE2A66100DB3106 /* NewPassionUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE73CDA2BE2A66100DB3106 /* NewPassionUIState.swift */; };
@@ -98,6 +99,7 @@
 		6DB501062C0105A0004DA8C5 /* PassionColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionColorPickerView.swift; sourceTree = "<group>"; };
 		6DB501092C01081B004DA8C5 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		6DB5010E2C03BB3C004DA8C5 /* DBCollectionKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBCollectionKeys.swift; sourceTree = "<group>"; };
+		6DB501142C03C4E9004DA8C5 /* PassionRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionRecord.swift; sourceTree = "<group>"; };
 		6DE73CD52BE296F200DB3106 /* NewPassionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassionView.swift; sourceTree = "<group>"; };
 		6DE73CD82BE2A64800DB3106 /* NewPassionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassionViewModel.swift; sourceTree = "<group>"; };
 		6DE73CDA2BE2A66100DB3106 /* NewPassionUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassionUIState.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				6D37C6F92BD66532003B1DA0 /* Passion.swift */,
 				6D37C6FA2BD66532003B1DA0 /* PassionCategory.swift */,
+				6DB501142C03C4E9004DA8C5 /* PassionRecord.swift */,
 			);
 			path = RemoteModels;
 			sourceTree = "<group>";
@@ -283,9 +286,9 @@
 		6D37C6CB2BD51BB5003B1DA0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6D64E4EC2BF77BCA00C18963 /* SessionController */,
 				6D37C6CC2BD51BC9003B1DA0 /* CategoriesController */,
 				6D37C7162BD79709003B1DA0 /* CategoryDetailController */,
+				6D64E4EC2BF77BCA00C18963 /* SessionController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 				6D64E4EE2BF77BD600C18963 /* SessionController.swift in Sources */,
 				6DE73CE22BE2A6E700DB3106 /* CategoryDetailUIState.swift in Sources */,
 				6D26141B2BFB691000A934DE /* AppAlert.swift in Sources */,
+				6DB501152C03C4E9004DA8C5 /* PassionRecord.swift in Sources */,
 				6DB5010F2C03BB3C004DA8C5 /* DBCollectionKeys.swift in Sources */,
 				6D37C6B92BD416C9003B1DA0 /* CategoryView.swift in Sources */,
 				6DE73CDF2BE2A6A200DB3106 /* CategoryDetailScreen.swift in Sources */,

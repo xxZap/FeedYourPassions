@@ -34,7 +34,7 @@ struct CategoryDetailScreen: View {
                     openURL(url)
                 },
                 onPassionAddRecordTap: { passion in
-
+                    viewModel.addNewRecord(for: Date(), to: passion)
                 },
                 onPassionEditColorTap: { passion in
                     editingPassion = passion

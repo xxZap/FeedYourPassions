@@ -59,6 +59,17 @@ class CategoryDetailViewModel: ObservableObject {
         categoryDetailController.setColor(color, to: passion)
     }
 
+    func addNewRecord(for date: Date, to passion: Passion) {
+        alert = AppAlert.Confirmation.AddNewRecord(passionName: passion.name, date: date) { [weak self] confirmed in
+            if confirmed {
+                let record = PassionRecord(date: date)
+                self?.categoryDetailController.addRecord(record, to: passion)
+            }
+
+            self?.alert = nil
+        }
+    }
+
     func delete(passion: Passion) {
         alert = AppAlert.Confirmation.DeletePassion(passionName: passion.name) { [weak self] confirmed in
             if confirmed {
