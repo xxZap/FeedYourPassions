@@ -22,7 +22,27 @@ iOS Mobile Application to always remember you matter, you have passions and you 
 100% SwiftUI
 
 ## Roadmap
-🚧 work in progress...
+- ✅ Define the App name and Logo
+- ✅ Add License
+- ✅ Create Categories
+- ✅ Add a new Passion
+    - ✅ Rename Passion
+    - ✅ Set custom associated URL
+    - ✅ Set custom Passion colour
+    - ✅ Delete Passion
+    - 🔲 Add records
+- 🔲 Passion expanded mode with charts
+- 🔲 Add logic to populate bars on the category list screen
+- 🔲 Add time range
+- 🔲 Add streak gamification
+- 🔲 Add internal notifications for reminders
+- 🔲 Support Google Login
+- 🔲 Support data transfer from an anonymous session to Google's one
+- 🔲 Define in-app purchase logic for VIP members
+- 🔲 Add a dedicated screen to show known associated URLs for important apps.
 
 ## License
 [Apache License 2.0][license]. See Apache Software Foundation's [licensing FAQ][licensing-faq]
+
+[license]: LICENSE.txt
+[licensing-faq]: https://www.apache.org/licenses/LICENSE-2.0
