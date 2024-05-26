@@ -110,7 +110,7 @@ class AppCategoryDetailController: CategoryDetailController {
             }
     }
 
-    func setAssociatedURL(_ passion: Passion, url: String) {
+    func setAssociatedURL(_ url: String, to passion: Passion) {
         guard
             let user = self.sessionController.user,
             let category = category
@@ -131,7 +131,7 @@ class AppCategoryDetailController: CategoryDetailController {
             }
     }
 
-    func setColor(_ passion: Passion, color: String) {
+    func setColor(_ color: String, to passion: Passion) {
         guard
             let user = self.sessionController.user,
             let category = category
@@ -249,11 +249,11 @@ class MockedCategoryDetailController: CategoryDetailController {
         
     }
 
-    func setAssociatedURL(_ passion: Passion, url: String) {
-        
+    func setAssociatedURL(_ url: String, to passion: Passion) {
+
     }
 
-    func setColor(_ passion: Passion, color: String) {
+    func setColor(_ color: String, to passion: Passion) {
 
     }
 

@@ -51,8 +51,12 @@ class CategoryDetailViewModel: ObservableObject {
         categoryDetailController.rename(passion, into: name)
     }
 
-    func setAssociatedURL(passion: Passion, url: String?) {
-        categoryDetailController.setAssociatedURL(passion, url: url ?? "")
+    func setAssociatedURL(_ url: String?, to passion: Passion) {
+        categoryDetailController.setAssociatedURL(url ?? "", to: passion)
+    }
+
+    func setColor(_ color: String, to passion: Passion) {
+        categoryDetailController.setColor(color, to: passion)
     }
 
     func delete(passion: Passion) {
@@ -60,12 +64,8 @@ class CategoryDetailViewModel: ObservableObject {
             if confirmed {
                 self?.categoryDetailController.delete(passion)
             }
-            
+
             self?.alert = nil
         }
-    }
-
-    func setColor(passion: Passion, color: String) {
-        categoryDetailController.setColor(passion, color: color)
     }
 }

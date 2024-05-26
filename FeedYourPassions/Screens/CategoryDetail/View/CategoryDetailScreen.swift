@@ -77,7 +77,7 @@ struct CategoryDetailScreen: View {
         ) {
             PassionColorPickerView(selectedColor: editingColor) { color in
                 if let editingPassion, let hexColorString = color.toHex() {
-                    viewModel.setColor(passion: editingPassion, color: hexColorString)
+                    viewModel.setColor(hexColorString, to: editingPassion)
                 }
                 passionColorPickerIsPresented = false
             }
@@ -106,7 +106,7 @@ struct CategoryDetailScreen: View {
             actionButtonStyle: .default,
             onAction: { _ in
                 guard let passion = editingPassion else { return }
-                viewModel.setAssociatedURL(passion: passion, url: newURL)
+                viewModel.setAssociatedURL(newURL, to: passion)
                 editingPassion = nil
                 newURL = nil
             },

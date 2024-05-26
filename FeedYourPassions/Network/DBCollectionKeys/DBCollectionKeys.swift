@@ -11,4 +11,5 @@ enum DBCollectionKey: String {
     case users
     case passionCategories
     case passions
+    case records
 }
