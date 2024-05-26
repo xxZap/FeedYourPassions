@@ -30,7 +30,7 @@ iOS Mobile Application to always remember you matter, you have passions and you 
     - ✅ Set custom associated URL
     - ✅ Set custom Passion colour
     - ✅ Delete Passion
-    - 🔲 Add records
+    - 🚧 Add records
 - 🔲 Passion expanded mode with charts
 - 🔲 Add logic to populate bars on the category list screen
 - 🔲 Add time range
