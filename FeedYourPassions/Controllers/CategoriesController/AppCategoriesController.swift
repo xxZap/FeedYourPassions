@@ -9,12 +9,6 @@ import Factory
 import Combine
 import FirebaseFirestore
 
-enum DBCollectionKey: String {
-    case users
-    case passionCategories
-    case passions
-}
-
 extension Container {
     var categoriesController: Factory<CategoriesController> {
         Factory(self) {
