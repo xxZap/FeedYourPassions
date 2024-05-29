@@ -201,6 +201,7 @@ extension AppCategoryDetailController {
             .collection(DBCollectionKey.users.rawValue).document(user.id)
             .collection(DBCollectionKey.passionCategories.rawValue).document(categoryID)
             .collection(DBCollectionKey.passions.rawValue)
+            .order(by: "latestUpdate", descending: true)
             .addSnapshotListener { [weak self] snapshot, error in
                 guard let snapshot = snapshot else {
                     print("❌ Error fetching category: \(error!).")
