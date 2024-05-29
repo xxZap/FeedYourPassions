@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-let mockedCategories: [PassionCategory] = PassionCategoryType.allCases.map { PassionCategory(type: $0) }
+let mockedPassionCategories: [PassionCategory] = PassionCategoryType.allCases.map { PassionCategory(type: $0) }
 enum PassionCategoryType: String, Codable, CaseIterable {
     case music
     case food
@@ -27,14 +27,6 @@ enum PassionCategoryType: String, Codable, CaseIterable {
 class PassionCategory: Equatable, Hashable, Codable {
     @DocumentID var id: String?
     let type: PassionCategoryType
-
-    var currentValue: Int {
-        0// passions.isEmpty ? 0 : passions.map { $0.records.count }.reduce(0, +)
-    }
-
-    var maxValue: Int {
-        0//passions.map { $0.records.count }.max() ?? 0
-    }
 
     var extendedName: String {
         "\(emoji) \(name)"

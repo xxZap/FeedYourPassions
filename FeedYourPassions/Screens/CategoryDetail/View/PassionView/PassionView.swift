@@ -79,7 +79,11 @@ struct PassionView: View {
             Button {
                 calls.onEditURLTap()
             } label: {
-                Label("Edit URL", systemImage: "link")
+                if url != nil {
+                    Label("Edit URL", systemImage: "link")
+                } else {
+                    Label("Add URL", systemImage: "link")
+                }
             }
 
             // Delete

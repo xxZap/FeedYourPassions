@@ -138,6 +138,7 @@
 				6DB500DD2BFFDF0A004DA8C5 /* AlertConfirmation.swift */,
 				6D2614132BFB5FEC00A934DE /* AlertError.swift */,
 				6D2614152BFB604A00A934DE /* AlertHint.swift */,
+				6DB501542C04E5E0004DA8C5 /* Alerter */,
 				6D2614192BFB647E00A934DE /* AppAlert */,
 			);
 			path = Alerts;
@@ -245,7 +246,6 @@
 		6D37C6B62BD41144003B1DA0 /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
-				6D59FB752BDA52AA00D0C087 /* Utility */,
 				6D37C71D2BD7AEA5003B1DA0 /* View */,
 			);
 			path = AppMain;
@@ -346,14 +346,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		6D59FB752BDA52AA00D0C087 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				6D59FB762BDA52BD00D0C087 /* Alerter.swift */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
 		6D59FB7C2BDAE06400D0C087 /* PassionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +412,14 @@
 				6D36A83A2BD3CDD800F238EC /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		6DB501542C04E5E0004DA8C5 /* Alerter */ = {
+			isa = PBXGroup;
+			children = (
+				6D59FB762BDA52BD00D0C087 /* Alerter.swift */,
+			);
+			path = Alerter;
 			sourceTree = "<group>";
 		};
 		6DE73CD32BE296CB00DB3106 /* NewPassion */ = {

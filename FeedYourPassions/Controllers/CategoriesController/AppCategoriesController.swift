@@ -9,6 +9,23 @@ import Factory
 import Combine
 import FirebaseFirestore
 
+let mockedCategories: [Category] = mockedPassionCategories.map { Category(passionCategory: $0, maxValue: 0) }
+struct Category: Equatable, Hashable {
+    let passionCategory: PassionCategory
+    let maxValue: Int
+
+    init(passionCategory: PassionCategory, maxValue: Int) {
+        self.passionCategory = passionCategory
+        self.maxValue = maxValue
+    }
+
+    init?(passionCategory: PassionCategory?, maxValue: Int) {
+        guard let passionCategory else { return nil }
+        self.passionCategory = passionCategory
+        self.maxValue = maxValue
+    }
+}
+
 extension Container {
     var categoriesController: Factory<CategoriesController> {
         Factory(self) {
@@ -20,12 +37,14 @@ extension Container {
 class AppCategoriesController: CategoriesController {
 
     private var _passionCategories = CurrentValueSubject<[PassionCategory]?, Never>(nil)
-    var passionCategories: AnyPublisher<[PassionCategory]?, Never> {
-        _passionCategories.eraseToAnyPublisher()
+
+    private var _categories = CurrentValueSubject<[Category]?, Never>(nil)
+    var categories: AnyPublisher<[Category]?, Never> {
+        _categories.eraseToAnyPublisher()
     }
 
-    private var _selectedCategory = CurrentValueSubject<PassionCategory?, Never>(nil)
-    var selectedCategory: AnyPublisher<PassionCategory?, Never> {
+    private var _selectedCategory = CurrentValueSubject<Category?, Never>(nil)
+    var selectedCategory: AnyPublisher<Category?, Never> {
         _selectedCategory.eraseToAnyPublisher()
     }
 
@@ -68,9 +87,18 @@ class AppCategoriesController: CategoriesController {
                 }
             }
             .store(in: &cancellables)
+
+        self._passionCategories
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] passionCategories in
+                // TODO: retrieve value from each category's subcollection
+                let categories: [Category]? = passionCategories?.compactMap { Category(passionCategory: $0, maxValue: 0) }
+                self?._categories.send(categories)
+            }
+            .store(in: &cancellables)
     }
 
-    func selectCategory(_ category: PassionCategory?) {
+    func selectCategory(_ category: Category?) {
         _selectedCategory.send(category)
     }
 }
@@ -121,9 +149,23 @@ extension AppCategoriesController {
 
                 self?._passionCategories.send(categories)
 
-                print("✅ Got categories: \(categories.map { "\n\t- \($0.name)(\($0.currentValue))" }.joined())")
+                print("✅ Got categories: \(categories.map { "\n\t- \($0.name)" }.joined())")
             }
     }
+
+//    private func fetchSubData() async {
+//        guard let user = sessionController.user else { return }
+//        do {
+//            let categoriesQuerySnapshot = try? await db
+//                .collection(DBCollectionKey.users.rawValue).document(user.id)
+//                .collection(DBCollectionKey.passionCategories.rawValue).getDocuments()
+//
+//            categoriesQuerySnapshot.
+//        } catch {
+//            print("❌ Error getting sub data from categories: \(error)")
+//        }
+//
+//    }
 }
 
 #if DEBUG
@@ -131,29 +173,29 @@ class MockedCategoriesController: CategoriesController {
     enum Scenario {
         case none
         case empty
-        case valid(categories: [PassionCategory])
+        case valid(categories: [Category])
     }
 
-    var selectedCategory: AnyPublisher<PassionCategory?, Never> {
+    var selectedCategory: AnyPublisher<Category?, Never> {
         Just(nil).eraseToAnyPublisher()
     }
 
-    private let _passionCategories: CurrentValueSubject<[PassionCategory]?, Never>
-    var passionCategories: AnyPublisher<[PassionCategory]?, Never> { _passionCategories.eraseToAnyPublisher() }
+    private let _categories: CurrentValueSubject<[Category]?, Never>
+    var categories: AnyPublisher<[Category]?, Never> { _categories.eraseToAnyPublisher() }
 
     init(_ scenario: Scenario) {
         switch scenario {
         case .none:
-            _passionCategories = CurrentValueSubject(nil)
+            _categories = CurrentValueSubject(nil)
         case .empty:
-            _passionCategories = CurrentValueSubject([])
+            _categories = CurrentValueSubject([])
         case .valid(let categories):
-            _passionCategories = CurrentValueSubject(categories)
+            _categories = CurrentValueSubject(categories)
         }
     }
 
-    func selectCategory(_ category: PassionCategory?) {
-        
+    func selectCategory(_ category: Category?) {
+
     }
 }
 #endif

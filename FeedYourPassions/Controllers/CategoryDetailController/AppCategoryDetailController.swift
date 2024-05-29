@@ -22,7 +22,7 @@ extension Container {
 
 class AppCategoryDetailController: CategoryDetailController {
 
-    private(set) var category: PassionCategory?
+    private(set) var category: Category?
 
     private let _passions = CurrentValueSubject<[Passion]?, Never>(nil)
     var passions: AnyPublisher<[Passion]?, Never> {
@@ -80,12 +80,12 @@ class AppCategoryDetailController: CategoryDetailController {
         do {
             try db
                 .collection(DBCollectionKey.users.rawValue).document(user.id)
-                .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+                .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
                 .collection(DBCollectionKey.passions.rawValue).addDocument(from: passion)
 
-            print("✅ New passion \"\(passion.name)\" added to category \"\(category.name)\" [\(category.id ?? "")].")
+            print("✅ New passion \"\(passion.name)\" added to category \"\(category.passionCategory.name)\" [\(category.passionCategory.id ?? "")].")
         } catch {
-            print("❌ Failed to add passion \"\(passion.name)\" to category \"\(category.name)\" [\(category.id ?? "")]: \(error).")
+            print("❌ Failed to add passion \"\(passion.name)\" to category \"\(category.passionCategory.name)\" [\(category.passionCategory.id ?? "")]: \(error).")
         }
     }
 
@@ -99,7 +99,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
         db
             .collection(DBCollectionKey.users.rawValue).document(user.id)
-            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
             .updateData(["name": name]) { error in
                 if let error {
@@ -120,7 +120,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
         db
             .collection(DBCollectionKey.users.rawValue).document(user.id)
-            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
             .updateData(["associatedURL": url]) { error in
                 if let error {
@@ -141,7 +141,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
         db
             .collection(DBCollectionKey.users.rawValue).document(user.id)
-            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
             .updateData(["color": color]) { error in
                 if let error {
@@ -163,7 +163,7 @@ class AppCategoryDetailController: CategoryDetailController {
         do {
             try db
                 .collection(DBCollectionKey.users.rawValue).document(user.id)
-                .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+                .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
                 .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
                 .collection(DBCollectionKey.records.rawValue).addDocument(from: record)
 
@@ -183,7 +183,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
         db
             .collection(DBCollectionKey.users.rawValue).document(user.id)
-            .collection(DBCollectionKey.passionCategories.rawValue).document(category.id ?? "")
+            .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "").delete { error in
                 if let error {
                     print("❌ Failed to delete Passion \"\(passion.name)\": \(error.localizedDescription).")
@@ -195,8 +195,8 @@ class AppCategoryDetailController: CategoryDetailController {
 }
 
 extension AppCategoryDetailController {
-    private func attachListener(to user: UserDetail, category: PassionCategory) {
-        guard let categoryID = category.id else { return }
+    private func attachListener(to user: UserDetail, category: Category) {
+        guard let categoryID = category.passionCategory.id else { return }
         db
             .collection(DBCollectionKey.users.rawValue).document(user.id)
             .collection(DBCollectionKey.passionCategories.rawValue).document(categoryID)
@@ -208,7 +208,7 @@ extension AppCategoryDetailController {
                 }
 
                 if let error = error {
-                    print("❌ Error getting category \"\(category.name)\" \(category.id ?? ""): \(error).")
+                    print("❌ Error getting category \"\(category.passionCategory.name)\" \(category.passionCategory.id ?? "."): \(error).")
                     return
                 }
 
@@ -217,7 +217,7 @@ extension AppCategoryDetailController {
                 }
 
                 self?._passions.send(passions)
-                print("✅ Got passions from \"\(category.name)\" category: \(passions).")
+                print("✅ Got passions from \"\(category.passionCategory.name)\" category: \(passions).")
             }
     }
 }
@@ -231,7 +231,7 @@ class MockedCategoryDetailController: CategoryDetailController {
         case valid(items: [Date])
     }
 
-    private(set) var category: PassionCategory?
+    private(set) var category: Category?
 
     private let _passions: CurrentValueSubject<[Passion]?, Never>
     var passions: AnyPublisher<[Passion]?, Never> {

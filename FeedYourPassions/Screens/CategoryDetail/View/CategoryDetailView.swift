@@ -119,7 +119,7 @@ struct CategoryDetailView: View {
 #Preview {
     CategoryDetailView(
         uiState: .init(
-            category: PassionCategory(type: .family),
+            category: Category(passionCategory: PassionCategory(type: .family), maxValue: 0) ,
             passions: [
                 Passion(
                     name: "Very long Passion name that can extend on a lot of multiple lines",

@@ -9,20 +9,20 @@ import SwiftUI
 import Meteor
 
 struct CategoryView: View {
-    let category: PassionCategory
+    let category: Category
     let maxValue: Int
     let color: Color
     let selected: Bool
 
     var body: some View {
         VStack(spacing: 8) {
-            Text(category.extendedName)
+            Text(category.passionCategory.extendedName)
                 .font(.body.weight(.semibold))
                 .foregroundStyle(selected ? Color.mDarkText : Color.mLightText)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            MProgressView(value: category.currentValue, total: maxValue, color: color, height: 44)
+            MProgressView(value: category.maxValue, total: maxValue, color: color, height: 44)
         }
     }
 }
@@ -32,7 +32,7 @@ struct CategoryView: View {
     VStack {
         Spacer()
         CategoryView(
-            category: PassionCategory(type: .family),
+            category: Category(passionCategory: PassionCategory(type: .family), maxValue: 0),
             maxValue: 10,
             color: Color.mGetPaletteColor(.red, forListIndex: 1),
             selected: false

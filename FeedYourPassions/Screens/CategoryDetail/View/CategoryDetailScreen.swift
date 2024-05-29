@@ -55,7 +55,7 @@ struct CategoryDetailScreen: View {
             )
         )
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(viewModel.uiState.category?.name ?? "?")
+        .navigationTitle(viewModel.uiState.title)
         .onChange(of: viewModel.alert) { old, new in
             alerter.alert = new
         }
@@ -63,7 +63,7 @@ struct CategoryDetailScreen: View {
             if let category = viewModel.uiState.category {
                 NewPassionScreen(
                     viewModel: .init(
-                        currentCategory: category,
+                        currentCategory: category.passionCategory,
                         categoryDetailController: Container.shared.categoryDetailController()
                     )
                 )

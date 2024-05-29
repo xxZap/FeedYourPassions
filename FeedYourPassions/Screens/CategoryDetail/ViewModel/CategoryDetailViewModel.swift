@@ -13,7 +13,7 @@ class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState = .init(category: nil, passions: nil)
     @Published var alert: AppAlert?
 
-    private var category: PassionCategory? { categoryDetailController.category }
+    private var category: Category? { categoryDetailController.category }
     private let categoriesController: CategoriesController
     private let categoryDetailController: CategoryDetailController
     private var cancellables = Set<AnyCancellable>()
@@ -31,13 +31,6 @@ class CategoryDetailViewModel: ObservableObject {
                 self?.uiState = .init(category: self?.category, passions: passions)
             }
             .store(in: &cancellables)
-    }
-
-    func createNewPassion() {
-        // ZAPTODO: missing implementation
-        print("Presenting new Passion creation form")
-        // on save, call:
-        // selectedCategoryController.addNewPassion(newPassion)
     }
 
     func rename(passion: Passion, into name: String?) {
