@@ -544,6 +544,7 @@
 			packageReferences = (
 				6D37C6C82BD51B5A003B1DA0 /* XCRemoteSwiftPackageReference "Factory" */,
 				6D7A7F792BEE492B0001F60A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6D8A8B922C07162A0036D6AC /* XCRemoteSwiftPackageReference "MeteorDesignSystem" */,
 			);
 			productRefGroup = 6D36A8342BD3CDD700F238EC /* Products */;
 			projectDirPath = "";
@@ -903,6 +904,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 10.25.0;
+			};
+		};
+		6D8A8B922C07162A0036D6AC /* XCRemoteSwiftPackageReference "MeteorDesignSystem" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:xxZap/MeteorDesignSystem.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
