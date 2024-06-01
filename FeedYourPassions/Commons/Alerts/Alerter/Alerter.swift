@@ -24,3 +24,22 @@ extension EnvironmentValues {
         set { self[AlerterKey.self] = newValue }
     }
 }
+
+extension View {
+    func registerAlerter(_ alerter: Alerter) -> some View {
+        ZStack {
+            Rectangle()
+                .fill(.clear)
+                .alert(
+                    isPresented: Binding(
+                        get: { alerter.isShowingAlert },
+                        set: { if !$0 { alerter.alert = nil } }
+                    ),
+                    appAlert: alerter.alert
+                )
+
+            self
+        }
+        .environment(\.alerterKey, alerter)
+    }
+}

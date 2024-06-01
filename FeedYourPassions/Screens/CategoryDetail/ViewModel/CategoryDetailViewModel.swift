@@ -13,7 +13,7 @@ class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState = .init(category: nil, passions: nil)
     @Published var alert: AppAlert?
 
-    private var category: PassionCategory? { categoryDetailController.category }
+    private var category: Category? { categoryDetailController.category }
     private let categoriesController: CategoriesController
     private let categoryDetailController: CategoryDetailController
     private var cancellables = Set<AnyCancellable>()
@@ -33,13 +33,6 @@ class CategoryDetailViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func createNewPassion() {
-        // ZAPTODO: missing implementation
-        print("Presenting new Passion creation form")
-        // on save, call:
-        // selectedCategoryController.addNewPassion(newPassion)
-    }
-
     func rename(passion: Passion, into name: String?) {
         guard let name = name, name.count > 2 else {
             alert = AppAlert.Error.PassionNameLength(onDismiss: { [weak self] in
@@ -57,6 +50,17 @@ class CategoryDetailViewModel: ObservableObject {
 
     func setColor(_ color: String, to passion: Passion) {
         categoryDetailController.setColor(color, to: passion)
+    }
+
+    func addNewRecord(for date: Date, to passion: Passion) {
+        alert = AppAlert.Confirmation.AddNewRecord(passionName: passion.name, date: date) { [weak self] confirmed in
+            if confirmed {
+                let record = PassionRecord(date: date)
+                self?.categoryDetailController.addRecord(record, to: passion)
+            }
+
+            self?.alert = nil
+        }
     }
 
     func delete(passion: Passion) {

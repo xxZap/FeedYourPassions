@@ -19,20 +19,20 @@ class CategoriesListViewModel: ObservableObject {
         self.categoriesController = categoriesController
         self.uiState = .init(categories: nil, selectedCategoryType: nil, maxValue: 0)
 
-        categoriesController.passionCategories
+        categoriesController.categories
             .combineLatest(categoriesController.selectedCategory)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] categories, selectedCategory in
                 self?.uiState = .init(
-                    categories: categories?.sorted(by: { $0.currentValue > $1.currentValue }),
-                    selectedCategoryType: selectedCategory?.type,
-                    maxValue: categories?.map { $0.currentValue }.max() ?? 0
+                    categories: categories?.sorted(by: { $0.maxValue > $1.maxValue }),
+                    selectedCategoryType: selectedCategory?.passionCategory.type,
+                    maxValue: categories?.map { $0.maxValue }.max() ?? 0
                 )
             }
             .store(in: &cancellables)
     }
 
-    func setSelectedCategory(_ category: PassionCategory?) {
+    func setSelectedCategory(_ category: Category?) {
         categoriesController.selectCategory(category)
     }
 }

@@ -57,7 +57,7 @@ struct CategoriesListView: View {
         }
     }
 
-    private func categoryList(_ categories: [PassionCategory], maxValue: Int) -> some View {
+    private func categoryList(_ categories: [Category], maxValue: Int) -> some View {
         List {
             ForEach(Array(categories.enumerated()), id: \.element) { index, category in
                 Button {
@@ -67,12 +67,12 @@ struct CategoriesListView: View {
                         category: category,
                         maxValue: maxValue,
                         color: Color.mGetPaletteColor(.red, forListIndex: index),
-                        selected: isInSidebar && uiState.selectedCategoryType == category.type
+                        selected: isInSidebar && uiState.selectedCategoryType == category.passionCategory.type
                     )
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .background(
-                        isInSidebar && uiState.selectedCategoryType == category.type
+                        isInSidebar && uiState.selectedCategoryType == category.passionCategory.type
                         ? Color.mAccent
                         : Color.clear
                     )

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol CategoryDetailController {
-    var category: PassionCategory? { get }
+    var category: Category? { get }
     var passions: AnyPublisher<[Passion]?, Never> { get }
 
     var maxValue: Int { get }
@@ -18,5 +18,6 @@ protocol CategoryDetailController {
     func rename(_ passion: Passion, into name: String)
     func setAssociatedURL(_ url: String, to passion: Passion)
     func setColor(_ color: String, to passion: Passion)
+    func addRecord(_ record: PassionRecord, to passion: Passion)
     func delete(_ passion: Passion)
 }

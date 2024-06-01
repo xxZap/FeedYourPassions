@@ -8,23 +8,6 @@
 import Foundation
 import FirebaseFirestore
 
-class PassionRecord: Equatable, Hashable, Codable {
-
-    let date: Timestamp
-
-    init(date: Date) {
-        self.date = Timestamp(date: date)
-    }
-
-    static func == (lhs: PassionRecord, rhs: PassionRecord) -> Bool {
-        lhs.date == rhs.date
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(date)
-    }
-}
-
 class Passion: Equatable, Hashable, Codable {
     @DocumentID var id: String?
     var name: String
@@ -42,7 +25,8 @@ class Passion: Equatable, Hashable, Codable {
     }
 
     static func == (lhs: Passion, rhs: Passion) -> Bool {
-        lhs.name == rhs.name
+        lhs.id == rhs.id
+        && lhs.name == rhs.name
         && lhs.associatedURL == rhs.associatedURL
         && lhs.recordsCount == rhs.recordsCount
         && lhs.latestUpdate == rhs.latestUpdate
@@ -50,6 +34,7 @@ class Passion: Equatable, Hashable, Codable {
     }
 
     func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
         hasher.combine(name)
         hasher.combine(associatedURL)
         hasher.combine(recordsCount)

@@ -79,7 +79,11 @@ struct PassionView: View {
             Button {
                 calls.onEditURLTap()
             } label: {
-                Label("Edit URL", systemImage: "link")
+                if url != nil {
+                    Label("Edit URL", systemImage: "link")
+                } else {
+                    Label("Add URL", systemImage: "link")
+                }
             }
 
             // Delete
@@ -131,7 +135,7 @@ struct PassionView: View {
         VStack(spacing: 0) {
             Spacer(minLength: 0)
             MIconButton(type: .primaryGhost, size: .small, image: Image(systemName: "plus")) {
-                print("tap on plus")
+                calls.onAddRecordTap()
             }
             .padding(.horizontal, 8)
             if let url = viewModel.associatedURL {

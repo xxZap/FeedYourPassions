@@ -8,8 +8,8 @@
 import Combine
 
 protocol CategoriesController {
-    var passionCategories: AnyPublisher<[PassionCategory]?, Never> { get }
-    var selectedCategory: AnyPublisher<PassionCategory?, Never> { get }
+    var categories: AnyPublisher<[Category]?, Never> { get }
+    var selectedCategory: AnyPublisher<Category?, Never> { get }
 
-    func selectCategory(_ category: PassionCategory?)
+    func selectCategory(_ category: Category?)
 }
