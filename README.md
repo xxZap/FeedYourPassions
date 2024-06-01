@@ -23,11 +23,10 @@ iOS Mobile Application to always remember you matter, you have passions and you 
 
 ## Roadmap
 
->🔺 Core foundation feature: needed.
->
->🔸 Mid feature: useful but not essential.
->
->🔹 Low feature: nice to have.
+| Core | Mid | Low |
+| :---: | :----: | :------: | 
+| 🔺 | 🔸 | 🔹 |
+| Fundamental Feature | Good to have | Nice to have |
 
 - <img src="https://badgen.net/static/🔺/DONE/green"/> Define the App name and Logo
 - <img src="https://badgen.net/static/🔺/DONE/green"/> Add License
