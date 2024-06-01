@@ -56,18 +56,14 @@ struct FeedYourPassionsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                Rectangle()
-                    .fill(.clear)
-                    .alert(isPresented: $alerter.isShowingAlert, appAlert: alerter.alert)
-
+            Group {
                 if viewModel.user == nil {
                     emptyView
                 } else {
                     CategoriesListScreen(viewModel: .init(categoriesController: Container.shared.categoriesController()))
                 }
             }
-            .environment(\.alerterKey, alerter)
+            .registerAlerter(alerter)
         }
     }
 

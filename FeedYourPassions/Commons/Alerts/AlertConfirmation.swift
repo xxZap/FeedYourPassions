@@ -24,7 +24,7 @@ extension AppAlert {
                 title: titlePrefix + "Warning",
                 message: "Are you sure to delete passion \"\(passionName)\"?",
                 alertButtons: [
-                    .init("Confirm", role: .destructive) {
+                    .init("Delete", role: .destructive) {
                         onAction(true)
                     },
                     .init("Cancel", role: .cancel) {
