@@ -22,11 +22,13 @@ class CategoriesListViewModel: ObservableObject {
         categoriesController.categories
             .combineLatest(categoriesController.selectedCategory)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] categories, selectedCategory in
+            .sink { [weak self] asyncCategories, selectedCategory in
                 self?.uiState = .init(
-                    categories: categories?.sorted(by: { $0.maxValue > $1.maxValue }),
+                    categories: asyncCategories?.asyncMap { categories in
+                        categories.sorted(by: { $0.maxValue > $1.maxValue })
+                    },
                     selectedCategoryType: selectedCategory?.passionCategory.type,
-                    maxValue: categories?.map { $0.maxValue }.max() ?? 0
+                    maxValue: asyncCategories?.successOrNil?.map { $0.maxValue }.max() ?? 0
                 )
             }
             .store(in: &cancellables)

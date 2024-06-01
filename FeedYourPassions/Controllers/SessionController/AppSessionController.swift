@@ -19,75 +19,107 @@ extension Container {
 }
 
 class AppSessionController: SessionController {
-    private let _firebaseSessionUser = CurrentValueSubject<User?, Never>(nil)
 
-    private var _loggedUser = CurrentValueSubject<UserDetail?, Never>(nil)
-    var loggedUser: AnyPublisher<UserDetail?, Never> { _loggedUser.eraseToAnyPublisher()}
+    private var _loggedUser = CurrentValueSubject<AsyncResource<User>?, Never>(nil)
+    var loggedUser: AnyPublisher<AsyncResource<User>?, Never> { _loggedUser.eraseToAnyPublisher()}
 
-    var user: UserDetail?
+    var currentUser: User? { _loggedUser.value?.successOrNil }
 
     private let db: Firestore
     private var cancellables = Set<AnyCancellable>()
+    private let googleAuthenticator = GoogleAuthenticator()
 
     init() {
         self.db = Firestore.firestore()
-
-        self._firebaseSessionUser
-            .sink { [weak self] sessionUser in
-                guard let sessionUser = sessionUser else {
-                    self?.logout()
-                    return
-                }
-
-                Task { [weak self] in
-                    guard let self = self else { return }
-
-                    do {
-                        let userRef = self.db.collection(DBCollectionKey.users.rawValue).document(sessionUser.uid)
-                        let userDetail = try await userRef.getDocument(as: UserDetail.self)
-                        print("✅ User \"\(sessionUser.uid)\" document already exists")
-                        self._loggedUser.send(userDetail)
-                        self.user = userDetail
-
-                    } catch {
-                        print("❌ User \"\(sessionUser.uid)\" document not found")
-                        print("➡️ Going to create user object inside the db...")
-                        try await initUserInDB(sessionUser)
-                    }
-
-                }
-            }
-            .store(in: &cancellables)
     }
 
-    func authenticateAnonymously() {
+    func restoreSession() {
+        _loggedUser.send(.loading)
         if let user = Auth.auth().currentUser {
-            self._firebaseSessionUser.send(user)
+            print("🟢 Session restored for User \"\(user.uid)\"")
+            _loggedUser.send(.success(user))
         } else {
-            Auth.auth().signInAnonymously { [weak self] authResult, error in
-                self?._firebaseSessionUser.send(authResult?.user)
+            print("🔴 No active session to restore has been found")
+            _loggedUser.send(nil)
+        }
+    }
+
+    func logout() {
+        do {
+            try Auth.auth().signOut()
+            print("🟢 Logout from Firebase succeeded")
+            _loggedUser.send(nil)
+        } catch {
+            print("🔴 Logout from Firebase failed: \(error)")
+        }
+    }
+
+    // MARK: - Google
+
+    func loginWithGoogle() {
+        googleAuthenticator.authenticate { [weak self] result in
+            switch result {
+            case .success(let credentials):
+                self?.authToFirebase(with: credentials)
+            case .failure(let error):
+                self?._loggedUser.send(.failure(error))
             }
         }
     }
 }
 
 extension AppSessionController {
-    private func initUserInDB(_ sessionUser: User) async throws {
-        do {
-            let user = UserDetail(id: sessionUser.uid, createdAt: Timestamp(date: Date()), isAnonymous: true)
-            try db.collection(DBCollectionKey.users.rawValue).document(sessionUser.uid).setData(from: user)
-            print("✅ User db data succesfully created")
-            self._loggedUser.send(user)
-            self.user = user
-        } catch {
-            print("❌ Failed to init user \(sessionUser.uid) to DB: \(error)")
-            self._loggedUser.send(nil)
-            self.user = nil
+    private func authToFirebase(with credential: AuthCredential) {
+        Auth.auth().signIn(with: credential) { [weak self] result, error in
+            if let error {
+                print("🔴 Authentication to Firebase failed: \(error)")
+                self?._loggedUser.send(.failure(error))
+                return
+            }
+
+            guard let result = result else {
+                print("🔴 Authentication to Firebase failed")
+                self?._loggedUser.send(.failure(NSError()))
+                return
+            }
+
+            let user = result.user
+            print("🟢 Authentication to Firebase succeeded for User \"\(user.uid)\"")
+            self?._loggedUser.send(.success(user))
+//            self?.loadUserDB(user)
         }
     }
 
-    private func logout() {
-        _loggedUser.send(nil)
-        user = nil
-    }
+//    private func loadUserDB(_ user: User) {
+//        Task {
+//            do {
+//                let userRef = self.db.collection(DBCollectionKey.users.rawValue).document(user.uid)
+//                let userDetail = try await userRef.getDocument()
+//                print("✅ User \"\(user.uid)\" DB already exists")
+//                self._loggedUser.send(.success(user))
+//
+//            } catch {
+//                print("❌ User \"\(user.uid)\" DB not found")
+//                print("➡️ Initializing DB...")
+//                try await initUserInDB(user)
+//            }
+//        }
+//    }
+//
+//    private func initUserInDB(_ user: User) async throws {
+//        do {
+//            try db.collection(DBCollectionKey.users.rawValue).document(user.uid).setData(from: user)
+//
+//            let usersRef = self.db
+//                .collection(DBCollectionKey.users.rawValue).document(user.uid)
+//                .collection(DBCollectionKey.passionCategories.rawValue)
+//            let categoriesDoc = try await categoriesRef.getDocuments()
+//
+//            print("✅ User db data succesfully created")
+//            self._loggedUser.send(.success(user))
+//        } catch {
+//            print("❌ Failed to init DB for user \"\(user.uid)\": \(error)")
+//            self._loggedUser.send(.failure(error))
+//        }
+//    }
 }

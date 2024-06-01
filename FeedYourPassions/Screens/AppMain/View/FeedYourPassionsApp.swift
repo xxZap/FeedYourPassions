@@ -5,11 +5,11 @@
 //  Created by Alessio Boerio on 20/04/24.
 //
 
-import SwiftUI
-import Combine
-import Factory
 import Meteor
+import SwiftUI
+import Factory
 import FirebaseCore
+import GoogleSignIn
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -18,32 +18,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
-class RootViewModel: ObservableObject {
-
-    @Published var user: UserDetail? = nil
-
-    private let sessionController: SessionController
-    private var cancellables = Set<AnyCancellable>()
-
-    init(sessionController: SessionController) {
-        self.sessionController = sessionController
-
-        sessionController.loggedUser
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] user in
-                self?.user = user
-            }
-            .store(in: &cancellables)
-
-        sessionController.authenticateAnonymously()
-    }
-}
-
 @main
 struct FeedYourPassionsApp: App {
 
-    @StateObject var viewModel = RootViewModel(sessionController: Container.shared.sessionController())
     @StateObject var alerter: Alerter = Alerter()
+    @StateObject var viewModel = AppRootViewModel()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     init() {
@@ -57,11 +36,23 @@ struct FeedYourPassionsApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if viewModel.user == nil {
-                    emptyView
-                } else {
+                switch viewModel.uiState.user {
+                case .success:
                     CategoriesListScreen(viewModel: .init(categoriesController: Container.shared.categoriesController()))
+                case .loading:
+//                    LoadingScreen()
+                    emptyView
+                case .none, .failure:
+//                    AuthenticationScreen(viewModel: AuthenticationViewModel())
+                    emptyView
                 }
+            }
+            .animation(.smooth, value: viewModel.uiState)
+            .onAppear {
+                viewModel.restoreSession()
+            }
+            .onOpenURL { url in
+                GIDSignIn.sharedInstance.handle(url)
             }
             .registerAlerter(alerter)
         }

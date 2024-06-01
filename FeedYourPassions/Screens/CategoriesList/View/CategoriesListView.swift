@@ -17,14 +17,17 @@ struct CategoriesListView: View {
 
     var body: some View {
         Group {
-            if let categories = uiState.categories {
-                if categories.isEmpty {
-                    emptyView
-                } else {
-                    categoryList(categories, maxValue: uiState.maxValue)
-                }
-            } else {
+            switch uiState.categories {
+            case .loading:
                 loadingView
+            case .failure(let error):
+                // TODO: missing view
+                EmptyView()
+            case .none:
+                // TODO: missing view
+                EmptyView()
+            case .success(let categories):
+                categoryList(categories, maxValue: uiState.maxValue)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -109,7 +112,7 @@ private extension CategoriesListView {
     CategoriesListView(
         isInSidebar: false,
         uiState: .init(
-            categories: mockedCategories,
+            categories: .success(mockedCategories),
             selectedCategoryType: nil,
             maxValue: 20
         ),

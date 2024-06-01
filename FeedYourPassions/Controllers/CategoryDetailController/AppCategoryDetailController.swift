@@ -7,6 +7,7 @@
 
 import Combine
 import Factory
+import FirebaseAuth
 import FirebaseFirestore
 
 extension Container {
@@ -58,7 +59,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
                 guard
                     let self = self,
-                    let user = user,
+                    let user = user?.successOrNil,
                     let category = category
                 else {
                     return
@@ -71,7 +72,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
     func addNewPassion(_ passion: Passion) {
         guard
-            let user = self.sessionController.user,
+            let user = self.sessionController.currentUser,
             let category = category
         else {
             return
@@ -79,7 +80,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
         do {
             try db
-                .collection(DBCollectionKey.users.rawValue).document(user.id)
+                .collection(DBCollectionKey.users.rawValue).document(user.uid)
                 .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
                 .collection(DBCollectionKey.passions.rawValue).addDocument(from: passion)
 
@@ -91,14 +92,14 @@ class AppCategoryDetailController: CategoryDetailController {
 
     func rename(_ passion: Passion, into name: String) {
         guard
-            let user = self.sessionController.user,
+            let user = self.sessionController.currentUser,
             let category = category
         else {
             return
         }
 
         db
-            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.users.rawValue).document(user.uid)
             .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
             .updateData(["name": name]) { error in
@@ -112,14 +113,14 @@ class AppCategoryDetailController: CategoryDetailController {
 
     func setAssociatedURL(_ url: String, to passion: Passion) {
         guard
-            let user = self.sessionController.user,
+            let user = self.sessionController.currentUser,
             let category = category
         else {
             return
         }
 
         db
-            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.users.rawValue).document(user.uid)
             .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
             .updateData(["associatedURL": url]) { error in
@@ -133,14 +134,14 @@ class AppCategoryDetailController: CategoryDetailController {
 
     func setColor(_ color: String, to passion: Passion) {
         guard
-            let user = self.sessionController.user,
+            let user = self.sessionController.currentUser,
             let category = category
         else {
             return
         }
 
         db
-            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.users.rawValue).document(user.uid)
             .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
             .updateData(["color": color]) { error in
@@ -154,7 +155,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
     func addRecord(_ record: PassionRecord, to passion: Passion) {
         guard
-            let user = self.sessionController.user,
+            let user = self.sessionController.currentUser,
             let category = category
         else {
             return
@@ -162,7 +163,7 @@ class AppCategoryDetailController: CategoryDetailController {
 
         do {
             try db
-                .collection(DBCollectionKey.users.rawValue).document(user.id)
+                .collection(DBCollectionKey.users.rawValue).document(user.uid)
                 .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
                 .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "")
                 .collection(DBCollectionKey.records.rawValue).addDocument(from: record)
@@ -175,14 +176,14 @@ class AppCategoryDetailController: CategoryDetailController {
 
     func delete(_ passion: Passion) {
         guard
-            let user = self.sessionController.user,
+            let user = self.sessionController.currentUser,
             let category = category
         else {
             return
         }
 
         db
-            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.users.rawValue).document(user.uid)
             .collection(DBCollectionKey.passionCategories.rawValue).document(category.passionCategory.id ?? "")
             .collection(DBCollectionKey.passions.rawValue).document(passion.id ?? "").delete { error in
                 if let error {
@@ -195,10 +196,10 @@ class AppCategoryDetailController: CategoryDetailController {
 }
 
 extension AppCategoryDetailController {
-    private func attachListener(to user: UserDetail, category: Category) {
+    private func attachListener(to user: User, category: Category) {
         guard let categoryID = category.passionCategory.id else { return }
         db
-            .collection(DBCollectionKey.users.rawValue).document(user.id)
+            .collection(DBCollectionKey.users.rawValue).document(user.uid)
             .collection(DBCollectionKey.passionCategories.rawValue).document(categoryID)
             .collection(DBCollectionKey.passions.rawValue)
             .order(by: "latestUpdate", descending: true)

@@ -7,17 +7,14 @@
 
 import Combine
 import FirebaseAuth
-import FirebaseFirestore
-
-struct UserDetail: Codable {
-    let id: String
-    let createdAt: Timestamp
-    let isAnonymous: Bool
-}
 
 protocol SessionController {
-    var loggedUser: AnyPublisher<UserDetail?, Never> { get }
-    var user: UserDetail? { get }
+    var loggedUser: AnyPublisher<AsyncResource<User>?, Never> { get }
+    var currentUser: User? { get }
 
-    func authenticateAnonymously()
+    func restoreSession()
+    func logout()
+
+    // Google
+    func loginWithGoogle()
 }

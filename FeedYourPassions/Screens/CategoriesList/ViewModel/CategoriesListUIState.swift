@@ -8,7 +8,7 @@
 import Foundation
 
 struct CategoriesListUIState {
-    let categories: [Category]?
+    let categories: AsyncResource<[Category]>?
     let selectedCategoryType: PassionCategoryType?
     let maxValue: Int
 }

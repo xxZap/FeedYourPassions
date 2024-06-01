@@ -8,8 +8,9 @@
 import Combine
 
 protocol CategoriesController {
-    var categories: AnyPublisher<[Category]?, Never> { get }
+    var categories: AnyPublisher<AsyncResource<[Category]>?, Never> { get }
     var selectedCategory: AnyPublisher<Category?, Never> { get }
 
+    func fetchCategories()
     func selectCategory(_ category: Category?)
 }
