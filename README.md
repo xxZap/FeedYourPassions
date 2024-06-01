@@ -22,28 +22,36 @@ iOS Mobile Application to always remember you matter, you have passions and you 
 100% SwiftUI
 
 ## Roadmap
-- ✅ Define the App name and Logo
-- ✅ Add License
-- ✅ Create Categories
-- ✅ Add a new Passion
-    - ✅ Rename Passion
-    - ✅ Set custom associated URL
-    - ✅ Set custom Passion colour
-    - ✅ Delete Passion
-    - 🚧 Add records
-- 🔲 Passion expanded mode with charts
-- 🔲 Localization
-    - 🔲 english
-    - 🔲 italian
-- 🔲 Support authentication for Google users
-    - 🔲 Account screen
-    - 🔲 Support data transfer from an anonymous session to Google's one
-    - 🔲 Define in-app purchase logic for VIP members
-    - 🔲 Add internal notifications for reminders
-- 🔲 Add logic to populate bars on the category list screen
-- 🔲 Add time range
-- 🔲 Add streak gamification
-- 🔲 Add a dedicated screen to show known associated URLs for important apps.
+
+>🔺 Core foundation feature: needed.
+>
+>🔸 Mid feature: useful but not essential.
+>
+>🔹 Low feature: nice to have.
+
+- <img src="https://badgen.net/static/🔺/DONE/green"/> Define the App name and Logo
+- <img src="https://badgen.net/static/🔺/DONE/green"/> Add License
+- <img src="https://badgen.net/static/🔺/DONE/green"/> Create Categories
+- <img src="https://badgen.net/static/🔺/DONE/green"/> Add a new Passion
+    - <img src="https://badgen.net/static/🔸/DONE/green"/> Rename Passion
+    - <img src="https://badgen.net/static/🔺/DONE/green"/> Set custom associated URL
+    - <img src="https://badgen.net/static/🔹/DONE/green"/> Set custom Passion colour
+    - <img src="https://badgen.net/static/🔺/DONE/green"/> Delete Passion
+    - <img src="https://badgen.net/static/🔺/DOING/yellow"/> Add records
+- <img src="https://badgen.net/static/🔺/TODO/gray"/> Passion expanded mode with charts
+- <img src="https://badgen.net/static/🔸/TODO/gray"/> Multiple localization
+    - <img src="https://badgen.net/static/🔸/TODO/gray"/> english
+    - <img src="https://badgen.net/static/🔸/TODO/gray"/> italian
+- <img src="https://badgen.net/static/🔺/TODO/gray"/> Authentication
+    - <img src="https://badgen.net/static/🔺/TODO/gray"/> Google SignIn
+    - <img src="https://badgen.net/static/🔺/TODO/gray"/> Apple SignIn
+        - <img src="https://badgen.net/static/🔺/TODO/gray"/> Account screen
+        - <img src="https://badgen.net/static/🔹/TODO/gray"/> Define in-app purchase logic for VIP members
+        - <img src="https://badgen.net/static/🔹/TODO/gray"/> Add internal notifications for reminders
+- <img src="https://badgen.net/static/🔸/TODO/gray"/> Add logic to populate bars on the category list screen
+- <img src="https://badgen.net/static/🔹/TODO/gray"/> Add time range
+- <img src="https://badgen.net/static/🔹/TODO/gray"/> Add streak gamification
+- <img src="https://badgen.net/static/🔺/TODO/gray"/> Add a dedicated screen to show known associated URLs for important apps.
 
 ## License
 [Apache License 2.0][license]. See Apache Software Foundation's [licensing FAQ][licensing-faq]
