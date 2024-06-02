@@ -62,10 +62,7 @@ struct CategoryDetailScreen: View {
         .sheet(isPresented: $addNewPassionIsPresented) {
             if let category = viewModel.uiState.category {
                 NewPassionScreen(
-                    viewModel: .init(
-                        currentCategory: category.passionCategory,
-                        categoryDetailController: Container.shared.categoryDetailController()
-                    )
+                    viewModel: .init(currentCategory: category.passionCategory)
                 )
             }
         }
@@ -119,50 +116,53 @@ struct CategoryDetailScreen: View {
 
 #if DEBUG
 #Preview("None") {
-    CategoryDetailScreen(
-        viewModel: .init(
-            categoriesController: MockedCategoriesController(.none),
-            categoryDetailController: MockedCategoryDetailController(
-                .valid(
-                    items: [
-                        Date(timeIntervalSince1970: 8124698),
-                        Date(timeIntervalSince1970: 9124698),
-                    ]
-                )
-            )
-        )
-    )
+    let _ = Container.shared.categoriesController.register {
+        MockedCategoriesController(.none)
+    }
+    let _ = Container.shared.categoryDetailController.register {
+        MockedCategoryDetailController(
+           .valid(
+               items: [
+                   Date(timeIntervalSince1970: 8124698),
+                   Date(timeIntervalSince1970: 9124698),
+               ]
+           )
+       )
+    }
+    return CategoryDetailScreen(viewModel: .init())
 }
 
 #Preview("Empty") {
-    CategoryDetailScreen(
-        viewModel: .init(
-            categoriesController: MockedCategoriesController(.empty),
-            categoryDetailController: MockedCategoryDetailController(
-                .valid(
-                    items: [
-                        Date(timeIntervalSince1970: 8124698),
-                        Date(timeIntervalSince1970: 9124698),
-                    ]
-                )
-            )
-        )
-    )
+    let _ = Container.shared.categoriesController.register {
+        MockedCategoriesController(.empty)
+    }
+    let _ = Container.shared.categoryDetailController.register {
+        MockedCategoryDetailController(
+           .valid(
+               items: [
+                   Date(timeIntervalSince1970: 8124698),
+                   Date(timeIntervalSince1970: 9124698),
+               ]
+           )
+       )
+    }
+    return CategoryDetailScreen(viewModel: .init())
 }
 
 #Preview("Valid") {
-    CategoryDetailScreen(
-        viewModel: .init(
-            categoriesController: MockedCategoriesController(.valid(categories: mockedCategories)),
-            categoryDetailController: MockedCategoryDetailController(
-                .valid(
-                    items: [
-                        Date(timeIntervalSince1970: 8124698),
-                        Date(timeIntervalSince1970: 9124698),
-                    ]
-                )
-            )
-        )
-    )
+    let _ = Container.shared.categoriesController.register {
+        MockedCategoriesController(.valid(categories: mockedCategories))
+    }
+    let _ = Container.shared.categoryDetailController.register {
+        MockedCategoryDetailController(
+           .valid(
+               items: [
+                   Date(timeIntervalSince1970: 8124698),
+                   Date(timeIntervalSince1970: 9124698),
+               ]
+           )
+       )
+    }
+    return CategoryDetailScreen(viewModel: .init())
 }
 #endif

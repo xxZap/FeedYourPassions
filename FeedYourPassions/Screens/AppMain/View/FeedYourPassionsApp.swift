@@ -38,13 +38,12 @@ struct FeedYourPassionsApp: App {
             Group {
                 switch viewModel.uiState.user {
                 case .success:
-                    CategoriesListScreen(viewModel: .init(categoriesController: Container.shared.categoriesController()))
+                    CategoriesListScreen(viewModel: .init())
                 case .loading:
 //                    LoadingScreen()
                     emptyView
                 case .none, .failure:
-//                    AuthenticationScreen(viewModel: AuthenticationViewModel())
-                    emptyView
+                    AuthenticationScreen(viewModel: .init())
                 }
             }
             .animation(.smooth, value: viewModel.uiState)

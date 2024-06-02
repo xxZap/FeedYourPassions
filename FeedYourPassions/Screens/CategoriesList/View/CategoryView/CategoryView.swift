@@ -9,7 +9,7 @@ import SwiftUI
 import Meteor
 
 struct CategoryView: View {
-    let category: Category
+    let category: CategoryContainer
     let maxValue: Int
     let color: Color
     let selected: Bool
@@ -32,7 +32,7 @@ struct CategoryView: View {
     VStack {
         Spacer()
         CategoryView(
-            category: Category(passionCategory: PassionCategory(type: .family), maxValue: 0),
+            category: CategoryContainer(passionCategory: PassionCategory(type: .family), maxValue: 0),
             maxValue: 10,
             color: Color.mGetPaletteColor(.red, forListIndex: 1),
             selected: false

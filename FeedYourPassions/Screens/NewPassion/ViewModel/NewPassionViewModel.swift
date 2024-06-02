@@ -8,7 +8,7 @@
 import Meteor
 import Combine
 import SwiftUI
-import Foundation
+import Factory
 import FirebaseFirestore
 
 class NewPassionViewModel: ObservableObject {
@@ -32,15 +32,12 @@ class NewPassionViewModel: ObservableObject {
     }
 
     private let currentCategory: PassionCategory
-    private let categoryDetailController: CategoryDetailController
     private var cancellables = Set<AnyCancellable>()
 
-    init(
-        currentCategory: PassionCategory,
-        categoryDetailController: CategoryDetailController
-    ) {
+    @Injected(\.categoryDetailController) private var categoryDetailController
+
+    init(currentCategory: PassionCategory) {
         self.currentCategory = currentCategory
-        self.categoryDetailController = categoryDetailController
         self.uiStatePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] uiState in

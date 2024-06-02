@@ -10,8 +10,8 @@ import Combine
 import FirebaseAuth
 import FirebaseFirestore
 
-let mockedCategories: [Category] = mockedPassionCategories.map { Category(passionCategory: $0, maxValue: 0) }
-struct Category: Equatable, Hashable {
+let mockedCategories: [CategoryContainer] = mockedPassionCategories.map { CategoryContainer(passionCategory: $0, maxValue: 0) }
+struct CategoryContainer: Equatable, Hashable {
     let passionCategory: PassionCategory
     let maxValue: Int
 
@@ -39,13 +39,13 @@ class AppCategoriesController: CategoriesController {
 
     private var _passionCategories = CurrentValueSubject<AsyncResource<[PassionCategory]>?, Never>(nil)
 
-    private var _categories = CurrentValueSubject<AsyncResource<[Category]>?, Never>(nil)
-    var categories: AnyPublisher<AsyncResource<[Category]>?, Never> {
+    private var _categories = CurrentValueSubject<AsyncResource<[CategoryContainer]>?, Never>(nil)
+    var categories: AnyPublisher<AsyncResource<[CategoryContainer]>?, Never> {
         _categories.eraseToAnyPublisher()
     }
 
-    private var _selectedCategory = CurrentValueSubject<Category?, Never>(nil)
-    var selectedCategory: AnyPublisher<Category?, Never> {
+    private var _selectedCategory = CurrentValueSubject<CategoryContainer?, Never>(nil)
+    var selectedCategory: AnyPublisher<CategoryContainer?, Never> {
         _selectedCategory.eraseToAnyPublisher()
     }
 
@@ -63,7 +63,7 @@ class AppCategoriesController: CategoriesController {
             .sink { [weak self] asyncPassionCategories in
                 // TODO: retrieve value from each category's subcollection
                 _ = asyncPassionCategories?.asyncMap { [weak self] passionCategories in
-                    let categories: [Category] = passionCategories.compactMap { Category(passionCategory: $0, maxValue: 0) }
+                    let categories: [CategoryContainer] = passionCategories.compactMap { CategoryContainer(passionCategory: $0, maxValue: 0) }
                     self?._categories.send(.success(categories))
                 }
 
@@ -98,7 +98,7 @@ class AppCategoriesController: CategoriesController {
         }
     }
 
-    func selectCategory(_ category: Category?) {
+    func selectCategory(_ category: CategoryContainer?) {
         _selectedCategory.send(category)
     }
 }
@@ -174,15 +174,15 @@ class MockedCategoriesController: CategoriesController {
     enum Scenario {
         case none
         case empty
-        case valid(categories: [Category])
+        case valid(categories: [CategoryContainer])
     }
 
-    var selectedCategory: AnyPublisher<Category?, Never> {
+    var selectedCategory: AnyPublisher<CategoryContainer?, Never> {
         Just(nil).eraseToAnyPublisher()
     }
 
-    private let _categories: CurrentValueSubject<AsyncResource<[Category]>?, Never>
-    var categories: AnyPublisher<AsyncResource<[Category]>?, Never> { _categories.eraseToAnyPublisher() }
+    private let _categories: CurrentValueSubject<AsyncResource<[CategoryContainer]>?, Never>
+    var categories: AnyPublisher<AsyncResource<[CategoryContainer]>?, Never> { _categories.eraseToAnyPublisher() }
 
     init(_ scenario: Scenario) {
         switch scenario {
@@ -199,7 +199,7 @@ class MockedCategoriesController: CategoriesController {
 
     }
 
-    func selectCategory(_ category: Category?) {
+    func selectCategory(_ category: CategoryContainer?) {
 
     }
 }

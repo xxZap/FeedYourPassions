@@ -5,20 +5,19 @@
 //  Created by Alessio Boerio on 20/04/24.
 //
 
-import Foundation
 import Combine
+import Factory
+import Foundation
 
 class CategoriesListViewModel: ObservableObject {
 
-    @Published var uiState: CategoriesListUIState
+    @Published var uiState: CategoriesListUIState = .init(categories: nil, selectedCategoryType: nil, maxValue: 0)
 
     private var cancellables = Set<AnyCancellable>()
-    private let categoriesController: CategoriesController
 
-    init(categoriesController: CategoriesController) {
-        self.categoriesController = categoriesController
-        self.uiState = .init(categories: nil, selectedCategoryType: nil, maxValue: 0)
+    @Injected(\.categoriesController) private var categoriesController
 
+    init() {
         categoriesController.categories
             .combineLatest(categoriesController.selectedCategory)
             .receive(on: DispatchQueue.main)
@@ -34,7 +33,7 @@ class CategoriesListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func setSelectedCategory(_ category: Category?) {
+    func setSelectedCategory(_ category: CategoryContainer?) {
         categoriesController.selectCategory(category)
     }
 }

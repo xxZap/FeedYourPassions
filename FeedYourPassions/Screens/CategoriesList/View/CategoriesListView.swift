@@ -36,10 +36,7 @@ struct CategoriesListView: View {
         .animation(.smooth, value: uiState.selectedCategoryType)
         .navigationDestination(isPresented: bindingForScreen(uiState.selectedCategoryType)) {
             if uiState.selectedCategoryType != nil {
-                CategoryDetailScreen(viewModel: .init(
-                    categoriesController: Container.shared.categoriesController(),
-                    categoryDetailController: Container.shared.categoryDetailController()
-                ))
+                CategoryDetailScreen(viewModel: .init())
             }
         }
     }
@@ -60,7 +57,7 @@ struct CategoriesListView: View {
         }
     }
 
-    private func categoryList(_ categories: [Category], maxValue: Int) -> some View {
+    private func categoryList(_ categories: [CategoryContainer], maxValue: Int) -> some View {
         List {
             ForEach(Array(categories.enumerated()), id: \.element) { index, category in
                 Button {

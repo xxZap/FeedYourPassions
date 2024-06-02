@@ -8,7 +8,7 @@
 import Foundation
 
 struct CategoryDetailUIState {
-    var category: Category?
+    var category: CategoryContainer?
     var passions: [Passion]?
     var title: String { category?.passionCategory.name ?? "?" }
 }

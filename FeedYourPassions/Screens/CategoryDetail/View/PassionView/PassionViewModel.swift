@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Factory
 
 private var relativeDateFormatter: RelativeDateTimeFormatter = {
     let formatter = RelativeDateTimeFormatter()
@@ -21,14 +22,9 @@ class PassionViewModel: ObservableObject {
     var color: Color? { Color(hex: passion.color) }
     var associatedURL: URL? { if let string = passion.associatedURL { URL(string: string) } else { nil } }
 
-    private let categoryDetailController: CategoryDetailController
+    @Injected(\.categoryDetailController) private var categoryDetailController
 
-    init(
-        passion: Passion,
-        categoryDetailController: CategoryDetailController
-    ) {
-        self.categoryDetailController = categoryDetailController
-
+    init(passion: Passion) {
         self.passion = passion
         self.latestUpdateString = relativeDateFormatter.localizedString(
             for: passion.latestUpdate.dateValue(),

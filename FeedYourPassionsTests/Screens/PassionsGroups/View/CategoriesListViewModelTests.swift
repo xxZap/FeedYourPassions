@@ -7,7 +7,8 @@
 
 import XCTest
 import Combine
-@testable import FeedYourPassions
+import Factory
+@testable import Grouap
 
 final class CategoriesListViewModelTests: XCTestCase {
 
@@ -21,7 +22,7 @@ final class CategoriesListViewModelTests: XCTestCase {
             .$uiState
             .dropFirst() // because on first iteration is always nil
             .sink { uiState in
-                XCTAssertEqual(uiState.categories, [])
+                XCTAssertEqual(uiState.categories, .success([]))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -30,9 +31,9 @@ final class CategoriesListViewModelTests: XCTestCase {
     }
 
     func test_init_with_someCategories() throws {
-        let categories: [PassionCategory] = [
-            PassionCategory(type: .family),
-            PassionCategory(type: .friends)
+        let categories: [CategoryContainer] = [
+            CategoryContainer(passionCategory: PassionCategory(type: .family), maxValue: 0),
+            CategoryContainer(passionCategory: PassionCategory(type: .friends), maxValue: 0)
         ]
         let sut = getSUT(categories: categories)
         let expectation = XCTestExpectation()
@@ -41,7 +42,7 @@ final class CategoriesListViewModelTests: XCTestCase {
             .$uiState
             .dropFirst() // because on first iteration is always nil
             .sink { uiState in
-                XCTAssertEqual(uiState.categories, categories)
+                XCTAssertEqual(uiState.categories, .success(categories))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -71,12 +72,14 @@ final class CategoriesListViewModelTests: XCTestCase {
 }
 
 extension CategoriesListViewModelTests {
-    func getSUT(categories: [PassionCategory]) -> CategoriesListViewModel {
+    func getSUT(categories: [CategoryContainer]) -> CategoriesListViewModel {
         switch categories.count {
         case 0:
-            return CategoriesListViewModel(categoriesController: MockedCategoriesController(.empty))
+            _ = Container.shared.categoriesController.register { MockedCategoriesController(.empty) }
+            return CategoriesListViewModel()
         default:
-            return CategoriesListViewModel(categoriesController: MockedCategoriesController(.valid(categories: categories)))
+            _ = Container.shared.categoriesController.register { MockedCategoriesController(.valid(categories: categories)) }
+            return CategoriesListViewModel()
         }
 
     }

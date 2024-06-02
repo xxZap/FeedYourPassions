@@ -7,24 +7,19 @@
 
 import SwiftUI
 import Combine
-import Foundation
+import Factory
 
 class CategoryDetailViewModel: ObservableObject {
     @Published var uiState: CategoryDetailUIState = .init(category: nil, passions: nil)
     @Published var alert: AppAlert?
 
-    private var category: Category? { categoryDetailController.category }
-    private let categoriesController: CategoriesController
-    private let categoryDetailController: CategoryDetailController
+    private var category: CategoryContainer? { categoryDetailController.category }
     private var cancellables = Set<AnyCancellable>()
 
-    init(
-        categoriesController: CategoriesController,
-        categoryDetailController: CategoryDetailController
-    ) {
-        self.categoriesController = categoriesController
-        self.categoryDetailController = categoryDetailController
+    @Injected(\.categoriesController) private var categoriesController
+    @Injected(\.categoryDetailController) private var categoryDetailController
 
+    init() {
         categoryDetailController.passions
             .receive(on: DispatchQueue.main)
             .sink { [weak self] passions in

@@ -23,7 +23,7 @@ extension Container {
 
 class AppCategoryDetailController: CategoryDetailController {
 
-    private(set) var category: Category?
+    private(set) var category: CategoryContainer?
 
     private let _passions = CurrentValueSubject<[Passion]?, Never>(nil)
     var passions: AnyPublisher<[Passion]?, Never> {
@@ -196,7 +196,7 @@ class AppCategoryDetailController: CategoryDetailController {
 }
 
 extension AppCategoryDetailController {
-    private func attachListener(to user: User, category: Category) {
+    private func attachListener(to user: User, category: CategoryContainer) {
         guard let categoryID = category.passionCategory.id else { return }
         db
             .collection(DBCollectionKey.users.rawValue).document(user.uid)
@@ -233,7 +233,7 @@ class MockedCategoryDetailController: CategoryDetailController {
         case valid(items: [Date])
     }
 
-    private(set) var category: Category?
+    private(set) var category: CategoryContainer?
 
     private let _passions: CurrentValueSubject<[Passion]?, Never>
     var passions: AnyPublisher<[Passion]?, Never> {

@@ -8,11 +8,11 @@
 import Foundation
 
 struct CategoriesListUIState {
-    let categories: AsyncResource<[Category]>?
+    let categories: AsyncResource<[CategoryContainer]>?
     let selectedCategoryType: PassionCategoryType?
     let maxValue: Int
 }
 
 struct CategoriesListCalls {
-    var onCategoryTap: (Category?) -> Void
+    var onCategoryTap: (CategoryContainer?) -> Void
 }

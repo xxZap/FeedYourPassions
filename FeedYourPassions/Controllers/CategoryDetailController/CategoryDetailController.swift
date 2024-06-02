@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol CategoryDetailController {
-    var category: Category? { get }
+    var category: CategoryContainer? { get }
     var passions: AnyPublisher<[Passion]?, Never> { get }
 
     var maxValue: Int { get }

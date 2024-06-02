@@ -47,10 +47,7 @@ struct CategoryDetailView: View {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 350))]) {
                 ForEach(Array(passions.enumerated()), id: \.element) { index, passion in
                     PassionView(
-                        viewModel: .init(
-                            passion: passion,
-                            categoryDetailController: Container.shared.categoryDetailController()
-                        ),
+                        viewModel: .init(passion: passion),
                         calls: .init(
                             onTap: {
                                 calls.onPassionTap(passion)
@@ -119,7 +116,7 @@ struct CategoryDetailView: View {
 #Preview {
     CategoryDetailView(
         uiState: .init(
-            category: Category(passionCategory: PassionCategory(type: .family), maxValue: 0) ,
+            category: CategoryContainer(passionCategory: PassionCategory(type: .family), maxValue: 0) ,
             passions: [
                 Passion(
                     name: "Very long Passion name that can extend on a lot of multiple lines",

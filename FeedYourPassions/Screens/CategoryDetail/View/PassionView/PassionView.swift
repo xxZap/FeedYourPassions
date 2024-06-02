@@ -152,7 +152,10 @@ struct PassionView: View {
 
 #if DEBUG
 #Preview {
-    VStack {
+    let _ = Container.shared.categoryDetailController.register {
+        MockedCategoryDetailController(.valid(items: []))
+    }
+    return VStack {
         Spacer()
         PassionView(
             viewModel: .init(
@@ -162,8 +165,7 @@ struct PassionView: View {
                     recordsCount: 0,
                     latestUpdate: Timestamp(date: Date()),
                     color: Color.blue.toHex() ?? ""
-                ),
-                categoryDetailController: MockedCategoryDetailController(.valid(items: []))
+                )
             ),
             calls: .init(
                 onTap: { },
