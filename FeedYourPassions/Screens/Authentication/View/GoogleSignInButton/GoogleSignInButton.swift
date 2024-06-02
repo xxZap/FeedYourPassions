@@ -19,7 +19,7 @@ struct GoogleSignInButton: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 16, height: 16)
-                Text("Google SignIn")
+                Text("Google Sign In")
                     .font(Font.system(size: 18).weight(.semibold))
                     .foregroundStyle(Color.black)
                 Spacer(minLength: 0)
