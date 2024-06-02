@@ -31,8 +31,7 @@ class AppCategoryDetailController: CategoryDetailController {
     }
 
     var maxValue: Int {
-        // TODO:
-        0// _category.value?.maxValue ?? 0
+        category?.maxValue ?? 0
     }
 
     private let db: Firestore

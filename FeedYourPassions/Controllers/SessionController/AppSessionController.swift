@@ -36,10 +36,10 @@ class AppSessionController: SessionController {
     func restoreSession() {
         _loggedUser.send(.loading)
         if let user = Auth.auth().currentUser {
-            print("🟢 Session restored for User \"\(user.uid)\"")
+            print("✅ Session restored for User \"\(user.uid)\"")
             _loggedUser.send(.success(user))
         } else {
-            print("🔴 No active session to restore has been found")
+            print("❌ No active session to restore has been found")
             _loggedUser.send(nil)
         }
     }
@@ -47,10 +47,10 @@ class AppSessionController: SessionController {
     func logout() {
         do {
             try Auth.auth().signOut()
-            print("🟢 Logout from Firebase succeeded")
+            print("✅ Logout from Firebase succeeded")
             _loggedUser.send(nil)
         } catch {
-            print("🔴 Logout from Firebase failed: \(error)")
+            print("❌ Logout from Firebase failed: \(error)")
         }
     }
 
@@ -72,19 +72,19 @@ extension AppSessionController {
     private func authToFirebase(with credential: AuthCredential) {
         Auth.auth().signIn(with: credential) { [weak self] result, error in
             if let error {
-                print("🔴 Authentication to Firebase failed: \(error)")
+                print("❌ Authentication to Firebase failed: \(error)")
                 self?._loggedUser.send(.failure(error))
                 return
             }
 
             guard let result = result else {
-                print("🔴 Authentication to Firebase failed")
+                print("❌ Authentication to Firebase failed")
                 self?._loggedUser.send(.failure(NSError()))
                 return
             }
 
             let user = result.user
-            print("🟢 Authentication to Firebase succeeded for User \"\(user.uid)\"")
+            print("✅ Authentication to Firebase succeeded for User \"\(user.uid)\"")
             self?._loggedUser.send(.success(user))
 //            self?.loadUserDB(user)
         }
