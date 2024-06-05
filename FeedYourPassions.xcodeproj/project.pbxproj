@@ -99,6 +99,7 @@
 		6D5964A72C10833200A4C66D /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		6D5964AA2C1084AC00A4C66D /* ExternalLinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkController.swift; sourceTree = "<group>"; };
 		6D5964AC2C1084DF00A4C66D /* AppExternalLinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExternalLinkController.swift; sourceTree = "<group>"; };
+		6D5964B02C109B6F00A4C66D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6D59FB762BDA52BD00D0C087 /* Alerter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerter.swift; sourceTree = "<group>"; };
 		6D59FB792BDAE01300D0C087 /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
 		6D59FB7D2BDC013200D0C087 /* CategoryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailController.swift; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 		6D36A8352BD3CDD700F238EC /* FeedYourPassions */ = {
 			isa = PBXGroup;
 			children = (
+				6D5964B02C109B6F00A4C66D /* Info.plist */,
 				6D37C6AD2BD4024F003B1DA0 /* Commons */,
 				6D37C6CB2BD51BB5003B1DA0 /* Controllers */,
 				6DB5010B2C03BAC2004DA8C5 /* Network */,
@@ -871,6 +873,7 @@
 				DEVELOPMENT_TEAM = 52APURX8D7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeedYourPassions/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -901,6 +904,7 @@
 				DEVELOPMENT_TEAM = 52APURX8D7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeedYourPassions/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
