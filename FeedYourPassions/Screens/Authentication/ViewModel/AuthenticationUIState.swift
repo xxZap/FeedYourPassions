@@ -10,7 +10,10 @@ import AuthenticationServices
 
 struct AuthenticationUIState {
     var status: AsyncResource<Bool>
+    var appName: String
     var appVersion: String
+    var termsUrlString: String
+    var githubUrlString: String
 }
 
 struct AuthenticationUICalls {

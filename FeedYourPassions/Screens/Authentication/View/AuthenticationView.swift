@@ -10,146 +10,72 @@ import SwiftUI
 
 struct AuthenticationView: View {
 
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
     let uiState: AuthenticationUIState
     let uiCalls: AuthenticationUICalls
 
     @State private var shown: Bool = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var body: some View {
-        GeometryReader { geoProxy in
-            VStack(spacing: 0) {
-                VStack(spacing: 0) {
-                    Spacer(minLength: 0)
-                    logo
-                    Spacer(minLength: 0)
-                }
-                .frame(height: geoProxy.size.height * 0.5)
-
+        VStack(spacing: 0) {
+            if horizontalSizeClass == .regular {
                 Spacer()
-
-                VStack(alignment: .center, spacing: 16) {
-                    Spacer()
-                    header
-                    buttons
-
-                    footerDivider
-
-                    footer
-                    Spacer()
-                }
-                .padding(.horizontal, 24)
-                .frame(
-                    maxWidth: horizontalSizeClass == .regular ? 392 : .infinity,
-                    maxHeight: horizontalSizeClass == .regular ? 392 : .infinity
-                )
-                .background(Color.mBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-
-                Spacer()
+                    .frame(maxHeight: .infinity)
             }
-            .ignoresSafeArea()
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity
+
+            textualLogo
+                .frame(maxHeight: .infinity)
+
+            AuthenticationForm(
+                appName: uiState.appName,
+                appVersion: uiState.appVersion,
+                termsUrlString: uiState.termsUrlString,
+                githubUrlString: uiState.githubUrlString,
+                onGoogleSignInTap: uiCalls.onGoogleSignInTap
             )
-            .background(Color.mBackgroundDark)
-            .onAppear {
-                shown = true
+            .frame(
+                maxWidth: horizontalSizeClass == .regular ? 400 : nil
+            )
+            .clipShape(.rect(
+                topLeadingRadius: 16,
+                bottomLeadingRadius: horizontalSizeClass == .regular ? 16 : 0,
+                bottomTrailingRadius: horizontalSizeClass == .regular ? 16 : 0,
+                topTrailingRadius: 16
+            ))
+
+            if horizontalSizeClass == .regular {
+                Spacer()
+                    .frame(maxHeight: .infinity)
             }
+        }
+        .frame(maxWidth: .infinity)
+        .ignoresSafeArea()
+        .background(Color.mBackgroundDark)
+        .onAppear {
+            shown = true
         }
     }
 
-    private var logo: some View {
-        Image(.logoBig)
+    private var textualLogo: some View {
+        Image(.logoTextualBig)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 160)
-            .padding(.top, 100)
+            .frame(width: 250)
             .opacity(shown ? 1 : 0)
             .animation(.smooth(duration: 2).delay(1), value: shown)
-    }
-
-    private var header: some View {
-        Text("Sign In")
-            .font(.title.weight(.heavy))
-            .foregroundStyle(Color.mLightText)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .multilineTextAlignment(.center)
-            .padding(.vertical, 24)
-    }
-
-    private var buttons: some View {
-        VStack(spacing: 16) {
-            // Google
-            GoogleSignInButton(
-                action: uiCalls.onGoogleSignInTap
-            )
-            .authenticationButtonStyle()
-        }
-    }
-
-    private var footerDivider: some View {
-        HStack(spacing: 16) {
-            Rectangle()
-                .fill(Color.mAccentDark)
-                .frame(height: 2)
-                .frame(maxWidth: 60)
-                .clipShape(Capsule())
-
-            Circle()
-                .fill(Color.mLightText)
-                .frame(width: 4, height: 4)
-
-            Rectangle()
-                .fill(Color.mAccentDark)
-                .frame(height: 2)
-                .frame(maxWidth: 60)
-                .clipShape(Capsule())
-        }
-    }
-
-    private var footer: some View {
-        GeometryReader { geoProxy in
-            HStack(alignment: .center, spacing: 36) {
-                Link(
-                    destination: URL(string: "https://github.com/xxZap")!,
-                    label: {
-                        Text("ZapIdeas")
-                            .font(.footnote)
-                            .foregroundStyle(Color.mAccent)
-                            .frame(maxWidth: geoProxy.size.width * 0.5, alignment: .trailing)
-                            .underline(false)
-                    }
-                )
-                Text(uiState.appVersion)
-                    .font(.footnote)
-                    .foregroundStyle(Color.mAccentDark)
-                    .frame(maxWidth: geoProxy.size.width * 0.5, alignment: .leading)
-            }
-        }
-    }
-}
-
-private extension View {
-    func authenticationButtonStyle() -> some View {
-        self
-            .frame(height: 48)
-            .clipShape(
-                RoundedRectangle(cornerRadius: 12)
-            )
-            .overlay {
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.mBorder, lineWidth: 1)
-            }
     }
 }
 
 #if DEBUG
 #Preview("Idle") {
     AuthenticationView(
-        uiState: .init(status: .success(false), appVersion: "v1.0.0"),
+        uiState: .init(
+            status: .success(false),
+            appName: "Grouap",
+            appVersion: "v1.0.0",
+            termsUrlString: "",
+            githubUrlString: ""
+        ),
         uiCalls: .init(
             onGoogleSignInTap: { }
         )
@@ -158,7 +84,13 @@ private extension View {
 
 #Preview("Success") {
     AuthenticationView(
-        uiState: .init(status: .success(true), appVersion: "v1.0.0"),
+        uiState: .init(
+            status: .success(true),
+            appName: "Grouap",
+            appVersion: "v1.0.0",
+            termsUrlString: "",
+            githubUrlString: ""
+        ),
         uiCalls: .init(
             onGoogleSignInTap: { }
         )
@@ -167,7 +99,13 @@ private extension View {
 
 #Preview("Loading") {
     AuthenticationView(
-        uiState: .init(status: .loading, appVersion: "v1.0.0"),
+        uiState: .init(
+            status: .loading,
+            appName: "Grouap",
+            appVersion: "v1.0.0",
+            termsUrlString: "",
+            githubUrlString: ""
+        ),
         uiCalls: .init(
             onGoogleSignInTap: { }
         )
@@ -176,7 +114,13 @@ private extension View {
 
 #Preview("Failure") {
     AuthenticationView(
-        uiState: .init(status: .failure(NSError()), appVersion: "v1.0.0"),
+        uiState: .init(
+            status: .failure(NSError()),
+            appName: "Grouap",
+            appVersion: "v1.0.0",
+            termsUrlString: "",
+            githubUrlString: ""
+        ),
         uiCalls: .init(
             onGoogleSignInTap: { }
         )

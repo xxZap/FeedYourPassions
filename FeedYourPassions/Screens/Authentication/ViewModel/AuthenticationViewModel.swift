@@ -11,10 +11,25 @@ import Combine
 
 class AuthenticationViewModel: ObservableObject {
 
-    @Published var uiState: AuthenticationUIState = .init(status: .success(false), appVersion: "")
+    @Published var uiState: AuthenticationUIState = .init(
+        status: .success(false),
+        appName: "",
+        appVersion: "",
+        termsUrlString: "",
+        githubUrlString: ""
+    )
 
     private var cancellables = Set<AnyCancellable>()
     @Injected(\.sessionController) private var sessionController
+    @Injected(\.externalLinkController) private var externalLinkController
+
+    private var appName: String {
+        if let version = Bundle.main.infoDictionary?["CFBundleName"] as? String {
+            return version
+        } else {
+            return ""
+        }
+    }
 
     private var appVersion: String {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
@@ -28,20 +43,27 @@ class AuthenticationViewModel: ObservableObject {
         sessionController.loggedUser
             .receive(on: DispatchQueue.main)
             .sink { [weak self] asyncUser in
+                let status: AsyncResource<Bool>
                 guard let self = self else { return }
                 switch asyncUser {
                 case .none:
-                    self.uiState = .init(status: .success(false), appVersion: self.appVersion)
+                    status = .success(false)
                 case .loading:
-                    self.uiState = .init(status: .loading, appVersion: self.appVersion)
+                    status = .loading
                 case .failure(let error):
-                    self.uiState = .init(status: .failure(error), appVersion: self.appVersion)
+                    status = .failure(error)
                 case .success:
-                    self.uiState = .init(status: .success(true), appVersion: self.appVersion)
+                    status = .success(true)
                 }
+                self.uiState = .init(
+                    status: status,
+                    appName: self.appName,
+                    appVersion: self.appVersion,
+                    termsUrlString: self.externalLinkController.termsAndConditions,
+                    githubUrlString: self.externalLinkController.zapGithubPage
+                )
             }
             .store(in: &cancellables)
-
     }
 
     func performGoogleSignIn() {
