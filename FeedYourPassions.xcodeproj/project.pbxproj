@@ -11,6 +11,7 @@
 		6D2614162BFB604A00A934DE /* AlertHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2614152BFB604A00A934DE /* AlertHint.swift */; };
 		6D2614182BFB640000A934DE /* BaseAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2614172BFB640000A934DE /* BaseAlertType.swift */; };
 		6D26141B2BFB691000A934DE /* AppAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D26141A2BFB691000A934DE /* AppAlert.swift */; };
+		6D3559DB2C11B0ED001E4E9F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D3559DA2C11B0ED001E4E9F /* GoogleService-Info.plist */; };
 		6D36A8372BD3CDD700F238EC /* FeedYourPassionsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D36A8362BD3CDD700F238EC /* FeedYourPassionsApp.swift */; };
 		6D36A8392BD3CDD700F238EC /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D36A8382BD3CDD700F238EC /* CategoriesListView.swift */; };
 		6D36A83B2BD3CDD800F238EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D36A83A2BD3CDD800F238EC /* Assets.xcassets */; };
@@ -48,7 +49,6 @@
 		6D7A7F7D2BEE492B0001F60A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7A7F7C2BEE492B0001F60A /* FirebaseFirestore */; };
 		6D7A7F7F2BEE492B0001F60A /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7A7F7E2BEE492B0001F60A /* FirebaseFirestoreCombine-Community */; };
 		6D7A7F812BEE492B0001F60A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7A7F802BEE492B0001F60A /* FirebaseFirestoreSwift */; };
-		6D7A7F852BEE5E200001F60A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D7A7F842BEE5E200001F60A /* GoogleService-Info.plist */; };
 		6DB500DE2BFFDF0A004DA8C5 /* AlertConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB500DD2BFFDF0A004DA8C5 /* AlertConfirmation.swift */; };
 		6DB501072C0105A0004DA8C5 /* PassionColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB501062C0105A0004DA8C5 /* PassionColorPickerView.swift */; };
 		6DB5010A2C01081B004DA8C5 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB501092C01081B004DA8C5 /* Color+Extensions.swift */; };
@@ -86,6 +86,7 @@
 		6D2614152BFB604A00A934DE /* AlertHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHint.swift; sourceTree = "<group>"; };
 		6D2614172BFB640000A934DE /* BaseAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAlertType.swift; sourceTree = "<group>"; };
 		6D26141A2BFB691000A934DE /* AppAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlert.swift; sourceTree = "<group>"; };
+		6D3559DA2C11B0ED001E4E9F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6D36A8332BD3CDD700F238EC /* Grouap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grouap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D36A8362BD3CDD700F238EC /* FeedYourPassionsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedYourPassionsApp.swift; sourceTree = "<group>"; };
 		6D36A8382BD3CDD700F238EC /* CategoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
@@ -120,7 +121,6 @@
 		6D64E4EF2BF77C3F00C18963 /* AppSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionController.swift; sourceTree = "<group>"; };
 		6D698C9E2BE4E6C400A8FFD5 /* CategoriesListUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListUIState.swift; sourceTree = "<group>"; };
 		6D698CA02BE4EF1E00A8FFD5 /* CategoriesListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListScreen.swift; sourceTree = "<group>"; };
-		6D7A7F842BEE5E200001F60A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6DB500DD2BFFDF0A004DA8C5 /* AlertConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConfirmation.swift; sourceTree = "<group>"; };
 		6DB501062C0105A0004DA8C5 /* PassionColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionColorPickerView.swift; sourceTree = "<group>"; };
 		6DB501092C01081B004DA8C5 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -510,7 +510,7 @@
 		6DB501102C03BD42004DA8C5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6D7A7F842BEE5E200001F60A /* GoogleService-Info.plist */,
+				6D3559DA2C11B0ED001E4E9F /* GoogleService-Info.plist */,
 				6D36A83A2BD3CDD800F238EC /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -720,7 +720,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D36A83B2BD3CDD800F238EC /* Assets.xcassets in Resources */,
-				6D7A7F852BEE5E200001F60A /* GoogleService-Info.plist in Resources */,
+				6D3559DB2C11B0ED001E4E9F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
