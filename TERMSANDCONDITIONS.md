@@ -2,13 +2,13 @@
 These terms and conditions (“Agreement”) set forth the general terms and conditions of your use of the “Grouap” mobile application (“Mobile Application” or “Service”) and any of its related products and services (collectively, “Services”). This Agreement is legally binding between you (“User”, “you” or “your”) and xxZap (“xxZap”, “we”, “us” or “our”). If you are entering into this Agreement on behalf of a business or other legal entity, you represent that you have the authority to bind such entity to this Agreement, in which case the terms “User”, “you” or “your” shall refer to such entity. If you do not have such authority, or if you do not agree with the terms of this Agreement, you must not accept this Agreement and may not access and use the Mobile Application and Services. By accessing and using the Mobile Application and Services, you acknowledge that you have read, understood, and agree to be bound by the terms of this Agreement. You acknowledge that this Agreement is a contract between you and xxZap, even though it is electronic and is not physically signed by you, and it governs your use of the Mobile Application and Services.
 
 # Table of contents
-[Accounts and membership](#Accounts-and-membership)
-[User content](#User-content)
-[Backups](#Backups)
-[Links to other resources](#Links-to-other-resources)
-[Changes and amendments](#Changes-and-amendments)
-[Acceptance of these terms](#Acceptance-of-these-terms)
-[Contacting us](#Contacting-us)
+- [Accounts and membership](#Accounts-and-membership)
+- [User content](#User-content)
+- [Backups](#Backups)
+- [Links to other resources](#Links-to-other-resources)
+- [Changes and amendments](#Changes-and-amendments)
+- [Acceptance of these terms](#Acceptance-of-these-terms)
+- [Contacting us](#Contacting-us)
 
 # Accounts and membership
 If you create an account in the Mobile Application, you are responsible for maintaining the security of your account and you are fully responsible for all activities that occur under the account and any other actions taken in connection with it. We may, but have no obligation to, monitor and review new accounts before you may sign in and start using the Services. Providing false contact information of any kind may result in the termination of your account. You must immediately notify us of any unauthorized uses of your account or any other breaches of security. We will not be liable for any acts or omissions by you, including any damages of any kind incurred as a result of such acts or omissions.
