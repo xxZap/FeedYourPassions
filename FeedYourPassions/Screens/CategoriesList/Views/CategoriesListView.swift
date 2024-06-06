@@ -13,7 +13,7 @@ struct CategoriesListView: View {
 
     var isInSidebar: Bool
     var uiState: CategoriesListUIState
-    var calls: CategoriesListCalls
+    var uiCalls: CategoriesListUICalls
 
     var body: some View {
         Group {
@@ -39,6 +39,20 @@ struct CategoriesListView: View {
                 CategoryDetailScreen(viewModel: .init())
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    uiCalls.onSettingsTap()
+                } label: {
+                    Image(systemName: "gearshape")
+                }
+                .tint(Color.mAccent)
+                .frame(width: 48, height: 48)
+            }
+        }
+        .toolbar(removing: .sidebarToggle)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Home")
     }
 
     private var loadingView: some View {
@@ -61,7 +75,7 @@ struct CategoriesListView: View {
         List {
             ForEach(Array(categories.enumerated()), id: \.element) { index, category in
                 Button {
-                    calls.onCategoryTap(category)
+                    uiCalls.onCategoryTap(category)
                 } label: {
                     CategoryView(
                         category: category,
@@ -97,7 +111,7 @@ private extension CategoriesListView {
             },
             set: { value in
                 if value == false {
-                    calls.onCategoryTap(nil)
+                    uiCalls.onCategoryTap(nil)
                 }
             }
         )
@@ -113,8 +127,9 @@ private extension CategoriesListView {
             selectedCategoryType: nil,
             maxValue: 20
         ),
-        calls: .init(
-            onCategoryTap: { _ in }
+        uiCalls: .init(
+            onCategoryTap: { _ in },
+            onSettingsTap: { }
         )
     )
 }

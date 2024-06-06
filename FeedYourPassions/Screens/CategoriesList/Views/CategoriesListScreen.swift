@@ -10,8 +10,10 @@ import Meteor
 
 struct CategoriesListScreen: View {
 
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject var viewModel: CategoriesListViewModel
+
+    @State private var settingsViewIsPresented: Bool = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var body: some View {
         NavigationSplitView(
@@ -20,15 +22,15 @@ struct CategoriesListScreen: View {
                 CategoriesListView(
                     isInSidebar: horizontalSizeClass == .regular,
                     uiState: viewModel.uiState,
-                    calls: .init(
+                    uiCalls: .init(
                         onCategoryTap: { category in
                             viewModel.setSelectedCategory(category)
+                        },
+                        onSettingsTap: {
+                            settingsViewIsPresented = true
                         }
                     )
                 )
-                .toolbar(removing: .sidebarToggle)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Home")
             },
             detail: {
                 ZStack {
@@ -47,5 +49,8 @@ struct CategoriesListScreen: View {
         .navigationSplitViewStyle(.balanced)
         .navigationBarTitleDisplayMode(.inline)
         .tint(Color.mLightText)
+        .sheet(isPresented: $settingsViewIsPresented, content: {
+            SettingsScreen(viewModel: .init())
+        })
     }
 }

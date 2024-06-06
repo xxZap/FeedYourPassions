@@ -14,7 +14,7 @@ struct NewPassionUIState {
     var canBeSaved: Bool
 }
 
-struct NewPassionCalls {
+struct NewPassionUICalls {
     var onEditTitle: ((String) -> Void)
     var onEditAssociatedURL: ((String) -> Void)
     var onSave: (() -> Void)

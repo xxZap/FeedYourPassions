@@ -24,7 +24,7 @@ struct CategoryDetailScreen: View {
     var body: some View {
         CategoryDetailView(
             uiState: viewModel.uiState,
-            calls: .init(
+            uiCalls: .init(
                 onCreatePassionTap: {
                     addNewPassionIsPresented = true
                 },

@@ -21,7 +21,6 @@ class AuthenticationViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
     @Injected(\.sessionController) private var sessionController
-    @Injected(\.externalLinkController) private var externalLinkController
 
     private var appName: String {
         if let version = Bundle.main.infoDictionary?["CFBundleName"] as? String {
@@ -59,8 +58,8 @@ class AuthenticationViewModel: ObservableObject {
                     status: status,
                     appName: self.appName,
                     appVersion: self.appVersion,
-                    termsUrlString: self.externalLinkController.termsAndConditions,
-                    githubUrlString: self.externalLinkController.zapGithubPage
+                    termsUrlString: ExternalLinkProvider.termsAndConditions.urlString,
+                    githubUrlString: ExternalLinkProvider.xxZapGithub.urlString
                 )
             }
             .store(in: &cancellables)

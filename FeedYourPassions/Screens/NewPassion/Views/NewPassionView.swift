@@ -11,7 +11,7 @@ import Meteor
 struct NewPassionView: View {
 
     var uiState: NewPassionUIState
-    var calls: NewPassionCalls
+    var uiCalls: NewPassionUICalls
 
     var body: some View {
         NavigationStack {
@@ -22,25 +22,25 @@ struct NewPassionView: View {
                 MTextField(
                     text: Binding(
                         get: { uiState.title },
-                        set: { calls.onEditTitle($0) }
+                        set: { uiCalls.onEditTitle($0) }
                     ),
                     placeholder: "Passion name",
                     title: "Passion name",
                     isMandatory: true
                 ) {
-                    calls.onPassionNameDefinition()
+                    uiCalls.onPassionNameDefinition()
                 }
 
                 MTextField(
                     text: Binding(
                         get: { uiState.associatedURL },
-                        set: { calls.onEditAssociatedURL($0) }
+                        set: { uiCalls.onEditAssociatedURL($0) }
                     ),
                     placeholder: "Associated URL",
                     title: "Associated URL (optional)",
                     isMandatory: false
                 ) {
-                    calls.onAssociatedURLDefinition()
+                    uiCalls.onAssociatedURLDefinition()
                 }
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.none)
@@ -54,7 +54,7 @@ struct NewPassionView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        calls.onCancel()
+                        uiCalls.onCancel()
                     } label: {
                         Text("Cancel")
                     }
@@ -62,7 +62,7 @@ struct NewPassionView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        calls.onSave()
+                        uiCalls.onSave()
                     } label: {
                         Text("Add")
                     }
@@ -83,7 +83,7 @@ struct NewPassionView: View {
             category: .init(type: .food),
             canBeSaved: true
         ),
-        calls: .init(
+        uiCalls: .init(
             onEditTitle: { _ in },
             onEditAssociatedURL: { _ in },
             onSave: { },

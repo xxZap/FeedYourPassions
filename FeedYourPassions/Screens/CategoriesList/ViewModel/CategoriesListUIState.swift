@@ -13,6 +13,7 @@ struct CategoriesListUIState {
     let maxValue: Int
 }
 
-struct CategoriesListCalls {
+struct CategoriesListUICalls {
     var onCategoryTap: (CategoryContainer?) -> Void
+    var onSettingsTap: () -> Void
 }

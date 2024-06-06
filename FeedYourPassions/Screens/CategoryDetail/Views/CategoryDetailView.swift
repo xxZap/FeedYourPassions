@@ -13,7 +13,7 @@ import FirebaseFirestore
 struct CategoryDetailView: View {
 
     var uiState: CategoryDetailUIState
-    var calls: CategoryDetailCalls
+    var uiCalls: CategoryDetailUICalls
 
     var body: some View {
         Group {
@@ -48,27 +48,27 @@ struct CategoryDetailView: View {
                 ForEach(Array(passions.enumerated()), id: \.element) { index, passion in
                     PassionView(
                         viewModel: .init(passion: passion),
-                        calls: .init(
+                        uiCalls: .init(
                             onTap: {
-                                calls.onPassionTap(passion)
+                                uiCalls.onPassionTap(passion)
                             },
                             onLaunchTap: { url in
-                                calls.onPassionLaunchTap(passion, url)
+                                uiCalls.onPassionLaunchTap(passion, url)
                             },
                             onAddRecordTap: {
-                                calls.onPassionAddRecordTap(passion)
+                                uiCalls.onPassionAddRecordTap(passion)
                             },
                             onEditColorTap: {
-                                calls.onPassionEditColorTap(passion)
+                                uiCalls.onPassionEditColorTap(passion)
                             },
                             onRenameTap: {
-                                calls.onPassionRenameTap(passion)
+                                uiCalls.onPassionRenameTap(passion)
                             },
                             onEditURLTap: {
-                                calls.onPassionEditURLTap(passion)
+                                uiCalls.onPassionEditURLTap(passion)
                             },
                             onDeleteTap: {
-                                calls.onPassionDeleteTap(passion)
+                                uiCalls.onPassionDeleteTap(passion)
                             }
                         )
                     )
@@ -90,7 +90,7 @@ struct CategoryDetailView: View {
             image: Image(systemName: "plus"),
             side: .attachedToTheRight
         ) {
-            calls.onCreatePassionTap()
+            uiCalls.onCreatePassionTap()
         }
         .padding(.bottom, 32)
     }
@@ -134,7 +134,7 @@ struct CategoryDetailView: View {
                 )
             ]
         ),
-        calls: .init(
+        uiCalls: .init(
             onCreatePassionTap: { },
             onPassionTap: { _ in },
             onPassionLaunchTap: { _, _ in },

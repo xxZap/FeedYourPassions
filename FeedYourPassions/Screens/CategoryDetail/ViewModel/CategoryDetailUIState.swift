@@ -13,7 +13,7 @@ struct CategoryDetailUIState {
     var title: String { category?.passionCategory.name ?? "?" }
 }
 
-struct CategoryDetailCalls {
+struct CategoryDetailUICalls {
     var onCreatePassionTap: (() -> Void)
     var onPassionTap: ((Passion) -> Void)
     var onPassionLaunchTap: ((Passion, URL) -> Void)

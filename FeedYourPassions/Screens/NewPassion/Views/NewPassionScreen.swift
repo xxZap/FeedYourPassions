@@ -16,7 +16,7 @@ struct NewPassionScreen: View {
     var body: some View {
         NewPassionView(
             uiState: viewModel.uiState,
-            calls: .init(
+            uiCalls: .init(
                 onEditTitle: { text in
                     viewModel.setTitle(text)
                 },

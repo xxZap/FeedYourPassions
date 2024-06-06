@@ -10,7 +10,7 @@ import SwiftUI
 import Factory
 import FirebaseFirestore
 
-struct PassionViewCalls {
+struct PassionViewUICalls {
     var onTap: (() -> Void)
     var onLaunchTap: ((URL) -> Void)
     var onAddRecordTap: (() -> Void)
@@ -23,7 +23,7 @@ struct PassionViewCalls {
 struct PassionView: View {
 
     @StateObject var viewModel: PassionViewModel
-    let calls: PassionViewCalls
+    let uiCalls: PassionViewUICalls
 
     var body: some View {
         HStack(spacing: 0) {
@@ -48,7 +48,7 @@ struct PassionView: View {
             // Launch
             let url = viewModel.associatedURL
             Button {
-                if let url { calls.onLaunchTap(url) }
+                if let url { uiCalls.onLaunchTap(url) }
             } label: {
                 Label("Launch", systemImage: "arrow.up.forward.app")
             }
@@ -56,28 +56,28 @@ struct PassionView: View {
 
             // Add record
             Button {
-                calls.onAddRecordTap()
+                uiCalls.onAddRecordTap()
             } label: {
                 Label("Add record", systemImage: "plus")
             }
 
             // Customize color
             Button {
-                calls.onEditColorTap()
+                uiCalls.onEditColorTap()
             } label: {
                 Label("Edit Color", systemImage: "drop.halffull")
             }
 
             // Rename
             Button {
-                calls.onRenameTap()
+                uiCalls.onRenameTap()
             } label: {
                 Label("Rename", systemImage: "character.cursor.ibeam")
             }
 
             // Edit URL
             Button {
-                calls.onEditURLTap()
+                uiCalls.onEditURLTap()
             } label: {
                 if url != nil {
                     Label("Edit URL", systemImage: "link")
@@ -88,7 +88,7 @@ struct PassionView: View {
 
             // Delete
             Button(role: .destructive) {
-                calls.onDeleteTap()
+                uiCalls.onDeleteTap()
             } label: {
                 Label("Delete passion", systemImage: "xmark.bin")
             }
@@ -135,13 +135,13 @@ struct PassionView: View {
         VStack(spacing: 0) {
             Spacer(minLength: 0)
             MIconButton(type: .primaryGhost, size: .small, image: Image(systemName: "plus")) {
-                calls.onAddRecordTap()
+                uiCalls.onAddRecordTap()
             }
             .padding(.horizontal, 8)
             if let url = viewModel.associatedURL {
                 Spacer(minLength: 0)
                 MIconButton(type: .primaryGhost, size: .small, image: Image(systemName: "arrow.up.forward.app")) {
-                    calls.onLaunchTap(url)
+                    uiCalls.onLaunchTap(url)
                 }
                 .padding(.horizontal, 8)
             }
@@ -167,7 +167,7 @@ struct PassionView: View {
                     color: Color.blue.toHex() ?? ""
                 )
             ),
-            calls: .init(
+            uiCalls: .init(
                 onTap: { },
                 onLaunchTap: { _ in },
                 onAddRecordTap: { },

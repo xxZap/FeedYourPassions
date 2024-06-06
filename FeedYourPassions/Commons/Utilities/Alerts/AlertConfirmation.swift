@@ -48,5 +48,20 @@ extension AppAlert {
                 ]
             )
         }
+
+        static func logout(onAction: @escaping ((Bool) -> Void)) -> AppAlert {
+            AppAlert(
+                title: titlePrefix + "Wanna leave?",
+                message: "You'll go back to the authentication screen and you'll have to login again.",
+                alertButtons: [
+                    .init("Logout", role: .destructive) {
+                        onAction(true)
+                    },
+                    .init("Cancel", role: .cancel) {
+                        onAction(false)
+                    }
+                ]
+            )
+        }
     }
 }
