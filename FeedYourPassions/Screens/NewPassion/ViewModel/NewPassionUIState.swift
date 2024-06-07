@@ -22,4 +22,5 @@ struct NewPassionUICalls {
 
     var onPassionNameDefinition: (() -> Void)
     var onAssociatedURLDefinition: (() -> Void)
+    var onAssociatedAppDefinition: (() -> Void)
 }

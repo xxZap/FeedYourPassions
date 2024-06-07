@@ -40,6 +40,11 @@ struct NewPassionScreen: View {
                     alerter.alert = AppAlert.Definition.AssociatedURL(onDismiss: {
                         alerter.alert = nil
                     })
+                },
+                onAssociatedAppDefinition: {
+                    alerter.alert = AppAlert.Definition.AssociatedApp(onDismiss: {
+                        alerter.alert = nil
+                    })
                 }
             )
         )

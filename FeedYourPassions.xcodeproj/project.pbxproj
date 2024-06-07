@@ -274,9 +274,9 @@
 		6D37C6AD2BD4024F003B1DA0 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				6D5964C32C10B5E900A4C66D /* Utilities */,
 				6DB501082C010810004DA8C5 /* Extensions */,
 				6DB5010C2C03BAD3004DA8C5 /* Models */,
+				6D5964C32C10B5E900A4C66D /* Utilities */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
