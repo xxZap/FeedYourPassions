@@ -45,12 +45,12 @@ iOS Mobile Application to always remember you matter, you have passions and you 
     - <img src="https://badgen.net/static/🔺/DONE/green"/> Google SignIn
     - <img src="https://badgen.net/static/🔺/TODO/gray"/> Apple SignIn
         - <img src="https://badgen.net/static/🔺/DONE/green"/> Account screen
-        - <img src="https://badgen.net/static/🔹/TODO/gray"/> Define in-app purchase logic for VIP members
+        - <img src="https://badgen.net/static/🔹/TODO/gray"/> Define in-app purchase logic for VIP members or donation link
         - <img src="https://badgen.net/static/🔹/TODO/gray"/> Add internal notifications for reminders
 - <img src="https://badgen.net/static/🔸/TODO/gray"/> Add logic to populate bars on the category list screen
 - <img src="https://badgen.net/static/🔹/TODO/gray"/> Add time range
 - <img src="https://badgen.net/static/🔹/TODO/gray"/> Add streak gamification
-- <img src="https://badgen.net/static/🔺/DOING/yellow"/> Add a dedicated screen to show known associated URLs for important apps.
+- <img src="https://badgen.net/static/🔺/DONE/green"/> Add a dedicated screen to show known associated URLs for important apps.
 
 ## License
 [Apache License 2.0][license]. See Apache Software Foundation's [licensing FAQ][licensing-faq]
