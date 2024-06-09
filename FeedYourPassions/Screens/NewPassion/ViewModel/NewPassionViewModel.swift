@@ -13,19 +13,29 @@ import FirebaseFirestore
 
 class NewPassionViewModel: ObservableObject {
 
-    @Published var uiState: NewPassionUIState = NewPassionUIState(title: "", associatedURL: "", category: .init(type: .health), canBeSaved: false)
+    @Published var uiState: NewPassionUIState = NewPassionUIState(
+        title: "",
+        associatedURL: "",
+        associatedApp: nil,
+        category: .init(type: .health),
+        canBeSaved: false,
+        supportedApplications: []
+    )
     @Published var alert: AppAlert?
 
     private var title = CurrentValueSubject<String, Never>("")
     private var associatedURL = CurrentValueSubject<String, Never>("")
+    private var associatedApp = CurrentValueSubject<SupportedApplication?, Never>(nil)
     private var uiStatePublisher: AnyPublisher<NewPassionUIState, Never> {
         title
-            .combineLatest(associatedURL) { [weak self] title, associatedURL in
+            .combineLatest(associatedURL, associatedApp) { [weak self] title, associatedURL, associatedApp in
                 NewPassionUIState(
                     title: title,
                     associatedURL: associatedURL,
+                    associatedApp: associatedApp,
                     category: self?.currentCategory ?? .init(type: .family),
-                    canBeSaved: !title.isEmpty
+                    canBeSaved: !title.isEmpty,
+                    supportedApplications: self?.supportedApplicationsController.supportedApplications ?? []
                 )
             }
             .eraseToAnyPublisher()
@@ -35,6 +45,7 @@ class NewPassionViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     @Injected(\.categoryDetailController) private var categoryDetailController
+    @Injected(\.supportedApplicationsController) private var supportedApplicationsController
 
     init(currentCategory: PassionCategory) {
         self.currentCategory = currentCategory
@@ -52,6 +63,12 @@ class NewPassionViewModel: ObservableObject {
 
     func setAssociatedURL(_ url: String) {
         associatedURL.send(url)
+        associatedApp.send(nil)
+    }
+
+    func setAssociatedApp(_ supportedApplication: SupportedApplication?) {
+        associatedURL.send("")
+        associatedApp.send(supportedApplication)
     }
 
     func save() -> Bool {
@@ -62,9 +79,17 @@ class NewPassionViewModel: ObservableObject {
             return false
         }
 
+        var associatedUrl: String = ""
+        if !uiState.associatedURL.isEmpty {
+            associatedUrl = uiState.associatedURL
+        }
+        if let app = uiState.associatedApp {
+            associatedUrl = app.info.appUrl
+        }
+
         let newPassion = Passion(
             name: uiState.title,
-            associatedURL: uiState.associatedURL,
+            associatedURL: associatedUrl,
             recordsCount: 0,
             latestUpdate: Timestamp(date: Date()),
             color: ""

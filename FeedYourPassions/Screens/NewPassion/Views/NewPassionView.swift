@@ -15,39 +15,15 @@ struct NewPassionView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                MInfoBox(text: "You are adding a new passion to the \(uiState.category.name) category")
-                    .padding(.bottom, 16)
-
-                MTextField(
-                    text: Binding(
-                        get: { uiState.title },
-                        set: { uiCalls.onEditTitle($0) }
-                    ),
-                    placeholder: "Passion name",
-                    title: "Passion name",
-                    isMandatory: true
-                ) {
-                    uiCalls.onPassionNameDefinition()
+            ScrollView {
+                VStack(spacing: 16) {
+                    infoBox
+                    passionNameView
+                    associatedUrlView
+                    Spacer()
                 }
-
-                MTextField(
-                    text: Binding(
-                        get: { uiState.associatedURL },
-                        set: { uiCalls.onEditAssociatedURL($0) }
-                    ),
-                    placeholder: "Associated URL",
-                    title: "Associated URL (optional)",
-                    isMandatory: false
-                ) {
-                    uiCalls.onAssociatedURLDefinition()
-                }
-                .autocorrectionDisabled()
-                .textInputAutocapitalization(.none)
-
-                Spacer()
             }
-            .padding(16)
+            .padding(.horizontal, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.mBackground)
             .navigationTitle("Add new passion")
@@ -72,6 +48,40 @@ struct NewPassionView: View {
             }
         }
     }
+
+    private var infoBox: some View {
+        MInfoBox(text: "You are adding a new passion to the \(uiState.category.name) category")
+            .padding(.vertical, 16)
+    }
+
+    private var passionNameView: some View {
+        MTextField(
+            text: Binding(
+                get: { uiState.title },
+                set: { uiCalls.onEditTitle($0) }
+            ),
+            placeholder: "Passion name",
+            title: "Passion name",
+            isMandatory: true
+        ) {
+            uiCalls.onPassionNameDefinition()
+        }
+    }
+
+    private var associatedUrlView: some View {
+        PassionAssociatedUrlView(
+            associatedURL: uiState.associatedURL,
+            associatedApp: uiState.associatedApp,
+            supportedApps: uiState.supportedApplications,
+            onEditAssociatedURL: uiCalls.onEditAssociatedURL,
+            onEditAssociatedApp: uiCalls.onEditAssociatedApp,
+            onAssociatedURLDefinition: uiCalls.onAssociatedURLDefinition,
+            onAssociatedAppDefinition: uiCalls.onAssociatedAppDefinition
+        )
+        .padding(16)
+        .background(Color.mBackgroundDark.opacity(0.4))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
 }
 
 #if DEBUG
@@ -80,17 +90,41 @@ struct NewPassionView: View {
         uiState: .init(
             title: "",
             associatedURL: "",
+            associatedApp: nil,
             category: .init(type: .food),
-            canBeSaved: true
+            canBeSaved: true,
+            supportedApplications: [nil]
         ),
         uiCalls: .init(
             onEditTitle: { _ in },
             onEditAssociatedURL: { _ in },
+            onEditAssociatedApp: { _ in },
             onSave: { },
             onCancel: { },
             onPassionNameDefinition: { },
-            onAssociatedURLDefinition: { }
+            onAssociatedURLDefinition: { },
+            onAssociatedAppDefinition: { }
         )
     )
 }
 #endif
+
+extension MMenuPickerElement {
+    init(from supportedApplication: SupportedApplication) {
+        let info = supportedApplication.info
+        self.init(
+            title: info.displayName,
+            image: info.image
+        )
+    }
+
+    func toSupportedApplication() -> SupportedApplication? {
+        SupportedApplication.allCases.first { $0.info.displayName == self.title }
+    }
+}
+
+extension SupportedApplication {
+    func toMenuPickerElement() -> MMenuPickerElement {
+        MMenuPickerElement(from: self)
+    }
+}

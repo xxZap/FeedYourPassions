@@ -41,6 +41,10 @@
 		6D59FB802BDC019B00D0C087 /* AppCategoryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59FB7F2BDC019B00D0C087 /* AppCategoryDetailController.swift */; };
 		6D59FB822BDD468100D0C087 /* PassionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59FB812BDD468100D0C087 /* PassionView.swift */; };
 		6D59FB842BDD46C500D0C087 /* PassionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59FB832BDD46C500D0C087 /* PassionViewModel.swift */; };
+		6D5ECD1D2C1358AB00EFA363 /* SupportedApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5ECD1C2C1358AB00EFA363 /* SupportedApplicationsController.swift */; };
+		6D5ECD1F2C1358E700EFA363 /* AppSupportedApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5ECD1E2C1358E700EFA363 /* AppSupportedApplicationsController.swift */; };
+		6D5ECD212C15AA8E00EFA363 /* PassionAssociatedUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5ECD202C15AA8E00EFA363 /* PassionAssociatedUrlView.swift */; };
+		6D5ECD252C15AD7E00EFA363 /* UpdatePassionAssociatedUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5ECD242C15AD7E00EFA363 /* UpdatePassionAssociatedUrlView.swift */; };
 		6D64E4EE2BF77BD600C18963 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D64E4ED2BF77BD600C18963 /* SessionController.swift */; };
 		6D64E4F02BF77C3F00C18963 /* AppSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D64E4EF2BF77C3F00C18963 /* AppSessionController.swift */; };
 		6D698C9F2BE4E6C400A8FFD5 /* CategoriesListUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D698C9E2BE4E6C400A8FFD5 /* CategoriesListUIState.swift */; };
@@ -117,6 +121,10 @@
 		6D59FB7F2BDC019B00D0C087 /* AppCategoryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCategoryDetailController.swift; sourceTree = "<group>"; };
 		6D59FB812BDD468100D0C087 /* PassionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionView.swift; sourceTree = "<group>"; };
 		6D59FB832BDD46C500D0C087 /* PassionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionViewModel.swift; sourceTree = "<group>"; };
+		6D5ECD1C2C1358AB00EFA363 /* SupportedApplicationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedApplicationsController.swift; sourceTree = "<group>"; };
+		6D5ECD1E2C1358E700EFA363 /* AppSupportedApplicationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSupportedApplicationsController.swift; sourceTree = "<group>"; };
+		6D5ECD202C15AA8E00EFA363 /* PassionAssociatedUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionAssociatedUrlView.swift; sourceTree = "<group>"; };
+		6D5ECD242C15AD7E00EFA363 /* UpdatePassionAssociatedUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePassionAssociatedUrlView.swift; sourceTree = "<group>"; };
 		6D64E4ED2BF77BD600C18963 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		6D64E4EF2BF77C3F00C18963 /* AppSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionController.swift; sourceTree = "<group>"; };
 		6D698C9E2BE4E6C400A8FFD5 /* CategoriesListUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListUIState.swift; sourceTree = "<group>"; };
@@ -274,9 +282,9 @@
 		6D37C6AD2BD4024F003B1DA0 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				6D5964C32C10B5E900A4C66D /* Utilities */,
 				6DB501082C010810004DA8C5 /* Extensions */,
 				6DB5010C2C03BAD3004DA8C5 /* Models */,
+				6D5964C32C10B5E900A4C66D /* Utilities */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -325,6 +333,7 @@
 		6D37C6CB2BD51BB5003B1DA0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6D5ECD1B2C13589B00EFA363 /* SupportedApplicationsController */,
 				6D37C6CC2BD51BC9003B1DA0 /* CategoriesController */,
 				6D37C7162BD79709003B1DA0 /* CategoryDetailController */,
 				6D64E4EC2BF77BCA00C18963 /* SessionController */,
@@ -364,6 +373,7 @@
 				6D37C7142BD79658003B1DA0 /* CategoryDetailView.swift */,
 				6DB501052C01058E004DA8C5 /* PassionColorPickerView */,
 				6D59FB7C2BDAE06400D0C087 /* PassionView */,
+				6D5ECD232C15AD6400EFA363 /* UpdatePassionAssociatedUrlView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -452,6 +462,31 @@
 				6D59FB832BDD46C500D0C087 /* PassionViewModel.swift */,
 			);
 			path = PassionView;
+			sourceTree = "<group>";
+		};
+		6D5ECD1B2C13589B00EFA363 /* SupportedApplicationsController */ = {
+			isa = PBXGroup;
+			children = (
+				6D5ECD1C2C1358AB00EFA363 /* SupportedApplicationsController.swift */,
+				6D5ECD1E2C1358E700EFA363 /* AppSupportedApplicationsController.swift */,
+			);
+			path = SupportedApplicationsController;
+			sourceTree = "<group>";
+		};
+		6D5ECD222C15ABF700EFA363 /* PassionAssociatedUrlView */ = {
+			isa = PBXGroup;
+			children = (
+				6D5ECD202C15AA8E00EFA363 /* PassionAssociatedUrlView.swift */,
+			);
+			path = PassionAssociatedUrlView;
+			sourceTree = "<group>";
+		};
+		6D5ECD232C15AD6400EFA363 /* UpdatePassionAssociatedUrlView */ = {
+			isa = PBXGroup;
+			children = (
+				6D5ECD242C15AD7E00EFA363 /* UpdatePassionAssociatedUrlView.swift */,
+			);
+			path = UpdatePassionAssociatedUrlView;
 			sourceTree = "<group>";
 		};
 		6D64E4EC2BF77BCA00C18963 /* SessionController */ = {
@@ -590,6 +625,7 @@
 		6DE73CD42BE296E100DB3106 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6D5ECD222C15ABF700EFA363 /* PassionAssociatedUrlView */,
 				6DE73CDC2BE2A67E00DB3106 /* NewPassionScreen.swift */,
 				6DE73CD52BE296F200DB3106 /* NewPassionView.swift */,
 			);
@@ -744,6 +780,7 @@
 				6D5964A82C10833200A4C66D /* String+Extensions.swift in Sources */,
 				6D2614162BFB604A00A934DE /* AlertHint.swift in Sources */,
 				6DE73CD92BE2A64800DB3106 /* NewPassionViewModel.swift in Sources */,
+				6D5ECD212C15AA8E00EFA363 /* PassionAssociatedUrlView.swift in Sources */,
 				6DC39E9C2C0B87000061FFBE /* AuthenticationScreen.swift in Sources */,
 				6D37C71C2BD79901003B1DA0 /* AsyncResource.swift in Sources */,
 				6D59FB842BDD46C500D0C087 /* PassionViewModel.swift in Sources */,
@@ -763,10 +800,13 @@
 				6DC39EA02C0B872D0061FFBE /* AuthenticationUIState.swift in Sources */,
 				6D59FB802BDC019B00D0C087 /* AppCategoryDetailController.swift in Sources */,
 				6D5964BE2C10B52600A4C66D /* EdgeInsets+Extensions.swift in Sources */,
+				6D5ECD1F2C1358E700EFA363 /* AppSupportedApplicationsController.swift in Sources */,
+				6D5ECD252C15AD7E00EFA363 /* UpdatePassionAssociatedUrlView.swift in Sources */,
 				6DE73CDD2BE2A67E00DB3106 /* NewPassionScreen.swift in Sources */,
 				6DC39EA52C0B88210061FFBE /* GoogleSignInButton.swift in Sources */,
 				6DC39E972C0B6DEC0061FFBE /* AppRootUIState.swift in Sources */,
 				6D5964B82C10A2E600A4C66D /* SettingsViewModel.swift in Sources */,
+				6D5ECD1D2C1358AB00EFA363 /* SupportedApplicationsController.swift in Sources */,
 				6D5964BA2C10A51800A4C66D /* SettingsScreen.swift in Sources */,
 				6D37C6CE2BD51BD4003B1DA0 /* CategoriesController.swift in Sources */,
 				6D2614142BFB5FEC00A934DE /* AlertError.swift in Sources */,

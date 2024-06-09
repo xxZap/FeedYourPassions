@@ -16,10 +16,10 @@ struct CategoryDetailScreen: View {
     @ObservedObject var viewModel: CategoryDetailViewModel
     @State private var addNewPassionIsPresented: Bool = false
     @State private var passionColorPickerIsPresented: Bool = false
+    @State private var passionAssociatedUrlIsPresented: Bool = false
     @State private var editingPassion: Passion?
     @State private var editingColor: Color = Color.mBackgroundDark
     @State private var newName: String?
-    @State private var newURL: String?
 
     var body: some View {
         CategoryDetailView(
@@ -47,7 +47,7 @@ struct CategoryDetailScreen: View {
                 },
                 onPassionEditURLTap: { passion in
                     editingPassion = passion
-                    newURL = passion.associatedURL ?? ""
+                    passionAssociatedUrlIsPresented = true
                 },
                 onPassionDeleteTap: { passion in
                     viewModel.delete(passion: passion)
@@ -72,12 +72,38 @@ struct CategoryDetailScreen: View {
                 editingPassion = nil
             }
         ) {
-            PassionColorPickerView(selectedColor: editingColor) { color in
-                if let editingPassion, let hexColorString = color.toHex() {
-                    viewModel.setColor(hexColorString, to: editingPassion)
+            PassionColorPickerView(
+                selectedColor: editingColor,
+                onCancel: {
+                    passionColorPickerIsPresented = false
+                },
+                onSave: { color in
+                    if let editingPassion, let hexColorString = color.toHex() {
+                        viewModel.setColor(hexColorString, to: editingPassion)
+                    }
+                    passionColorPickerIsPresented = false
                 }
-                passionColorPickerIsPresented = false
+            )
+        }
+        .sheet(
+            isPresented: $passionAssociatedUrlIsPresented,
+            onDismiss: {
+                editingPassion = nil
             }
+        ) {
+            UpdatePassionAssociatedUrlView(
+                passion: editingPassion,
+                onCancel: {
+                    editingPassion = nil
+                    passionAssociatedUrlIsPresented = false
+                }, 
+                onSave: { url in
+                    passionAssociatedUrlIsPresented = false
+                    guard let passion = editingPassion else { return }
+                    viewModel.setAssociatedURL(url, to: passion)
+                    editingPassion = nil
+                }
+            )
         }
         .alertWithTextField(
             title: "Rename",
@@ -95,22 +121,6 @@ struct CategoryDetailScreen: View {
             cancelButtonStyle: .cancel,
             onCancelAction: { }
         )
-        .alertWithTextField(
-            title: "Set an Associated URL",
-            message: "Update the URL linked to the \"\(editingPassion?.name ?? "?")\" passion: it is useful to launch external apps or perform a research on the web",
-            text: $newURL,
-            actionTitle: "Confirm",
-            actionButtonStyle: .default,
-            onAction: { _ in
-                guard let passion = editingPassion else { return }
-                viewModel.setAssociatedURL(newURL, to: passion)
-                editingPassion = nil
-                newURL = nil
-            },
-            cancelTitle: "Cancel",
-            cancelButtonStyle: .cancel,
-            onCancelAction: { }
-        )
     }
 }
 
@@ -121,12 +131,7 @@ struct CategoryDetailScreen: View {
     }
     let _ = Container.shared.categoryDetailController.register {
         MockedCategoryDetailController(
-           .valid(
-               items: [
-                   Date(timeIntervalSince1970: 8124698),
-                   Date(timeIntervalSince1970: 9124698),
-               ]
-           )
+            .failure
        )
     }
     return CategoryDetailScreen(viewModel: .init())
@@ -138,12 +143,7 @@ struct CategoryDetailScreen: View {
     }
     let _ = Container.shared.categoryDetailController.register {
         MockedCategoryDetailController(
-           .valid(
-               items: [
-                   Date(timeIntervalSince1970: 8124698),
-                   Date(timeIntervalSince1970: 9124698),
-               ]
-           )
+           .empty
        )
     }
     return CategoryDetailScreen(viewModel: .init())

@@ -9,9 +9,10 @@ import SwiftUI
 
 struct NewPassionScreen: View {
 
-    @Environment(\.dismiss) var dismiss
-    @StateObject var alerter: Alerter = Alerter()
     @StateObject var viewModel: NewPassionViewModel
+
+    @Environment(\.dismiss) private var dismiss
+    @StateObject private var alerter: Alerter = Alerter()
 
     var body: some View {
         NewPassionView(
@@ -22,6 +23,9 @@ struct NewPassionScreen: View {
                 },
                 onEditAssociatedURL: { urlString in
                     viewModel.setAssociatedURL(urlString)
+                },
+                onEditAssociatedApp: { supportedApp in
+                    viewModel.setAssociatedApp(supportedApp)
                 },
                 onSave: {
                     if viewModel.save() {
@@ -38,6 +42,11 @@ struct NewPassionScreen: View {
                 },
                 onAssociatedURLDefinition: {
                     alerter.alert = AppAlert.Definition.AssociatedURL(onDismiss: {
+                        alerter.alert = nil
+                    })
+                },
+                onAssociatedAppDefinition: {
+                    alerter.alert = AppAlert.Definition.AssociatedApp(onDismiss: {
                         alerter.alert = nil
                     })
                 }

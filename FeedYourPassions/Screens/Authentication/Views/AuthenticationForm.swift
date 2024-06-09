@@ -21,9 +21,9 @@ struct AuthenticationForm: View {
             logo
             welcomeMessage
             buttons
-            divider
+            MDivider(type: .point)
             termsAndConditions
-            divider
+            MDivider(type: .point)
             footer
         }
         .padding(32)
@@ -76,26 +76,6 @@ By continuing using this application and its features, you agree to our [Terms a
             .frame(maxWidth: .infinity, alignment: .center)
             .multilineTextAlignment(.center)
             .tint(Color.mAccent)
-    }
-
-    private var divider: some View {
-        HStack(spacing: 16) {
-            Rectangle()
-                .fill(Color.mBorder)
-                .frame(height: 2)
-                .frame(maxWidth: 60)
-                .clipShape(Capsule())
-
-            Circle()
-                .fill(Color.mLightText)
-                .frame(width: 4, height: 4)
-
-            Rectangle()
-                .fill(Color.mBorder)
-                .frame(height: 2)
-                .frame(maxWidth: 60)
-                .clipShape(Capsule())
-        }
     }
 
     private var footer: some View {
