@@ -23,6 +23,9 @@ struct NewPassionScreen: View {
                 onEditAssociatedURL: { urlString in
                     viewModel.setAssociatedURL(urlString)
                 },
+                onEditAssociatedApp: { supportedApp in
+                    viewModel.setAssociatedApp(supportedApp)
+                },
                 onSave: {
                     if viewModel.save() {
                         dismiss()

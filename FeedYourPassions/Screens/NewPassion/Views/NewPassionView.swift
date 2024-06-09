@@ -19,7 +19,6 @@ struct NewPassionView: View {
                 VStack(spacing: 16) {
                     infoBox
                     passionNameView
-                    Spacer().frame(height: 16)
                     associatedUrlView
                     Spacer()
                 }
@@ -70,7 +69,7 @@ struct NewPassionView: View {
     }
 
     private var associatedUrlView: some View {
-        Group {
+        VStack(alignment: .center, spacing: 8) {
             MTextField(
                 text: Binding(
                     get: { uiState.associatedURL },
@@ -88,14 +87,20 @@ struct NewPassionView: View {
             MDivider(type: .string("OR"))
             
             MMenuPicker(
-                selectedElement: .constant(nil),
-                elements: [],
+                selectedElement: Binding(
+                    get: { uiState.associatedApp?.toMenuPickerElement() },
+                    set: { uiCalls.onEditAssociatedApp($0?.toSupportedApplication()) }
+                ),
+                elements: uiState.supportedApplications.map { $0?.toMenuPickerElement() },
                 title: "Associated APP (optional)",
                 isMandatory: false
             ) {
                 uiCalls.onAssociatedAppDefinition()
-            }.padding(.leading, 16)
+            }
         }
+        .padding(16)
+        .background(Color.mBackgroundDark.opacity(0.4))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 
@@ -105,12 +110,15 @@ struct NewPassionView: View {
         uiState: .init(
             title: "",
             associatedURL: "",
+            associatedApp: nil,
             category: .init(type: .food),
-            canBeSaved: true
+            canBeSaved: true,
+            supportedApplications: [nil]
         ),
         uiCalls: .init(
             onEditTitle: { _ in },
             onEditAssociatedURL: { _ in },
+            onEditAssociatedApp: { _ in },
             onSave: { },
             onCancel: { },
             onPassionNameDefinition: { },
@@ -120,3 +128,23 @@ struct NewPassionView: View {
     )
 }
 #endif
+
+extension MMenuPickerElement {
+    init(from supportedApplication: SupportedApplication) {
+        let info = supportedApplication.info
+        self.init(
+            title: info.displayName,
+            image: info.image
+        )
+    }
+
+    func toSupportedApplication() -> SupportedApplication? {
+        SupportedApplication.allCases.first { $0.info.displayName == self.title }
+    }
+}
+
+extension SupportedApplication {
+    func toMenuPickerElement() -> MMenuPickerElement {
+        MMenuPickerElement(from: self)
+    }
+}

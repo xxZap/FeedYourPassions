@@ -1,5 +1,4 @@
 {
-  "originHash" : "b5b83b916978decffc0c9baa778ccd9851b024d5a8a62fa2bc696b6c2af33ede",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -128,15 +127,6 @@
       }
     },
     {
-      "identity" : "meteordesignsystem",
-      "kind" : "remoteSourceControl",
-      "location" : "git@github.com:xxZap/MeteorDesignSystem.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "611120066ab52c7d390a879c54e1799927d24dbd"
-      }
-    },
-    {
       "identity" : "nanopb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/nanopb.git",
@@ -164,5 +154,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
