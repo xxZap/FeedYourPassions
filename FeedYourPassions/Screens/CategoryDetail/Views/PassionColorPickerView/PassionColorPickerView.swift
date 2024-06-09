@@ -42,6 +42,7 @@ struct PassionColorPickerView: View {
             }
             .padding(.horizontal, 8)
             .background(Color.mBackground)
+            .navigationTitle("Color")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {

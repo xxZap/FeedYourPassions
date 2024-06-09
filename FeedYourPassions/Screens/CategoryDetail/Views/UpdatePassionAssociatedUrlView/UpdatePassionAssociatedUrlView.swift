@@ -23,6 +23,7 @@ private class UpdatePassionAssociatedUrlViewModel: ObservableObject {
     @Injected(\.supportedApplicationsController) private var supportedApplicationsController
 
     init(passion: Passion?) {
+        passionName = passion?.name ?? ""
         supportedApplications = supportedApplicationsController.supportedApplications
 
         let passionURL = passion?.associatedURL ?? ""
@@ -96,6 +97,7 @@ struct UpdatePassionAssociatedUrlView: View {
             }
             .padding(16)
             .background(Color.mBackground)
+            .navigationTitle("Associated URL")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {

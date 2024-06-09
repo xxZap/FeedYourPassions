@@ -39,7 +39,7 @@ extension AppAlert {
             AppAlert(
                 title: titlePrefix + "Associated App",
                 message: """
-                Similar to the "Associated URL", but simpler: you can connect a passion to one of our supported applications. If you have that application installed on your device, you can open it through Grouap.
+                Similar to "Associated URL", but simpler: you can connect a passion to one of our supported applications. If you have that application installed on your device, you can open it through Grouap.
                 """,
                 alertButtons: [
                     .init("Ok", role: .default, action: onDismiss)
