@@ -9,9 +9,10 @@ import SwiftUI
 
 struct NewPassionScreen: View {
 
-    @Environment(\.dismiss) var dismiss
-    @StateObject var alerter: Alerter = Alerter()
     @StateObject var viewModel: NewPassionViewModel
+
+    @Environment(\.dismiss) private var dismiss
+    @StateObject private var alerter: Alerter = Alerter()
 
     var body: some View {
         NewPassionView(

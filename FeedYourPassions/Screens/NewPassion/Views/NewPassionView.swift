@@ -69,35 +69,15 @@ struct NewPassionView: View {
     }
 
     private var associatedUrlView: some View {
-        VStack(alignment: .center, spacing: 8) {
-            MTextField(
-                text: Binding(
-                    get: { uiState.associatedURL },
-                    set: { uiCalls.onEditAssociatedURL($0) }
-                ),
-                placeholder: "Associated URL",
-                title: "Associated URL (optional)",
-                isMandatory: false
-            ) {
-                uiCalls.onAssociatedURLDefinition()
-            }
-            .autocorrectionDisabled()
-            .textInputAutocapitalization(.none)
-            
-            MDivider(type: .string("OR"))
-            
-            MMenuPicker(
-                selectedElement: Binding(
-                    get: { uiState.associatedApp?.toMenuPickerElement() },
-                    set: { uiCalls.onEditAssociatedApp($0?.toSupportedApplication()) }
-                ),
-                elements: uiState.supportedApplications.map { $0?.toMenuPickerElement() },
-                title: "Associated APP (optional)",
-                isMandatory: false
-            ) {
-                uiCalls.onAssociatedAppDefinition()
-            }
-        }
+        PassionAssociatedUrlView(
+            associatedURL: uiState.associatedURL,
+            associatedApp: uiState.associatedApp,
+            supportedApps: uiState.supportedApplications,
+            onEditAssociatedURL: uiCalls.onEditAssociatedURL,
+            onEditAssociatedApp: uiCalls.onEditAssociatedApp,
+            onAssociatedURLDefinition: uiCalls.onAssociatedURLDefinition,
+            onAssociatedAppDefinition: uiCalls.onAssociatedAppDefinition
+        )
         .padding(16)
         .background(Color.mBackgroundDark.opacity(0.4))
         .clipShape(RoundedRectangle(cornerRadius: 16))
