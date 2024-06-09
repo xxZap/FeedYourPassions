@@ -72,12 +72,18 @@ struct CategoryDetailScreen: View {
                 editingPassion = nil
             }
         ) {
-            PassionColorPickerView(selectedColor: editingColor) { color in
-                if let editingPassion, let hexColorString = color.toHex() {
-                    viewModel.setColor(hexColorString, to: editingPassion)
+            PassionColorPickerView(
+                selectedColor: editingColor,
+                onCancel: {
+                    passionColorPickerIsPresented = false
+                },
+                onSave: { color in
+                    if let editingPassion, let hexColorString = color.toHex() {
+                        viewModel.setColor(hexColorString, to: editingPassion)
+                    }
+                    passionColorPickerIsPresented = false
                 }
-                passionColorPickerIsPresented = false
-            }
+            )
         }
         .sheet(
             isPresented: $passionAssociatedUrlIsPresented,
